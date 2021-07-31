@@ -29,3 +29,23 @@ func differentSquares(matrix [][]int) int {
     
     return len(cache) / 4
 }
+
+
+func differentSquares(matrix [][]int) int {
+    squares := map[string]int{}
+    for r := 0; r < len(matrix)-1; r++ {
+        for c := 0; c < len(matrix[0])-1; c++ {
+            cell1 := strconv.Itoa(matrix[r][c])
+            cell2 := strconv.Itoa(matrix[r+1][c])
+            cell3 := strconv.Itoa(matrix[r][c+1])
+            cell4 := strconv.Itoa(matrix[r+1][c+1])
+            cell := cell1 + cell2 + cell3 + cell4
+            squares[cell] = 1
+        }
+    }
+    keys := []string{}
+    for k := range squares {
+        keys = append(keys, k)
+    }
+    return len(keys)
+}
