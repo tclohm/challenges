@@ -34,6 +34,10 @@ function setup() {
 	spot = grid[0][0]
 }
 
+function point(ctx, spot, spacing) {
+	return ctx
+}
+
 function isValid(i, j) {
 	if (i < 0 || i >= cols || j < 0 || j >= rows) {
 		return false
@@ -45,24 +49,27 @@ function draw() {
 	path.push(spot)
 	spot.visited = true
 
-  	console.log("spot", spot)
-  	spot = spot.step()
+	const ctx = document.getElementById('canvas').getContext('2d');
+	ctx.translate(spacing * 0.5, spacing * 0.5)
 
-  	if (!spot) {
-  		console.log("stuck!")
-  	}
-
-  	const ctx = document.getElementById('canvas').getContext('2d');
-  	ctx.strokeStyle = 'rgba(255,255,255, 0.5)';
+	ctx.strokeStyle = 'rgba(255,255,255, 0.5)';
 	ctx.lineWidth = spacing * 0.5;
-	ctx.fillStyle = 'rgba(255,255,255, 0.5)';
+	ctx.fillStyle = 'rgba(255,255,255, 1)';
 	ctx.beginPath();
 	ctx.arc(spot.x * spacing, spot.y * spacing, 1, 0, 2 * Math.PI, true);
 	ctx.stroke();
 
-  	for (let spot of path) {
-		// working on it
+  	console.log("spot", spot);
+  	spot = spot.step();
+
+  	if (!spot) {
+  		console.log("stuck!");
   	}
+
+  	for (p in path) {
+  		
+  	}
+
 }
 
 function main() {
