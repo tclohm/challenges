@@ -20,3 +20,34 @@ func isListPalindrome(l *ListNode) bool {
    
    return true
 }
+
+func isListPalindrome(l *ListNode) bool {
+    fast := l
+    reversed := &ListNode{}
+    temp := l
+    for fast != nil && fast.Next != nil {
+        // move forward twice
+        fast = fast.Next.Next
+        // temporarily grab the next node
+        temp = l.Next
+        // list next will point to reversed pointer, first one is nil
+        l.Next = reversed
+        // slow becomes l
+        reversed = l
+        // l becomes temp
+        l = temp
+    }
+    
+    if fast != nil {
+        l = l.Next
+    }
+    
+    for curr := l ; curr != nil ; curr = curr.Next {
+        if reversed.Value != curr.Value {
+            return false
+        }
+        reversed = reversed.Next
+    }
+    
+    return true
+}
