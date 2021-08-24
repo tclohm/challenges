@@ -1,4 +1,4 @@
-unc spiralNumbers(n int) [][]int {
+func spiralNumbers(n int) [][]int {
     spiral := [][]int{}
     
     for i := 0 ; i < n ; i++ {
