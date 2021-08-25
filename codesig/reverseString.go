@@ -19,4 +19,9 @@ func main() {
 	fmt.Println(words)
 	reversed := reverseString(words)
 	fmt.Println(reversed)
+
+	newwords := "Why do I have fear over things that are out of my control"
+	fmt.Println(newwords)
+	reversenNewWords := reverseString(newwords)
+	fmt.Println(reversenNewWords)
 }
