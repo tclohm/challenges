@@ -19,13 +19,21 @@ function Cell(x, y, w) {
 		this.mind = false;
 	}
 
-	this.show = function() {
+	this.show = () => {
 		createRect(this.x, this.y, this.w, this.w)
 		if (this.revealed) {
 			if (this.mine) {
 				ctx.arc(this.x + this.w/2, this.y + this.w/2, this.w * 0.5)
 			}
 		}
+	}
+
+	this.contains = (x, y) => {
+		return ( x > this.x  && x < this.x + this.w && y > this.y && y < this.y + this.w )
+	}
+
+	this.reveal = () => {
+		this.revealed = true
 	}
 }
 
@@ -52,6 +60,17 @@ function draw() {
 	for (let i = 0 ; i < cols ; i++) {
 		for (let j = 0 ; j < rows ; j++) {
 			grid[i][j].show();
+		}
+	}
+}
+
+
+function mouseUp() {
+	for ( var i = 0 ; i < cols ; i++ ) {
+		for ( var j = 0 ; j < rows ; j++ ) {
+			if (grid[i][j].contains(mouseX, mouseY)) {
+				grid[i][j].reveal()
+			}
 		}
 	}
 }
