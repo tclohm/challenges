@@ -35,7 +35,7 @@ function Cell(i, j, w) {
 				ctx.ellipse(this.x + this.w/2, this.y + this.w/2, this.w * 0.2, this.w * 0.2, 0, 		0, 			2 * Math.PI)
 				ctx.fill()
 			} else {
-				ctx.fillStyle = 'rgba(200, 200, 200, 1)';
+				ctx.fillStyle = 'rgba(119, 200, 225, 0.2)';
 				ctx.fillRect(this.x, this.y, this.w, this.w);
 				if (this.neighborCount > 0) {
 					ctx.fillStyle = 'white'
@@ -46,6 +46,7 @@ function Cell(i, j, w) {
 		} else {
 			ctx.strokeStyle = 'rgba(200, 200, 200, 1)';
 			ctx.strokeRect(this.x, this.y, this.w, this.w);
+			ctx.save()
 		}
 	}
 
@@ -59,10 +60,16 @@ function Cell(i, j, w) {
 	this.reveal = () => {
 		this.revealed = true;
 
-		if (this.neighborCount == 0) {
+		const ctx = document.getElementById('canvas').getContext('2d');
+		ctx.fillStyle = 'rgba(120, 255, 187, 0.38)';
+		ctx.fillRect(this.x, this.y, this.w, this.w);
+		ctx.restore()
+		setTimeout(() => {
+			if (this.neighborCount == 0) {
 			// flood fill time
-			this.floodFill();
-		}
+				this.floodFill();
+			}
+		}, 100)
 	}
 
 	this.countNeighbors = () => {
@@ -95,7 +102,7 @@ function Cell(i, j, w) {
 				if (i > -1 && i < cols && j > -1 && j < rows) {
 					let neighbor = grid[i][j];
 					if (!neighbor.mine && !neighbor.revealed) {
-						neighbor.reveal();
+						neighbor.reveal()
 					}
 				}
 			}
@@ -104,7 +111,6 @@ function Cell(i, j, w) {
 }
 
 let grid;
-
 let cols; 
 let rows;
 const w = 40;
@@ -166,7 +172,6 @@ function mouseUp(mouseX, mouseY) {
 		for ( var j = 0 ; j < rows ; j++ ) {
 			if (grid[i][j].contains(mouseX, mouseY)) {
 				grid[i][j].reveal();
-
 				if (grid[i][j].mine) {
 					gameOver();
 				}
