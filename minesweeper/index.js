@@ -114,7 +114,7 @@ let grid;
 let cols; 
 let rows;
 const w = 40;
-const totalMines = 10;
+const totalMines = 4;
 
 function setup() {
 	const width = 401;
