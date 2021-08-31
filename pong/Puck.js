@@ -2,8 +2,28 @@ class Puck {
 	constructor(width, height) {
 		this.x = width / 2;
 		this.y = height / 2;
-		this.xspeed = 4
-		this.yspeed = 10
+		this.xspeed = 2;
+		this.yspeed = 1;
+		this.radius = 12;
+	}
+
+	checkPaddleLeft(paddle) {
+		// ball between the paddle
+		if (this.y < paddle.y + paddle.height/2 && 
+			this.y > paddle.y - paddle.height/2 && 
+			this.x - this.radius < paddle.x + paddle.width/2) {
+			this.xspeed *= -1
+		}
+	}
+
+	checkPaddleRight(paddle) {
+		// ball between the paddle
+		if (this.y < paddle.y + paddle.height/2 && 
+			this.y > paddle.y - paddle.height/2 && 
+			this.x + this.radius > paddle.x - paddle.width/2) {
+			console.log("true")
+			this.xspeed *= -1
+		}
 	}
 
 	show() {
@@ -15,7 +35,7 @@ class Puck {
 		ctx.fillStyle = 'rgba(225, 255, 255, 1)';
 		ctx.beginPath()
 				// 		x, 		y, 	radiusX, 	radiusY, rotation, startAngle, endAngle
-		ctx.ellipse(this.x, this.y, 12, 		12, 	 0, 	   0,	2 * Math.PI)
+		ctx.ellipse(this.x, this.y, this.radius, 		this.radius, 	 0, 	   0,	2 * Math.PI)
 		ctx.fill()
 	}
 
