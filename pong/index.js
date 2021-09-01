@@ -59,9 +59,6 @@ function draw() {
 	ctx.clearRect(0, 0, 800, 800);
 	setup()
 
-	puck.checkPaddleRight(right);
-	puck.checkPaddleLeft(left);
-
 	left.show()
 	right.show()
 
@@ -71,6 +68,9 @@ function draw() {
 	puck.update()
 	puck.edges(height, width)
 	puck.show()
+
+	puck.checkPaddleRight(right);
+	puck.checkPaddleLeft(left);
 }
 
 function main() {
