@@ -9,8 +9,8 @@ class Puck {
 
 	checkPaddleLeft(paddle) {
 		// ball between the paddle
-		if (this.y < paddle.y + paddle.height/2 && 
-			this.y > paddle.y - paddle.height/2 && 
+		if (this.y < paddle.y + paddle.height && 
+			this.y > paddle.y - paddle.height && 
 			this.x - this.radius < paddle.x + paddle.width/2) {
 			this.xspeed *= -1
 		}
@@ -18,8 +18,8 @@ class Puck {
 
 	checkPaddleRight(paddle) {
 		// ball between the paddle
-		if (this.y < paddle.y + paddle.height/2 && 
-			this.y > paddle.y - paddle.height/2 && 
+		if (this.y < paddle.y + paddle.height && 
+			this.y > paddle.y - paddle.height && 
 			this.x + this.radius > paddle.x - paddle.width/2) {
 			console.log("true")
 			this.xspeed *= -1
@@ -49,6 +49,7 @@ class Puck {
 		if (this.y < 0 || this.y > height) {
 			this.yspeed *= -1
 		}
+
 		if (this.x < 0 || this.x > width) {
 			this.xspeed *= -1
 		}
