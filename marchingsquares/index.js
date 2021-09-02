@@ -26,8 +26,8 @@ function setup() {
 	const width = 801;
 	const height = 801;
 	createCanvas(width, height, 'rgba(0, 0, 0, 1)');
-	cols = Math.floor(width / rez);
-	rows = Math.floor(height / rez);
+	cols = 1 + Math.floor(width / rez);
+	rows = 1 + Math.floor(height / rez);
 	field = makeField(cols, rows);
 	draw()
 }
