@@ -1,4 +1,4 @@
-'use strict';AbortController
+'use strict'
 const perlin = {
 	random_vector: () => {
 		const theta = Math.random() * 2 * Math.PI;
