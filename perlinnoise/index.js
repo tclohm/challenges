@@ -1,18 +1,7 @@
-function createCanvas(width, height, color) {
-	const ctx = document.getElementById('canvas').getContext('2d')
-	ctx.fillStyle = color
-	ctx.fillRect(0, 0, width, height)
-	return ctx
-}
 let width;
-let height
-function setup() {
-	width = 801;
-	height = 801;
-	createCanvas(width, height, 'rgba(0, 0, 0, 1)');
-}
-
-let xoff = 4;
+let height;
+let increment = 0.01;
+let start = 0;
 
 // MARK: Thanks P5JS! from their docs
 const constrain = function(n, low, high) {
@@ -32,25 +21,52 @@ const map = function(n, start1, stop1, start2, stop2, withinBounds) {
   }
 };
 
-function draw() {
-	xoff = xoff + 0.02;
-	let n = noise(xoff) * width;
+function createCanvas(width, height, color) {
 	const ctx = document.getElementById('canvas').getContext('2d')
-	ctx.clearRect(0,0, width, height)
-	setup()
-	let x = map(noise(xoff), 0, 1, 0, width);
-	xoff += 0.02;
-	const middleY = height / 2;
-	ctx.fillStyle = 'white';
+	ctx.fillStyle = color
+	ctx.fillRect(0, 0, width, height)
+	return ctx
+}
+
+function setup() {
+	width = 801;
+	height = 801;
+	createCanvas(width, height, 'rgba(255, 255, 255, 1)');
+}
+
+function draw() {
+	const ctx = document.getElementById('canvas').getContext('2d');
+	let xoff = start;
+
+	ctx.clearRect(0,0, width, height);
+
+	let gradient = ctx.createLinearGradient(50, 100, 120, 0);
+	gradient.addColorStop("0", "coral");
+	gradient.addColorStop("0.5" ,"pink");
+	gradient.addColorStop("1.0", "lightblue");
+
+	setup();
+
+
 	ctx.beginPath();
-	ctx.ellipse(x, middleY, 24, 24, 0, 0, 2 * Math.PI)
-	ctx.fill()
+
+	for (let x = 0 ; x < width ; x++) {
+		
+		const y = noise(xoff) * (height / 2)
+		ctx.lineWidth = 15
+		ctx.strokeStyle = gradient;
+
+		ctx.lineTo(x, y);
+		xoff += increment;
+	}
+	ctx.stroke();
+	start += increment;
 }
 
 
 function main() {
 	setup()
-	setInterval(draw, 20)
+	setInterval(draw, 10)
 }
 
 main()
