@@ -47,7 +47,6 @@ function draw() {
 
 	setup();
 
-
 	ctx.beginPath();
 
 	for (let x = 0 ; x < width ; x++) {
