@@ -24,15 +24,7 @@ function setup() {
 function draw() {
 	const ctx = document.getElementById('canvas').getContext('2d');
 	ctx.clearRect(0, 0, width, height);
-	// size(width, height, 'black');
 	setup();
-	// MARK: -- begin path fixed it
-	// ctx.beginPath();
-	// if (circle.edges()) {
-	// 	circle.growing = false;
-	// }
-	// circle.show()
-	// circle.grow()
 	for (const circle of circles) {
 
 		if (circle.growing) {
