@@ -70,6 +70,6 @@ function newCircle() {
 
 function main() {
 	setup();
-	setInterval(draw, 10);
+	setInterval(draw, 3000);
 }
 main();
