@@ -1,7 +1,7 @@
 const height = 400;
 const width = 400;
-const cols = 10;
-const rows = 10;
+const cols = 15;
+const rows = 15;
 
 const grid = new Array(cols);
 
@@ -41,6 +41,11 @@ function Spot(i, j) {
 	this.h = 0;
 	this.previous = undefined;
 	this.neighbors = [];
+	this.wall = false;
+
+	if (Math.random() < 0.3) {
+		this.wall = true;
+	}
 
 	this.width = width / cols;
 	this.height = height / rows;
@@ -50,6 +55,9 @@ function Spot(i, j) {
 		ctx.beginPath();
 		ctx.lineWidth = 1;
 		ctx.fillStyle = color;
+		if (this.wall) {
+			ctx.fillStyle = 'black'
+		}
 		ctx.rect(this.x*this.width, this.y*this.height, this.width-1, this.height-1);
 		ctx.fill()
 		return ctx;
@@ -98,6 +106,8 @@ function setup() {
 
 	start = grid[0][0];
 	end = grid[cols-1][rows-1];
+	start.wall = false;
+	end.wall = false;
 
 	openset.push(start);
 }
@@ -123,7 +133,6 @@ function draw() {
 	for (let i = 0 ; i < openset.length ; i++) {
 		openset[i].show('lightgreen');
 	}
-
 
 	// find the path -- backtracking
 	path = [];
@@ -166,7 +175,7 @@ function pathfinding() {
 
 		for (const neighbor of neighbors) {
 
-			if (!closedset.includes(neighbor)) {
+			if (!closedset.includes(neighbor) && !neighbor.wall) {
 
 				let tmpG = current.g + heuristic(neighbor, current)
 
