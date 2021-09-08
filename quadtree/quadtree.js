@@ -79,5 +79,12 @@ class QuadTree {
 			this.southwest.show()
 			this.southeast.show()
 		}
+
+		for (const p of this.points) {
+			ctx.beginPath()
+			ctx.fillStyle = 'orange';
+			ctx.ellipse(p.x, p.y, 2, 2, 0, 0, Math.PI * 2)
+			ctx.fill()
+		}
 	}
 }
