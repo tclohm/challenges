@@ -1,5 +1,5 @@
 func islandCount(grid [][]int) int {
-	visited := []int{}
+	visited := []string{}
 	count := 0
 
 	for i := 0 ; i < len(grid) ; i++ {
@@ -15,7 +15,7 @@ func islandCount(grid [][]int) int {
 func explore(grid [][]int, row int, col int, visited []int) bool {
 	rowBounds := 0 <= row && r < len(grid)
 	colBounds := 0 <= col && col < len(grid)
-	if !rowBounds || colBounds {
+	if !rowBounds || !colBounds {
 		return false
 	}
 
