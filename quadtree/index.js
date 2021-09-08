@@ -1,7 +1,7 @@
 const width = 800;
 const height = 800;
 function setup() {
-	size(width, height, 'rgba(0,0,0,0.8)');
+	size(width, height, 'rgba(100,10,124,0.8)');
 	let boundary = new Rectangle(400, 400, 200, 200);
 	let qt = new QuadTree(boundary, 4);
 
