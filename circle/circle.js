@@ -12,15 +12,15 @@ class Circle {
 		gradient.addColorStop("0", "silver");
 		gradient.addColorStop("0.5" ,"pink");
 		gradient.addColorStop("1.0", "gold");
-		ctx.strokeStyle = gradient;
+		ctx.fillStyle = gradient;
 		ctx.lineWidth = 2;
 		ctx.ellipse(this.x, this.y, this.r, this.r, 0, 0, 2 * Math.PI);
-		ctx.stroke();
+		ctx.fill();
 	}
 
 	grow() {
 		if (this.growing) {
-			this.r += 1
+			this.r += 50
 		}
 	}
 
