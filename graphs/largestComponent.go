@@ -3,41 +3,43 @@ import "fmt";
 
 // have to look at the details of golang :) --- NOT working as expected. visited keeps reseting to an empty array
 
-func has(array []int, node int) bool {
-	for _, value := range array {
-		if value == node {
-			return true
-		}
-	}
-	return false
-}
+// func has(array []int, node int) bool {
+// 	for _, value := range array {
+// 		if value == node {
+// 			return true
+// 		}
+// 	}
+// 	return false
+// }
 
-func exploreSize(graph map[int][]int, current int, visited []int) int {
-	if has(visited, current) {
-		return 0
-	}
+// func exploreSize(graph map[int][]int, current int, visited []int) int {
+// 	if has(visited, current) {
+// 		return 0
+// 	}
 
-	visited = append(visited, current)
+// 	visited = append(visited, current)
+// 	_ = copy()
 
-	size := 1
+// 	size := 1
 
-	for _, neighbor := range graph[current] {
-		size += exploreSize(graph, neighbor, visited)
-	}
+// 	for _, neighbor := range graph[current] {
+// 		fmt.Println(visited)
+// 		size += exploreSize(graph, neighbor, visited)
+// 	}
 
-	return size
-}
+// 	return size
+// }
 
-func largestComponent(graph map[int][]int) int {
-	largest := 0
-	visited := []int{}
-	for node, _ := range graph {
-		size := exploreSize(graph, node, visited)
-		if size > largest {
-			largest = size
-		}
-	}
-	return largest
+// func largestComponent(graph map[int][]int) int {
+// 	largest := 0
+// 	visited := []int{}
+// 	for node, _ := range graph {
+// 		size := exploreSize(graph, node, visited)
+// 		if size > largest {
+// 			largest = size
+// 		}
+// 	}
+// 	return largest
 }
 
 func main() {
