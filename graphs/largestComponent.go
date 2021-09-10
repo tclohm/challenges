@@ -42,6 +42,51 @@ import "fmt";
 // 	return largest
 //}
 
+
+type Collection struct {
+	Visited []int
+}
+
+func (c Collection) has(node int) bool {
+	for _, value := range c.Visited {
+		if node == value {
+			return true
+		}
+	}
+	return false
+}
+
+func largestComponent(graph map[int][]int) int {
+	largest := 0
+	visited := Collection{[]int{}}
+
+	for node, _ := range graph {
+		size := dfs(graph, node, &visited)
+
+		if size > largest {
+			largest = size
+		}
+	}
+
+	return largest
+}
+
+func dfs(graph map[int][]int, node int, visited *Collection) int {
+	if visited.has(node) {
+		return 0
+	}
+
+	visited.Visited = append(visited.Visited, node)
+
+	size := 1
+
+	for _, neighbor := range graph[node] {
+		size += dfs(graph, neighbor, visited)
+	}
+
+	return size
+}
+
 func main() {
 	graph := map[int][]int{
 		0: {8, 1, 5},
