@@ -37,6 +37,67 @@ import "fmt";
 // 	}
 // 	return count
 // }
+func in(node int, arr *[]int) bool {
+	for _, n := range *arr {
+		if node == n {
+			return true
+		}
+	}
+	return false
+}
+
+func exist(node int, arr **[]int) bool {
+	for _, n := range **arr {
+		if node == n {
+			return true
+		}
+	}
+	return false
+}
+
+func dfs(graph map[int][]int, node int, visited *[]int) int {
+
+	stack := []int{node}
+
+	for len(stack) != 0 {
+		fmt.Println("stack", stack)
+		length := len(stack) - 1
+		n := stack[length]
+		stack = stack[:length]
+
+		if exist(n, &visited) {
+			fmt.Println("node", n, "in", *visited)
+			continue
+		}
+
+		fmt.Println("node", n, "not in visited", *visited)
+
+		*visited = append(*visited, n)
+
+		for _, neighbor := range graph[n] {
+			stack = append(stack, neighbor)
+		}
+	}
+
+	return 1
+}
+
+func connectedComponentCount(graph map[int][]int) int {
+	visited := []int{}
+	count := 0
+
+	for node, _ := range graph {
+		if in(node, &visited) {
+			fmt.Println("node", node, "in", "visited", visited)
+			continue
+		}
+		number := dfs(graph, node, &visited)
+		fmt.Println("number", number)
+		count += number
+	}
+
+	return count
+}
 
 func main() {
 	graph := map[int][]int{
