@@ -1,3 +1,6 @@
+package main
+import "fmt"
+
 func islandCount(grid [][]int) int {
 	visited := []string{}
 	count := 0
