@@ -92,7 +92,6 @@ func connectedComponentCount(graph map[int][]int) int {
 			continue
 		}
 		number := dfs(graph, node, &visited)
-		fmt.Println("number", number)
 		count += number
 	}
 
