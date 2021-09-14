@@ -4,8 +4,9 @@ class Boid {
 		this.velocity = Vector.random2D();
 		this.velocity.setMag(Math.random() * 4);
 		this.acceleration = createVector();
+		this.previous = null;
 		this.maxForce = 0.2;
-		this.maxSpeed = 4;
+		this.maxSpeed = 1;
 	}
 
 	edges() {
@@ -126,5 +127,12 @@ class Boid {
 		ctx.strokeStyle = 'coral';
 		ctx.ellipse(this.position.x, this.position.y, 1, 1, 0, 0, Math.PI * 2)
 		ctx.stroke();
+		if (this.previous) {
+			ctx.beginPath();
+			ctx.moveTo(this.position.x, this.position.y)
+			ctx.lineTo(this.previous.x, this.previous.y)
+			ctx.stroke()
+		}
+		this.previous = this.position
 	}
 }
