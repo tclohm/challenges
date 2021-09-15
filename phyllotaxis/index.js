@@ -18,9 +18,11 @@ function draw() {
 
 	const ctx = document.getElementById('canvas').getContext('2d');
 	ctx.moveTo(x, y)
-	ctx.fillStyle = 'gold'
+	ctx.fillStyle = `hsl(${n % 256}, 255, 255)`
 	ctx.ellipse(x, y, 4, 4, 0, 0, 2 * Math.PI)
 	ctx.fill()
+	ctx.save()
+	ctx.restore()
 
 	n++
 }
