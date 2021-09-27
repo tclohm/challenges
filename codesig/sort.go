@@ -1,5 +1,7 @@
 package main;
 
+// from golang
+
 import ("fmt" ; "sort")
 
 type Person struct {
