@@ -1,6 +1,22 @@
 const width = 400;
 const height = 400;
 
+function map(n, start1, stop1, start2, stop2, withinBounds) {
+	const newval = (n - start1) / (stop1 - start1) * (stop2 - start2) + start2;
+	if (!withinBounds) {
+		return newval;
+	}
+	if (start2 < stop2) {
+		return constrain(newval, start2, stop2);
+	} else {
+		return constrain(newval, stop2, start2);
+	}
+}
+
+function constrain(n, low, high) {
+	return Math.max(Math.min(n, high), low);
+}
+
 function size(width, height, color) {
 	const ctx = document.getElementById('canvas').getContext('2d');
 	ctx.fillStyle = color;
@@ -29,6 +45,11 @@ function draw() {
 	ctx.lineWidth = 6
 	ctx.ellipse(200, 200, 180, 180, 0, 0, 2 * Math.PI);
 	ctx.stroke()
+
+	ctx.strokeStyle = 'coral'
+	ctx.lineWidth = 3
+	let end = map(mouseX, 0, width, 0, 360)
+	ctx.arc(200, 200, 180, 180, 0, 0, end)
 
 }
 
