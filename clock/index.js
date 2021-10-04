@@ -17,6 +17,10 @@ function constrain(n, low, high) {
 	return Math.max(Math.min(n, high), low);
 }
 
+function lerp(start, stop, amt) {
+	return amt * (stop - start) + start
+}
+
 function size(width, height, color) {
 	const ctx = document.getElementById('canvas').getContext('2d');
 	ctx.fillStyle = color;
@@ -41,19 +45,41 @@ function draw() {
 	ctx.font = '24px helvetica'
 	ctx.fillText(`${hr}:${min}:${sec}`, width - 100, height - 20)
 
-	ctx.strokeStyle = 'yellow'
-	ctx.lineWidth = 6
-	ctx.ellipse(200, 200, 180, 180, 0, 0, 2 * Math.PI);
+	ctx.strokeStyle = 'lightcoral'
+	ctx.lineWidth = 12
+	//n, start1, stop1, start2, stop2, withinBounds
+	const seconds = map(sec, 0, 60, 0, Math.PI * 2)
+
+	
+	ctx.beginPath()
+	ctx.arc(200, 200, 180, 0, seconds)
 	ctx.stroke()
 
-	ctx.strokeStyle = 'coral'
-	ctx.lineWidth = 3
-	let end = map(mouseX, 0, width, 0, 360)
-	ctx.arc(200, 200, 180, 180, 0, 0, end)
+	ctx.strokeStyle = 'LawnGreen'
+	ctx.lineWidth = 12
+	//n, start1, stop1, start2, stop2, withinBounds
+	const minutes = map(min, 0, 60, 0, Math.PI * 2)
+	
+	ctx.beginPath()
+	ctx.arc(200, 200, 160, 0, minutes)
+	ctx.stroke()
+
+	ctx.strokeStyle = 'LemonChiffon'
+	ctx.lineWidth = 12
+	//n, start1, stop1, start2, stop2, withinBounds
+	const hours = map(hr, 0, 60, 0, Math.PI * 2)
+	
+	ctx.beginPath()
+	ctx.arc(200, 200, 140, 0, hours)
+	ctx.stroke()
+
+	window.requestAnimationFrame(draw)
 
 }
 
-function main() {
-	setInterval(draw, 10);
+function loop() {
+	draw()
+	window.requestAnimationFrame(loop)
 }
-main();
+
+window.requestAnimationFrame(loop)
