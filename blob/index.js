@@ -9,10 +9,10 @@ function setup() {
 	const ctx = document.getElementById('canvas').getContext('2d')
 	size(0, 0, height, width, 'rgba(0,0,0,1)')
 	blob = new Blob(width/2, height/2, 30);
-	for (let i = 0 ; i < 10 ; i++) {
-		const posX = Math.floor(Math.random() * width)
-		const posY = Math.floor(Math.random() * width)
-		blobs[i] = new Blob(posX, posY, 10)
+	for (let i = 0 ; i < 100 ; i++) {
+		const x = randomRange(-width, width*2)
+		const y = randomRange(-height, height*2)
+		blobs[i] = new Blob(x, y, 10)
 	}
 }
 

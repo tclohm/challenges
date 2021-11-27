@@ -8,7 +8,7 @@ function Blob(x, y, r) {
 
 	this.update = function () {
 		let velocity = createVector(mouseX-width/2, mouseY-height/2)
-		velocity.setMag(3)
+		velocity.setMag(2)
 		this.pos.add(velocity)
 	}
 }
