@@ -45,6 +45,28 @@ function translate(x, y) {
 	ctx.translate(x, y)
 }
 
+function scale(x, y, z) {
+	const ctx = document.getElementById('canvas').getContext('2d')
+	if (x instanceof Vector) {
+		const v = x;
+		x = v.x;
+		y = v.y;
+		z = v.z;
+	} else if (x instanceof Array) {
+		const rg = x;
+    x = rg[0];
+    y = rg[1];
+    z = rg[2] || 1;
+  }
+  if (isNaN(y)) {
+    y = z = x;
+  } else if (isNaN(z)) {
+    z = 1;
+  }
+
+  ctx.scale(x, y)
+}
+
 function createVector(x, y, z) {
 	return new Vector(x,y,z);
 }
@@ -236,4 +258,12 @@ Vector.prototype.limit = function limit(max) {
       .mult(max);
   }
   return this;
+}
+
+// Vector.prototype.dist = function dist(x1, y1, x2, y2) {
+// 	return Math.sqrt((Math.pow(x1-x2,2))+(Math.pow(y1-y2,2)));
+// }
+
+Vector.dist = function dist(v1, v2) {
+	return Math.sqrt((Math.pow(v1.x-v2.x,2))+(Math.pow(v1.y-v2.y,2)));
 }

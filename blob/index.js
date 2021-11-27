@@ -23,14 +23,18 @@ function draw() {
 	ctx.setTransform(1, 0, 0, 1, 0, 0)
 	translate(width/2-blob.pos.x, height/2-blob.pos.y)
 	size(0, 0, height, width, 'rgba(0,0,0,1)')
-	
-	blob.show()
-	blob.update()
 
 	
-	for (const b of blobs) {
-		b.show()
+	for (let i = blobs.length-1; i >= 0; i--) {
+		blobs[i].show()
+		if (blob.eats(blobs[i])) {
+			blobs.splice(i, 1)
+			//scale(-1, -1)
+		}
 	}
+
+	blob.show()
+	blob.update()
 
 	
 }
@@ -43,7 +47,7 @@ function main() {
 		mouseY = e.clientY
 	})
 
-	setInterval(draw, 5)
+	setInterval(draw, 1)
 }
 
 main()
