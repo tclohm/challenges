@@ -14,7 +14,7 @@ type Link struct {
 }
 
 func NewSocialGraph(num int) *SocialGraph {
-	reutrn &SocialGraph{
+	return &SocialGraph{
 		Size: num,
 		Links: make([][]Link, num),
 	}
@@ -26,9 +26,31 @@ func (graph *SocialGraph) AddLink(v1 int, v2 int, weight int) {
 
 func (graph *SocialGraph) PrintLinks() {
 	var vertex int = 0
-	fmt.Println("Printing all links from %d\n", vertex)
+	fmt.Printf("Printing all links from %d\n", vertex)
 
 	for _, link := range graph.Links[vertex] {
-		for
+		fmt.Printf("Link: %d -> %d (%d)\n", link.Vertex1, link.Vertex2, link.LinkWeight)
 	}
+
+	fmt.Println("Printing all links in graph")
+
+	for _, adjacent := range graph.Links {
+		for _, link := range adjacent {
+			fmt.Printf("Link: %d -> %d (%d)\n", link.Vertex1, link.Vertex2, link.LinkWeight)
+		}
+	}
+}
+
+func main() {
+	var social *SocialGraph
+
+	social = NewSocialGraph(4)
+
+	social.AddLink(0, 1, 1)
+	social.AddLink(0, 2, 1)
+	social.AddLink(1, 3, 1)
+	social.AddLink(2, 4, 1)
+
+	social.PrintLinks()
+
 }
