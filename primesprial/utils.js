@@ -31,7 +31,7 @@ function square(x, y, ctx, color) {
 function dot(x, y, ctx, color) {
 	ctx.fillStyle = color;
 	ctx.beginPath();
-	ctx.arc(x, y, 10, 0, 2 * Math.PI);
+	ctx.arc(x, y, 7, 0, 2 * Math.PI);
 	ctx.fill();
 	return ctx;
 }

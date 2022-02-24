@@ -3,10 +3,16 @@ let height = 500;
 let x = width / 2;
 let y = height / 2;
 
+
+// MARK: -- space between steps
 let stepLength = 20;
+// MARK: -- steps taken
 let step = 1;
-let stepNumber = 1;
+// MARK: -- how many steps we need before turning
+let numberOfSteps = 1;
+// MARK: -- state will help us figure out our direction we need to move
 let state = 0;
+// MARK: -- everytime we turn we increase the counter
 let turnCounter = 0;
 let lastStep = (width / stepLength) * (height / stepLength);
 
@@ -15,7 +21,7 @@ function setup() {
 }
 
 function draw() {
-
+	// MARK: -- if we reach the last step, stop
 	if (step == lastStep) {
 		return
 	}
@@ -27,6 +33,7 @@ function draw() {
 	//text(step, x, y, ctx, random);
 	dot(x, y, ctx, random);
 
+	// MARK: -- move our dot / text depending on where state is
 	switch (state) {
 		case 0:
 			x += stepLength;
@@ -42,12 +49,18 @@ function draw() {
 			break
 	}
 
-	if (step % stepNumber == 0) {
+	// MARK: -- if step / numberOfSteps remainder is 0
+	//				we change our state, making sure it stays with our 4 cases
+	//				increase our turn counter
+	//				
+	//				every two turns increase the number of steps
+
+	if (step % numberOfSteps == 0) {
 		state = (state + 1) % 4;
 		turnCounter++;
 
 		if (turnCounter % 2 == 0) {
-			stepNumber++;
+			numberOfSteps++;
 		}
 	}
 
@@ -56,7 +69,7 @@ function draw() {
 
 function main() {
 	setup()
-	setInterval(draw, 10)
+	setInterval(draw, 100)
 }
 
 main()
