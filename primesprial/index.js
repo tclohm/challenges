@@ -2,6 +2,11 @@ let width = 500;
 let height = 500;
 let x = width / 2;
 let y = height / 2;
+let red = 10;
+let green = 0;
+let blue = 100;
+
+
 
 
 // MARK: -- space between steps
@@ -28,10 +33,36 @@ function draw() {
 
 	const ctx = document.getElementById('canvas').getContext('2d');
 
-	const random = randomColor();
+	//const random = randomColor();
+	let color = buildColor(red, green, blue)
+	console.log(color)
+
+	if (red >= 255) {
+		red = 100
+	}
+
+	if (green >= 255) {
+		green = 0
+	}
+
+	if (blue >= 255) {
+		blue = 100
+	}
+
+	if (red < 255) {
+		red += 5
+	}
+
+	if (green < 255) {
+		green += 50
+	}
+
+	if (blue < 255) {
+		blue += 5
+	}
 
 	//text(step, x, y, ctx, random);
-	dot(x, y, ctx, random);
+	dot(x, y, ctx, color);
 
 	// MARK: -- move our dot / text depending on where state is
 	switch (state) {
@@ -69,7 +100,7 @@ function draw() {
 
 function main() {
 	setup()
-	setInterval(draw, 100)
+	setInterval(draw, 10)
 }
 
 main()
