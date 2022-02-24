@@ -5,6 +5,11 @@ function size(width, height, color) {
 	return ctx;
 }
 
+function buildColor(r, g, b) {
+    color = 'rgb(' + r + ', ' + g + ',' + b + ')';
+    return color
+}
+
 function randomColor() {
 	let R = (Math.floor(Math.random() * 255)),
     	G = (Math.floor(Math.random() * 255)),
