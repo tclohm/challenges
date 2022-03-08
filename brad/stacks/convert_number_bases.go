@@ -70,4 +70,5 @@ func main() {
 	fmt.Println("42 to binary is", convert_to_binary(42))
 	fmt.Println("25 base 2 is", convert_to_base(25, 2))
 	fmt.Println("25 base 16 is", convert_to_base(25, 16))
+	fmt.Println("10 base 20 is", convert_to_base(10, 20))
 }
