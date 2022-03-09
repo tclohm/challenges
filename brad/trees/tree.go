@@ -30,6 +30,22 @@ func (n *Node) InsertRight(child *Node) {
 	}
 }
 
+func (n *Node) PreOrder() {
+	if n != nil {
+		fmt.Println(n.value)
+		n.left.PreOrder()
+		n.right.PreOrder()
+	}
+}
+
+func (n *Node) PostOrder() {
+	if n != nil {
+		n.left.PostOrder()
+		n.right.PostOrder()
+		fmt.Println(n.value)
+	}
+}
+
 func main() {
 	root := Node{value: "a"}
 	fmt.Println("root value", root.value)
@@ -44,18 +60,23 @@ func main() {
 	root.right.value = "hello"
 	fmt.Println("root left before insert", root.right)
 
-	tree := {
-		"a", // Root
-		{
-			"b", // Left subtree
-			{"d", {}, {}},
-			{"e", {}, {}},
-		},
-		{
-			"c", // Right subtree
-			{"f", {}, {}},
-			{} 
-			
-		}
-	}
+	// tree := {
+	// 	"a", // Root
+	// 	{
+	// 		"b", // Left subtree
+	// 		{"d", {}, {}},
+	// 		{"e", {}, {}},
+	// 	},
+	// 	{
+	// 		"c", // Right subtree
+	// 		{"f", {}, {}},
+	// 		{} 
+
+	// 	}
+	// }
+	fmt.Println("Pre Order Traversal")
+	tree := Node{1, &Node{2, &Node{4, nil, nil}, &Node{5, nil, nil}}, &Node{3, &Node{6, nil, nil}, &Node{7, nil, nil}}}
+	tree.PreOrder()
+	fmt.Println("Post Order Traversal")
+	tree.PostOrder()
 }
