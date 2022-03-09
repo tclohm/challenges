@@ -46,6 +46,14 @@ func (n *Node) PostOrder() {
 	}
 }
 
+func (n *Node) InOrder() {
+	if n != nil {
+		n.left.InOrder()
+		fmt.Println(n.value)
+		n.right.InOrder()
+	}
+}
+
 func main() {
 	root := Node{value: "a"}
 	fmt.Println("root value", root.value)
@@ -79,4 +87,6 @@ func main() {
 	tree.PreOrder()
 	fmt.Println("Post Order Traversal")
 	tree.PostOrder()
+	fmt.Println("In Order Traveral")
+	tree.InOrder()
 }
