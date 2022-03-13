@@ -52,27 +52,27 @@ func (g *Graph) String() {
 
 func main() {
 	g := Graph{}
-	nA := Vertex{"A"}
-    nB := Vertex{"B"}
-    nC := Vertex{"C"}
-    nD := Vertex{"D"}
-    nE := Vertex{"E"}
-    nF := Vertex{"F"}
+	vA := Vertex{"A"}
+    vB := Vertex{"B"}
+    vC := Vertex{"C"}
+    vD := Vertex{"D"}
+    vE := Vertex{"E"}
+    vF := Vertex{"F"}
 
 
-    g.AddVertex(&nA)
-    g.AddVertex(&nB)
-    g.AddVertex(&nC)
-    g.AddVertex(&nD)
-    g.AddVertex(&nE)
-    g.AddVertex(&nF)
+    g.AddVertex(&vA)
+    g.AddVertex(&vB)
+    g.AddVertex(&vC)
+    g.AddVertex(&vD)
+    g.AddVertex(&vE)
+    g.AddVertex(&vF)
 
-    g.AddEdge(&nA, &nB)
-    g.AddEdge(&nA, &nC)
-    g.AddEdge(&nB, &nE)
-    g.AddEdge(&nC, &nE)
-    g.AddEdge(&nE, &nF)
-    g.AddEdge(&nD, &nA)
+    g.AddEdge(&vA, &vB)
+    g.AddEdge(&vA, &vC)
+    g.AddEdge(&vB, &vE)
+    g.AddEdge(&vC, &vE)
+    g.AddEdge(&vE, &vF)
+    g.AddEdge(&vD, &vA)
 
     g.String()
 }
