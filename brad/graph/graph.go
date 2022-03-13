@@ -1,81 +1,78 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 type Vertex struct {
-	key int
-	neighbors map[*Vertex]int
+	value interface{}
 }
 
-func (v *Vertex) AddNeighbor(neighbor Vertex, weight int) {
-	if v.neighbors == nil {
-		v.neighbors = map[*Vertex]int{}
-	}
-	v.neighbors[&neighbor] = weight
-}
-
-func (v *Vertex) GetConnections() []int {
-	keys := []int{}
-	for vertex, _ := range v.neighbors {
-		keys = append(keys, vertex.key)
-	}
-	return keys
-}
-
-func (v *Vertex) GetWeight(neighbor Vertex) int {
-	return v.neighbors[&neighbor]
+func (v *Vertex) String() string {
+	return fmt.Sprintf("%v", v.value)
 }
 
 type Graph struct {
-	vertices map[int]Vertex
+	vertices []*Vertex
+	edges map[Vertex][]*Vertex
+	lock sync.RWMutex
 }
 
-func (g *Graph) AddVertex(vertex Vertex) {
-	if g.vertices == nil {
-		g.vertices = map[int]Vertex{}
-	}
-	g.vertices[vertex.key] = vertex
+func (g *Graph) AddVertex(v *Vertex) {
+	g.lock.Lock()
+	g.vertices = append(g.vertices, v)
+	g.lock.Unlock()
 }
 
-func (g *Graph) GetVertex(key int) Vertex {
-	return g.vertices[key]
+func (g *Graph) AddEdge(Vertex1, Vertex2 *Vertex) {
+	g.lock.Lock()
+	if g.edges == nil {
+		g.edges = make(map[Vertex][]*Vertex)
+	}
+	g.edges[*Vertex1] = append(g.edges[*Vertex1], Vertex2)
+	g.edges[*Vertex2] = append(g.edges[*Vertex2], Vertex1)
+	g.lock.Unlock()
 }
 
-func (g *Graph) Contains(key int) bool {
-	if _, ok := g.vertices[key]; ok {
-		return true
+func (g *Graph) String() {
+	g.lock.RLock()
+	s := ""
+	for i := 0 ; i < len(g.vertices); i++ {
+		s += g.vertices[i].String() + " -> "
+		neighbors := g.edges[*g.vertices[i]]
+		for j := 0 ; j < len(neighbors) ; j++ {
+			s += neighbors[j].String() + " "
+		}
+		s += "\n"
 	}
-	return false
-}
-
-func (g *Graph) AddEdge(from, to, weight int) {
-	if _, ok := g.vertices[from]; !ok {
-		g.AddVertex(Vertex{key: from})
-	}
-	if _, ok := g.vertices[to]; !ok {
-		g.AddVertex(Vertex{key: to})
-	}
-	fromVertex := g.vertices[from]
-	toVertex := g.vertices[to]
-	fromVertex.AddNeighbor(toVertex, weight)
+	fmt.Println(s)
+	g.lock.RUnlock()
 }
 
 func main() {
 	g := Graph{}
-	for i := 0 ; i < 6 ; i++ {
-		v := Vertex{key: i}
-		g.AddVertex(v)
-	}
+	nA := Vertex{"A"}
+    nB := Vertex{"B"}
+    nC := Vertex{"C"}
+    nD := Vertex{"D"}
+    nE := Vertex{"E"}
+    nF := Vertex{"F"}
 
-	g.AddEdge(0, 1, 5)
-	g.AddEdge(0, 5, 2)
-	g.AddEdge(1, 2, 4)
-	g.AddEdge(2, 3, 9)
-	g.AddEdge(3, 4, 7)
-	g.AddEdge(3, 5, 3)
-	g.AddEdge(4, 0, 1)
-	g.AddEdge(5, 4, 8)
-	g.AddEdge(5, 2, 1)
 
-	fmt.Println(&g)
+    g.AddVertex(&nA)
+    g.AddVertex(&nB)
+    g.AddVertex(&nC)
+    g.AddVertex(&nD)
+    g.AddVertex(&nE)
+    g.AddVertex(&nF)
+
+    g.AddEdge(&nA, &nB)
+    g.AddEdge(&nA, &nC)
+    g.AddEdge(&nB, &nE)
+    g.AddEdge(&nC, &nE)
+    g.AddEdge(&nE, &nF)
+    g.AddEdge(&nD, &nA)
+
+    g.String()
 }
