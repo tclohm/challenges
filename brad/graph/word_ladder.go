@@ -10,6 +10,12 @@ import (
 
 type Graph map[string][]string
 
+func pop(q [][]string) ([]string, [][]string) {
+	popped := q[0]
+	q = q[1:]
+	return popped, q
+}
+
 func notIn(s string, arr []string) bool {
 	for _, str := range arr {
 		if s == str {
@@ -80,6 +86,29 @@ func build_graph_for_words() Graph {
 	
 }
 
+func traverse(graph Graph, starting_place string) {
+	visited := []string{}
+
+	queue := [][]string{{starting_place}}
+
+	for len(queue) > 1 {
+		path, queue := pop(queue)
+		end := len(path) - 1
+		node := path[end]
+
+		// check neighbors in graph except for the visited
+
+			// add neighbors into visited
+
+			// append the path + neighbor to queue
+
+	}
+
+	fmt.Println(visited, queue)
+}
+
 func main() {
 	g := build_graph_for_words()
+
+	traverse(g, "FOOL") 
 }
