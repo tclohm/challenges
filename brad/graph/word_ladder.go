@@ -26,7 +26,23 @@ func notIn(s string, arr []string) bool {
 	return true
 }
 
-//func build_neighbors(node []string, visited []string) []string { }
+func build_neighbors(node []string, visited []string) []string {
+	unvisited := []string{}
+	for _, neighbor := range node {
+		var in bool = false
+		for _, visited_neighbor := range visited {
+			if neighbor == visited_neighbor {
+				in = true
+			}
+		}
+		if in == false {
+			unvisited = append(unvisited, neighbor)
+			fmt.Println(unvisited)
+		}
+		in = false
+	}
+	return unvisited
+}
 
 func build_graph_for_words() Graph {
 	buckets := map[string][]string{}
@@ -89,32 +105,44 @@ func build_graph_for_words() Graph {
 	
 }
 
-func traverse(graph Graph, starting_place string) {
+func traverse(graph Graph, starting_place, end_place string) []string {
 	visited := []string{}
 
-	queue := [][]string{{starting_place}}
+	var queue = [][]string{{starting_place}}
 
-	for len(queue) >= 1 {
-		path, queue := pop(&queue)
+	for len(queue) > 0 {
+
+		path := queue[0]
+		queue = queue[1:]
 		
 		end := len(path) - 1
 		node := path[end]
 
+		if node == end_place {
+			return path
+		}
+
 		// check neighbors in graph except for the visited
 		unvisited_neighbors := build_neighbors(graph[node], visited)
-
+		
 		for _, neighbor := range unvisited_neighbors {
+			if neighbor == end_place {
+				path = append(path, neighbor)
+				return path
+			}
 			// add neighbors into visited
 			visited = append(visited, neighbor)
 			// append the path + neighbor to queue
-
-			queue = append()
+			path = append(path, neighbor)
+			queue = append(queue, path)
 		}
 	}
+	n := []string{"shit"}
+	return n
 }
 
 func main() {
 	g := build_graph_for_words()
+	fmt.Println(traverse(g, "FOOL", "SAGE"))
 
-	traverse(g, "FOOL") 
 }
