@@ -143,7 +143,7 @@ func traverse(graph Graph, starting_place, end_place string) []string {
 
 func main() {
 	g := build_graph_for_words()
-	path := traverse(g, "FOOL", "TONY")
+	path := traverse(g, "FOOL", "SAGE")
 	path_string := ""
 	for _, node := range path {
 		line := fmt.Sprintf("%v -> ", node)
