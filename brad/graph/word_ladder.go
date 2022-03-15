@@ -37,7 +37,6 @@ func build_neighbors(node []string, visited []string) []string {
 		}
 		if in == false {
 			unvisited = append(unvisited, neighbor)
-			fmt.Println(unvisited)
 		}
 		in = false
 	}
@@ -106,7 +105,7 @@ func build_graph_for_words() Graph {
 }
 
 func traverse(graph Graph, starting_place, end_place string) []string {
-	visited := []string{}
+	visited := []string{starting_place}
 
 	var queue = [][]string{{starting_place}}
 
@@ -117,7 +116,6 @@ func traverse(graph Graph, starting_place, end_place string) []string {
 		
 		end := len(path) - 1
 		node := path[end]
-
 		if node == end_place {
 			return path
 		}
@@ -127,14 +125,16 @@ func traverse(graph Graph, starting_place, end_place string) []string {
 		
 		for _, neighbor := range unvisited_neighbors {
 			if neighbor == end_place {
-				path = append(path, neighbor)
-				return path
+				new_path := path[:]
+				new_path = append(new_path, neighbor)
+				return new_path
 			}
 			// add neighbors into visited
 			visited = append(visited, neighbor)
 			// append the path + neighbor to queue
-			path = append(path, neighbor)
-			queue = append(queue, path)
+			new_path := path[:]
+			new_path = append(new_path, neighbor)
+			queue = append(queue, new_path)
 		}
 	}
 	n := []string{"shit"}
@@ -143,6 +143,11 @@ func traverse(graph Graph, starting_place, end_place string) []string {
 
 func main() {
 	g := build_graph_for_words()
-	fmt.Println(traverse(g, "FOOL", "SAGE"))
-
+	path := traverse(g, "FOOL", "SAGE")
+	path_string := ""
+	for _, node := range path {
+		line := fmt.Sprintf("%v -> ", node)
+		path_string += line
+	}
+	fmt.Println(path_string[:len(path_string) - 4])
 }
