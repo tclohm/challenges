@@ -25,11 +25,23 @@ func add_edge(g Graph, node1, node2 Set) {
 func build_graph(board_size int) Graph {
 	graph := Graph{}
 
-	for row := 0 ; row < len(board_size) ; row++ {
-		for col := 0 ; col < len(board_size) ; col++ {
+	for row := 0 ; row < board_size ; row++ {
+		for col := 0 ; col < board_size ; col++ {
+			to_row, to_col := legal_moves_from(row, col, board_size)
 
+			node1 := Set{
+				row: row,
+				col: col,
+			}
+
+			node2 := Set{
+				row: to_row,
+				col: to_col,
+			}
+			add_edge(graph, node1, node2)
 		}
 	}
+	return graph
 }
 
 func legal_moves_from(row int, col int, board_size int) (int, int)  {
@@ -48,13 +60,10 @@ func legal_moves_from(row int, col int, board_size int) (int, int)  {
 			return move_row, move_col
 		}
 	}
+	return 0,0
 }
 
 func main() {
-	g := Graph{}
-	fmt.Println(g)
-	n1 := Set{1, 2}
-	n2 := Set{3, 4}
-	add_edge(g, n1, n2)
+	g := build_graph(8)
 	fmt.Println(g)
 }
