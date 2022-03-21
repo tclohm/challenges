@@ -63,7 +63,42 @@ func legal_moves_from(row int, col int, board_size int) (int, int)  {
 	return 0,0
 }
 
+// MARK: -- DFS, search tree by one branch of the tree as deeply as possible
+func first_true(sequence []Set) (int, Set) {
+	for _, item := range sequence {
+		if item != nil {
+			return _, item
+		}
+	}
+	return 0, _
+}
+
+func find_solution_for(board_size int, heuristic func(g Graph) []Set) {
+	g := build_graph(board_size)
+	total_squares := board_size * board_size
+
+	func traverse(path []Set, current_node Set) {
+		if len(path) + 1 == total_squares {
+			new_path := path[:]
+			new_path = append(new_path, current_node)
+			return new_path
+		}
+
+		have_not_been_visited := notVisited(graph[current_node], path)
+
+		if len(have_not_been_visited) == 0 {
+			// no unvisited neighbor, dead end
+			return false
+		}
+
+		next_nodes = sorted(have_not_been_visited, heuristic(graph))
+		new_path := path[:]
+		new_path = append(new_path, current_node)
+
+		// MARK: -- ok, i'm moving forward 
+		return first_true(traverse(new_path))
+	}
+}
+
 func main() {
-	g := build_graph(8)
-	fmt.Println(g)
 }
