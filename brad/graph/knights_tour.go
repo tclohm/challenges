@@ -48,8 +48,7 @@ func legal_moves_from(row int, col int, board_size int) (int, int)  {
 			return move_row, move_col
 		}
 	}
-
-	retu
+}
 
 func main() {
 	g := Graph{}
