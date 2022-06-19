@@ -65,7 +65,7 @@ func minReorder(n int, connections [][]int) int {
 	fmt.Println("neigh", neighbors)
 
 	var dfs func(int, Set, map[int][]int, map[int]bool, *int)
-	dfs = func(city int, edges Set, neighbors map[int][]int, visits map[int]bool, cp *int) {
+	dfs = func dfs(city int, edges Set, neighbors map[int][]int, visits map[int]bool, cp *int) {
 		for _, neighbor := range neighbors[city] {
 			_, exists := visits[neighbor]; if exists {
 				continue
