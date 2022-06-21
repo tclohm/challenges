@@ -17,6 +17,7 @@ func isAnagram(s, t string) bool {
 	}
 
 	hm := make(map[byte]int)
+	
 	for i := 0 ; i < len(s) ; i++ {
 		b := s[i]
 		_, ok := hm[b]
