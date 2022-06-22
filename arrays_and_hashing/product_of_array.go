@@ -18,6 +18,8 @@ func productExceptSelf(numbers []int) []int {
 	return res
 }
 
+// ------->
+// <-------
 func pes(n []int) []int {
 	var res = make([]int, len(n), len(n))
 	var prefix = 1
