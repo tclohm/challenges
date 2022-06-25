@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func isPalindrome(s string) bool {
+func cleanup(s string) string {
 	var ns string = ""
 	for _, r := range s {
 		if unicode.IsLetter(r) {
@@ -14,7 +14,29 @@ func isPalindrome(s string) bool {
 		}
 	}
 
-	fmt.Println(strings.ToLower(ns))
+	lowered := strings.ToLower(ns)
+	return lowered
+}
+
+func isPalindrome(s string) bool {
+
+	str := cleanup(s)
+	
+	start := 0
+	end := len(str) - 1
+
+	for start < end  {
+		first := str[start]
+		last := str[end]
+
+		if first != last {
+			return false
+		}
+
+		start++
+		end--
+	}
+
 	return true
 }
 
