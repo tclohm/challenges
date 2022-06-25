@@ -9,12 +9,41 @@ func lcs(nums []int) int {
 		hm[i] = true
 	}
 
-	fmt.Println(hm)
+	longest := 0
 
-	return 0	 
+	for _, n := range nums {
+		_, exist := hm[n-1]; if !exist {
+			length := 0
+			for {
+				_, exist := hm[n+length]; if exist {
+					length += 1
+					continue
+				} else {
+					if longest < length {
+						longest = length
+					}
+					break
+				}
+			}
+		}
+	}
+
+	return longest	 
 }
 
 func main() {
+	// 99? nope
+	// 3? yes
+	//	length++ 2? yes
+	//	length++ 1? yes
+	//	length++ 0? nope
+	// 199? nope
+	// 0? nope
+	// 2? yes
+	//	length++ 1? yes
+	//	length++ 0? nope
+	// 1? yes
+	//	length++ 0? nope
 	n := []int{100, 4, 200, 1, 3, 2}
 	fmt.Println(lcs(n))
 }
