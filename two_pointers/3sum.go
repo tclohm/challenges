@@ -18,25 +18,26 @@ func threeSum(n []int) [][]int {
 	sort.Ints(n[:])
 
 
-	for i, a := range n {
-		if i > 0 && a == n[i - 1] {
+	for index, integer := range n {
+		if index > 0 && integer == n[index - 1] {
 			continue
 		}
 
-		l, r := i + 1, len(n) - 1
+		left, right := index + 1, len(n) - 1
 
-		for l < r {
-			tsum := a + n[l] + n[r]
+		for left < right {
+			three_sum := a + n[l] + n[r]
 
-			if tsum > 0 {
-				r -= 1
-			} else if tsum < 0 {
-				l += 1
+			if three_sum > 0 {
+				right -= 1
+			} else if three_sum < 0 {
+				left += 1
 			} else {
-				result = append(result, []int{a, n[l], n[r]})
-				l += 1
-				for n[l] == n[l - 1] && l < r {
-					l += 1
+				result = append(result, []int{integer, n[left], n[right]})
+				left += 1
+				
+				for n[left] == n[left - 1] && left < right {
+					left += 1
 				}
 			}
 		}
@@ -47,7 +48,18 @@ func threeSum(n []int) [][]int {
 }
 
 func main() {
+	////////////////////////
 	// -4, -1, -1, 0, 1, 2
+	///////////////////////
+	// integer : -4 , left : -1, right : 2  && three_sum = -3
+	// integer : -4,  left : -1, right : 2  && three_sum = -3
+	// integer : -4,  left : 0,  right : 2  && three_sum = -2
+	// integer : -4,  left : 1,  right : 2  && three_sum = -1
+	// integer : -4,  left : 2,  right : 2  LEFT AND RIGHT ARE SAME INDEX
+
+	// MOVE TO NEXT INTEGER
+	// integer : -1,  left : 1,  right : 1  && three_sum = -2
+
 	n := []int{-1,0,1,2,-1,-4}
 	fmt.Println(threeSum(n))
 }
