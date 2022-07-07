@@ -2,6 +2,20 @@ package main
 
 import "fmt"
 
+func bruteForceDaily(temps []int) []int {
+	length := len(temps)
+	answer := make([]int, length, length)
+	for day, _ := range temps {
+		for futureDay := 1 ; futureDay < length ; futureDay++ {
+			if temps[futureDay] > temps[day] {
+				answer[day] = futureDay - day
+				break
+			}
+		}
+	}
+	return answer
+}
+
 func daily(temps []int) []int {
     length := len(temps)
     hottest := 0
