@@ -36,3 +36,15 @@ func carFleet(target int, position, speed []int) int {
 
 	return len(stack)
 }
+
+func main() {
+	p1 := []int{10,8,0,5,3}
+	s1 := []int{2,4,1,1,3}
+	fmt.Println(carFleet(12, p1, s1))
+	p2 := []int{3}
+	s2 := []int{3}
+	fmt.Println(carFleet(10, p2, s2))
+	p3 := []int{0,2,4}
+	s3 := []int{2,4,1}
+	fmt.Println(carFleet(100, p3, s3))
+}
