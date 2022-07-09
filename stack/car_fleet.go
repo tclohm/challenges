@@ -21,6 +21,7 @@ func carFleet(target int, position, speed []int) int {
 		cars = append(cars, carInfo{position[i], speed[i]})
 	}
 
+	// sort by positioning
 	sort.Slice(cars, func(i, j int) bool {
 		return cars[i].pos < cars[j].pos
 	})
@@ -28,12 +29,13 @@ func carFleet(target int, position, speed []int) int {
 	var stack []float32
 	for i := len(cars) - 1 ; i >= 0 ; i-- {
 		timeToDest := float32(target - cars[i].pos) / float32(cars[i].spd)
+		// does new car time bigger or equal to car in stack, if so don't add
 		if len(stack) != 0 && stack[len(stack) - 1] >= timeToDest {
 			continue
 		}
 		stack = append(stack, timeToDest)
 	}
-
+	// return the stack length
 	return len(stack)
 }
 
