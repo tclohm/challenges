@@ -40,10 +40,10 @@ func remove(head *ListNode, n int) *ListNode {
 }
 
 func main() {
-	// eight := &ListNode{Val: 8, Next: nil}
-	// seven := &ListNode{Val: 7, Next: eight}
-	// six := &ListNode{Val: 6, Next: seven}
-	five := &ListNode{Val: 5, Next: nil}
+	eight := &ListNode{Val: 8, Next: nil}
+	seven := &ListNode{Val: 7, Next: eight}
+	six := &ListNode{Val: 6, Next: seven}
+	five := &ListNode{Val: 5, Next: six}
 	four := &ListNode{Val: 4, Next: five}
 	three := &ListNode{Val: 3, Next: four}
 	two := &ListNode{Val: 2, Next: three}
