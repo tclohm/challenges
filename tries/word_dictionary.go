@@ -28,10 +28,10 @@ func (this *WordDictionary) AddWord(word string) {
 
 func (this *WordDictionary) Search(word string) bool {
 	t := this
-	for _, r := range word {
-		if r == '.' {
-			for alpha := 0 ; alpha < 26 ; alpha++ {
-				if t.children[alpha] != nil && t.children[alpha].Search(word[alpha:]) {
+	for i, r := range word {
+		if word[i] == '.' {
+			for index := 0 ; index < 26 ; index++ {
+				if t.children[index] != nil && t.children[index].Search(word[i+1:]) {
 					return true
 				}
 			}
@@ -57,5 +57,5 @@ func main() {
 	fmt.Println(wd.Search("pad")) // return False
 	fmt.Println(wd.Search("bad")) // return True
 	fmt.Println(wd.Search(".ad")) // return True
-	fmt.Println(wd.Search("b.."))
+	fmt.Println(wd.Search("b..")) // return TRUE
 }
