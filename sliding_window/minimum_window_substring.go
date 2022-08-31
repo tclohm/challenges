@@ -3,47 +3,71 @@ package main
 import "fmt"
 
 func minWindow(s, t string) string {
-	if t == "" {
+	if len(s) < len(t) || len(s) == 0 {
 		return ""
 	}
 
-	countT, window := map[rune]int{}, map[rune]int{}
-
-	for _, r := range t {
-		if _, exist := countT[r]; exist {
-			countT[r] += 1
-		} else {
-			countT[r] = 1
-		}
+	// map to track
+	count := make(map[byte]int, len(t))
+	for _, char := range []byte(t) {
+		count[char]++
 	}
 
-	have, need := 0, len(countT)
-	result := []int{-1, -1}
-	resultLength := -100000
-	lp := 0
+	var (
+		minimum string
+		minLen = 0
+		left, right = 0, 0
+	)
 
-	for rp := 0 ; rp < len(s) ; rp++ {
-		c := s[rp]
-		if _, exist := window[c]; exist {
-			window[c] += 1
-		} else {
-			window[c] = 1
-		}
+	addExtra(s[0], count)
 
-		_, ok := countT[c]
+	// sliding window
+	for left <= right {
 
-		if window[c] == countT[c] && ok {
-			have += 1
-		}
+		if allMatching(count) {
 
-		for have == need {
-			if (rp - lp + 1) < resultLength {
-				result = {lp, rp}
-				resultLength = (rp - lp + 1)
+			if minLen == 0 || right - left < minLen {
+
+				minLen = right - left + 1
+				minimum = s[left:right+1]
+
 			}
-			window[s[l]] -= 1
+
+			removeExt(s[left], count)
+			left++
+
+		} else {
+
+			right++
+			if right == len(s) { break }
+
+			addExtra(s[right], count)
+
 		}
 	}
+
+	return minimum
+}
+
+// Add a byte. The byte might not be one of s
+func addExtra(s byte, dict map[byte]int) {
+	if val, ok := dict[s]; ok {
+		dict[s] = val - 1
+	}
+}
+
+// Remove a byte.
+func removeExt(s byte, dict map[byte]int) {
+	if val, ok := dict[s]; ok {
+		dict[s] = val + 1
+	}
+}
+
+func allMatching(dict map[byte]int) bool {
+	for _, val := range dict {
+		if val > 0 { return false }
+	}
+	return true
 }
 
 func main() {
