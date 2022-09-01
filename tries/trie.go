@@ -52,6 +52,9 @@ func main() {
 	t.Insert("hello")
 	isFound := t.Search("hello")
 	has := t.StartsWith("he")
-
+	t.Insert("goodbye")
 	fmt.Println(isFound, has)
+
+	found := t.Search("goodbye")
+	fmt.Println("found goodbye", found)
 }
