@@ -2,8 +2,10 @@ package main
 
 import "fmt"
 
+type Set map[int]bool
+
 func lcs(nums []int) int {
-	hm := make(map[int]bool)
+	hm := make(Set)
 
 	for _, i := range nums {
 		hm[i] = true
@@ -14,6 +16,7 @@ func lcs(nums []int) int {
 	for _, n := range nums {
 		_, exist := hm[n-1]; if !exist {
 			length := 0
+			// while
 			for {
 				_, exist := hm[n+length]; if exist {
 					length += 1
