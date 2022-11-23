@@ -10,23 +10,27 @@ import (
 type set map[[3]int]bool
 
 func threeSum(n []int) [][]int {
+	// sort the integers
 	var result = [][]int{}
-	//var s = set{}
+
 	if len(n) == 0 || len(n) == 1 {
 		return result
 	}
-	sort.Ints(n[:])
 
+	sort.Ints(n[:])
 
 	for index, integer := range n {
 		if index > 0 && integer == n[index - 1] {
 			continue
 		}
-
+		// grab two pointers and add them together with the integer in iteration
+		// if the sum is above zero right pointer decrements
+		// if the sum is less than zero left pointer increments
+		// else add the numbers to the result array in its own array
 		left, right := index + 1, len(n) - 1
 
 		for left < right {
-			three_sum := a + n[l] + n[r]
+			three_sum := integer + n[left] + n[right]
 
 			if three_sum > 0 {
 				right -= 1

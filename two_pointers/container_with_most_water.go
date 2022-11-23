@@ -29,10 +29,11 @@ func maxArea(height []int) int {
 
 func optMaxArea(height []int) int {
 	result := 0
-
+	// two pointers -- start on opposite ends
 	left, right := 0, len(height) - 1
-
+	// while left is less than right
 	for left < right {
+		// area = (right_pointer - left_pointer) * min between left right
 		area := (right - left) * min(height[left], height[right])
 		result = max(result, area)
 

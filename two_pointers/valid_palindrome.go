@@ -19,12 +19,15 @@ func cleanup(s string) string {
 }
 
 func isPalindrome(s string) bool {
-
+	// create a new string with only the characters
 	str := cleanup(s)
-	
+	// pointers for start and end
 	start := 0
 	end := len(str) - 1
-
+	// while start is less than end, check the characters in positions to be the same
+	// if not the same return false
+	// increment and decrement pointers
+	// return true at the end 
 	for start < end  {
 		first := str[start]
 		last := str[end]
