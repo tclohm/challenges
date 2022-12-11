@@ -39,10 +39,10 @@ func isAlmostPalindrome(s string) bool {
 			rightMinus := right-1
 			return isPalindrome(scrubbed, &leftPlus, &right) || isPalindrome(scrubbed, &left, &rightMinus)
 		}
+		left++
+		right--
 	}
-	
-
-	return false
+	return true
 }
 
 func main() {
