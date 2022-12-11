@@ -26,6 +26,8 @@ func isPalindrome(s string, left, right *int) bool {
 	return true
 }
 
+// O(n) time
+// O(1) space
 func isAlmostPalindrome(s string) bool {
 	scrubbed := strip(s)
 	var left, right = 0, len(scrubbed) - 1
