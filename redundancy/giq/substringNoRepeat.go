@@ -35,6 +35,8 @@ func longest(s string) int {
 	return longest
 }
 
+func longestPointer(s string) int {}
+
 func main() {
 	str := "abccabb"
 
