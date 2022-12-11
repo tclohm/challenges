@@ -16,29 +16,29 @@ func max(a, b int) int {
 	return a
 }
 
-func mostWater(container []int) int {
+func mostWater(heights []int) int {
 	var most = -1
-	var left, right = 0, len(container) - 1
-	var bookmark = []int{0,0}
+	var left, right = 0, len(heights) - 1
 
 	for left < right {
+		// width * height = area
+		// height has to be the min, no overflows
 		width := right - left
-		height := min(container[left], container[right])
-
+		height := min(heights[left], heights[right])
+		// is new area bigger?
 		if (height * width) > most {
+			// new most
 			most = height * width
-			bookmark[0] = container[left]
-			bookmark[1] = container[right]
 		}
-
-		if container[left] < container[right] {
+		// is left less than right, increment left
+		// else increment right
+		if heights[left] < heights[right] {
 			left += 1
 		} else {
 			right -= 1
 		}
 		
 	}
-	fmt.Println(bookmark)
 	return most
 }
 
