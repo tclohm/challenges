@@ -43,10 +43,14 @@ func longer(s string) int {
 	for right := 0 ; right < len(s) ; right++ {
 		var current = string(s[right])
 		var prevSeen = seen[current]
+		// have seen this character previous and is it greater or equal to left
+		// if so increment left
+		// and add right pointer value in to the map
 		if prevSeen >= left {
 			left = prevSeen + 1
 		}
 		seen[current] = right
+		// check if longest is longer than right pointer - left pointer + 1
 		longest = max(longest, right - left + 1)
 	}
 
