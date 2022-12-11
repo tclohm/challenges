@@ -35,10 +35,27 @@ func longest(s string) int {
 	return longest
 }
 
-func longestPointer(s string) int {}
+func longer(s string) int {
+	if len(s) <= 1 { return len(s) }
+	var seen = map[string]int{}
+	var left, longest = 0, 0
+
+	for right := 0 ; right < len(s) ; right++ {
+		var current = string(s[right])
+		var prevSeen = seen[current]
+		if prevSeen >= left {
+			left = prevSeen + 1
+		}
+		seen[current] = right
+		longest = max(longest, right - left + 1)
+	}
+
+	return longest
+}
 
 func main() {
 	str := "abccabb"
 
 	fmt.Println(longest(str))
+	fmt.Println(longer(str))
 }
