@@ -9,31 +9,33 @@ func min(a, b int) int {
 	return b
 }
 
-func trapping(water []int) int {
+// How much water is trapped
+func trapping(heights []int) int {
 	var maxLeft, maxRight = 0, 0
 	total := 0
-
-	for index, _ := range water {
+	// current height
+	for index, _ := range heights {
 
 		maxLeft = 0
 		maxRight = 0
-
+		// left side of the current height
 		for left := index ; left >= 0 ; left-- {
-			if water[left] > maxLeft {
-				maxLeft = water[left]
+			// bigger than the maxLeft
+			if heights[left] > maxLeft {
+				maxLeft = heights[left]
 			}
 		}
-
-		for right := index ; right < len(water) ; right++ {
-			if water[right] > maxRight {
-				maxRight = water[right]
+		// right side of current height
+		for right := index ; right < len(heights) ; right++ {
+			if heights[right] > maxRight {
+				maxRight = heights[right]
 			}
 		}
-
-		var currentWater = min(maxLeft, maxRight) - water[index]
-
-		if currentWater >= 0 {
-			total += currentWater
+		// take the minimum of maxleft and right and subtract the current height
+		var currentHeight = min(maxLeft, maxRight) - heights[index]
+		// add the current height total
+		if currentHeight >= 0 {
+			total += currentHeight
 		} 
 
 	}
