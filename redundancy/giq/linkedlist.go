@@ -28,7 +28,22 @@ func (l *ListNode) print() {
 		result += curr.Value + " -> "
 		curr = curr.Next
 	}
-	fmt.Println(result + "Nil")
+	fmt.Println(result + "nil")
+}
+
+	// "a" -> "b" -> "c" -> "d" -> "e"
+	// 2 - 5
+	// "a" -> "e" -> "d" -> "c" -> "b"
+
+	// "a" -> "b" -> "c" -> "d" -> "e"
+	// 1 - 3
+	// "c" -> "b" -> "a" -> "d" -> "e"
+
+	// "a" -> "b" -> "c" -> "d" -> "e"
+	// 3 - 4
+	// "a" -> "b" -> "d" -> "c" -> "e"
+func (l *ListNode) reverseAt(i, j string) *ListNode {
+	
 }
 
 func main() {
@@ -49,4 +64,16 @@ func main() {
 	var head = curr.reverse()
 
 	head.print()
+
+	fmt.Println("\nreverse at\n")
+
+	n10 := ListNode{Value: "e", Next: &ListNode{}}
+	n9  := ListNode{Value: "d", Next: &n10}
+	n8  := ListNode{Value: "c", Next: &n9}
+	n7  := ListNode{Value: "b", Next: &n8}
+	n6  := ListNode{Value: "a", Next: &n7}
+
+	n6.reverseAt("b", "d")
+	
+	n6.print()
 }
