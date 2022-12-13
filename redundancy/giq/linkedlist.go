@@ -10,13 +10,12 @@ type ListNode struct {
 func (l *ListNode) reverse() *ListNode {
 	var curr = l
 	var prev = &ListNode{}
-	var tmp *ListNode
 
 	for curr.Next != nil {
-		tmp = curr.Next
+		var next *ListNode = curr.Next
 		curr.Next = prev
 		prev = curr
-		curr = tmp
+		curr = next
 	}
 
 	return prev
