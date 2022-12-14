@@ -42,8 +42,55 @@ func (l *ListNode) print() {
 	// "a" -> "b" -> "c" -> "d" -> "e"
 	// 3 - 4
 	// "a" -> "b" -> "d" -> "c" -> "e"
+
 func (l *ListNode) reverseAt(i, j string) *ListNode {
-	
+	// get node
+	// store next value
+	// update next value
+	// store current node
+	// update current node to next
+	if i == j {
+		return l
+	}
+
+	var curr = l
+	var index = 1
+
+	for curr != nil && curr.Value != i && curr.Next.Value != i {
+		curr = curr.Next
+		index++
+	}
+
+	var leftOut = curr
+	curr = curr.Next
+	var leftIn = curr
+	index++
+
+	for curr != nil && curr.Next.Value != j {
+		curr = curr.Next
+		index++
+	}
+
+	var rightIn = curr
+	curr = curr.Next
+	var rightOut = curr
+	index++
+
+	if index != 1 {
+		leftOut.Next = &ListNode{Value: rightIn.Value}
+	}
+	rightIn.Next = &ListNode{Value: rightIn.Value}
+
+	if index == 1 {
+		leftOut.reverse()
+		leftOut.Next = rightOut
+		return rightIn
+	} else {
+		leftIn.reverse()
+		leftOut.Next = rightIn
+		leftIn.Next = rightOut
+	}
+	return l
 }
 
 func main() {
@@ -73,7 +120,8 @@ func main() {
 	n7  := ListNode{Value: "b", Next: &n8}
 	n6  := ListNode{Value: "a", Next: &n7}
 
-	n6.reverseAt("b", "d")
-	
+	n6.reverseAt("a", "b")
+
 	n6.print()
+
 }
