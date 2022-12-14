@@ -1,11 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type ListNode struct {
 	Value string
 	Next *ListNode
 }
+
+type ListNodeInt struct {
+	Value int
+	Next *ListNodeInt
+}
+
 
 func (l *ListNode) reverse() *ListNode {
 	var curr = l
@@ -31,66 +39,30 @@ func (l *ListNode) print() {
 	fmt.Println(result + "nil")
 }
 
-	// "a" -> "b" -> "c" -> "d" -> "e"
-	// 2 - 5
-	// "a" -> "e" -> "d" -> "c" -> "b"
-
-	// "a" -> "b" -> "c" -> "d" -> "e"
-	// 1 - 3
-	// "c" -> "b" -> "a" -> "d" -> "e"
-
-	// "a" -> "b" -> "c" -> "d" -> "e"
-	// 3 - 4
-	// "a" -> "b" -> "d" -> "c" -> "e"
-
-func (l *ListNode) reverseAt(i, j string) *ListNode {
-	// get node
-	// store next value
-	// update next value
-	// store current node
-	// update current node to next
-	if i == j {
-		return l
-	}
-
+func (l *ListNodeInt) print() {
+	var result = ""
 	var curr = l
-	var index = 1
-
-	for curr != nil && curr.Value != i && curr.Next.Value != i {
+	for curr.Next != nil {
+		result += fmt.Sprint(curr.Value, " -> ")
 		curr = curr.Next
-		index++
 	}
+	fmt.Println(result + "nil")
+}
 
-	var leftOut = curr
-	curr = curr.Next
-	var leftIn = curr
-	index++
+	// 1 -> 2 -> 3 -> 4 -> 5
+	// 2 - 5
+	// 1 -> 5 -> 4 -> 3 -> 2
 
-	for curr != nil && curr.Next.Value != j {
-		curr = curr.Next
-		index++
-	}
+	// 1 -> 2 -> 3 -> 4 -> 5
+	// 1 - 3
+	// 3 -> 2 -> 1 -> 4 -> 5
 
-	var rightIn = curr
-	curr = curr.Next
-	var rightOut = curr
-	index++
+	// 1 -> 2 -> 3 -> 4 -> 5
+	// 3 - 4
+	// 1 -> 2 -> 4 -> 3 -> 5
 
-	if index != 1 {
-		leftOut.Next = &ListNode{Value: rightIn.Value}
-	}
-	rightIn.Next = &ListNode{Value: rightIn.Value}
-
-	if index == 1 {
-		leftOut.reverse()
-		leftOut.Next = rightOut
-		return rightIn
-	} else {
-		leftIn.reverse()
-		leftOut.Next = rightIn
-		leftIn.Next = rightOut
-	}
-	return l
+func (l *ListNodeInt) reverseAt(j, k int) *ListNodeInt {
+	
 }
 
 func main() {
@@ -114,13 +86,13 @@ func main() {
 
 	fmt.Println("\nreverse at\n")
 
-	n10 := ListNode{Value: "e", Next: &ListNode{}}
-	n9  := ListNode{Value: "d", Next: &n10}
-	n8  := ListNode{Value: "c", Next: &n9}
-	n7  := ListNode{Value: "b", Next: &n8}
-	n6  := ListNode{Value: "a", Next: &n7}
+	n10 := ListNodeInt{Value: 5, Next: &ListNodeInt{}}
+	n9  := ListNodeInt{Value: 4, Next: &n10}
+	n8  := ListNodeInt{Value: 3, Next: &n9}
+	n7  := ListNodeInt{Value: 2, Next: &n8}
+	n6  := ListNodeInt{Value: 1, Next: &n7}
 
-	n6.reverseAt("a", "b")
+	n6.reverseAt(1, 2)
 
 	n6.print()
 
