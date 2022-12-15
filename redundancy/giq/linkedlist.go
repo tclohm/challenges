@@ -29,6 +29,20 @@ func (l *ListNode) reverse() *ListNode {
 	return prev
 }
 
+func (l *ListNodeInt) reverse() *ListNodeInt {
+	var curr = l
+	var prev = &ListNodeInt{}
+
+	for curr.Next != nil {
+		var next *ListNodeInt = curr.Next
+		curr.Next = prev
+		prev = curr
+		curr = next
+	}
+
+	return prev
+}
+
 func (l *ListNode) print() {
 	var result = ""
 	var curr = l
@@ -51,18 +65,21 @@ func (l *ListNodeInt) print() {
 
 	// 1 -> 2 -> 3 -> 4 -> 5
 	// 2 - 5
-	// 1 -> 5 -> 4 -> 3 -> 2
+	// 1 -> [5 -> 4 -> 3 -> 2]
 
 	// 1 -> 2 -> 3 -> 4 -> 5
 	// 1 - 3
-	// 3 -> 2 -> 1 -> 4 -> 5
+	// [3 -> 2 -> 1] -> 4 -> 5
 
 	// 1 -> 2 -> 3 -> 4 -> 5
 	// 3 - 4
-	// 1 -> 2 -> 4 -> 3 -> 5
+	// 1 -> 2 -> [4 -> 3] -> 5
 
-func (l *ListNodeInt) reverseAt(j, k int) *ListNodeInt {
-	
+func (l *ListNodeInt) reverseAt(left, right int) *ListNodeInt {
+	var head = l
+	if head == nil || head.Next == nil || left == 0 || right == 0 {
+		return head
+	}
 }
 
 func main() {
@@ -92,8 +109,7 @@ func main() {
 	n7  := ListNodeInt{Value: 2, Next: &n8}
 	n6  := ListNodeInt{Value: 1, Next: &n7}
 
-	n6.reverseAt(1, 2)
-
+	n6.reverseAt(2, 4)
 	n6.print()
 
 }
