@@ -7,12 +7,6 @@ type Node struct {
 	Next *Node
 }
 
-func (head *Node) end() *Node {
-	for head.Next != nil {
-		head = head.Next
-	}
-	return head
-}
 
 func (head *Node) findCycle() Node {
 	curr := head
@@ -51,8 +45,7 @@ func main() {
 	n2 := &Node{Value: 2, Next: n3}
 	n1 := &Node{Value: 1, Next: n2}
 
-	end := n1.end()
-	end.Next = n3
+	n8.Next = n3
 
 	fmt.Println(n1.findCycle())
 	fmt.Println(n1.floydCycle())
