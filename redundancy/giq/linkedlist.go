@@ -15,8 +15,8 @@ type ListNodeInt struct {
 }
 
 
-func (l *ListNode) reverse() *ListNode {
-	var curr = l
+func (head *ListNode) reverse() *ListNode {
+	var curr = head
 	var prev = &ListNode{}
 
 	for curr.Next != nil {
