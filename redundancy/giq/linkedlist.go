@@ -75,11 +75,29 @@ func (l *ListNodeInt) print() {
 	// 3 - 4
 	// 1 -> 2 -> [4 -> 3] -> 5
 
-func (l *ListNodeInt) reverseAt(left, right int) *ListNodeInt {
-	var head = l
-	if head == nil || head.Next == nil || left == 0 || right == 0 {
-		return head
+func (head *ListNodeInt) reverseAt(left, right int) *ListNodeInt {
+	// create a new head with Next being the head
+	dummy := &ListNodeInt{Next: head}
+	before := dummy
+	// increment to find the first point of reversal
+	for i := 1; i < left ; i++ {
+		before = before.Next
 	}
+	// mark the important points
+	prev, curr, next := before, before.Next, before.Next.Next
+	// reversal
+	for i := left ; i < right ; i++ {
+		// grab important points to bridge
+		prev, curr, next = curr, next, next.Next
+		// reverse!
+		curr.Next = prev
+	}
+	
+	// bridget the tail
+	before.Next.Next = next
+	before.Next = curr
+
+	return dummy.Next
 }
 
 func main() {
@@ -109,7 +127,6 @@ func main() {
 	n7  := ListNodeInt{Value: 2, Next: &n8}
 	n6  := ListNodeInt{Value: 1, Next: &n7}
 
-	n6.reverseAt(2, 4)
-	n6.print()
-
+	h := n6.reverseAt(3, 4)
+	h.print()
 }
