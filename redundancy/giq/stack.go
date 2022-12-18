@@ -23,6 +23,10 @@ func (s *Stack) Push(item interface{}) {
 	s.print("push")
 } 
 
+func (s *Stack) isEmpty() bool {
+	return len(s.container) == 0
+}
+
 func isValid(s string) bool {
 	pairs := map[rune]rune{
 		'}': '{',
@@ -43,7 +47,7 @@ func isValid(s string) bool {
 		
 	}
 
-	return true
+	return st.isEmpty()
 }
 
 func main() {
