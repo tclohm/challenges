@@ -103,21 +103,27 @@ func (q *Queue) Length() int {
 
 func bfs(root *TreeNode) doublearray {
 	if root == nil { return [][]int{} }
+	
 	var result doublearray = [][]int{}
 	var q = Queue{}
+
 	q.Push(root)
 
 	for q.Length() != 0 {
 
 		var length, count = q.Length(), 0
 		var currentLevel = []int{}
+
 		for count < length {
+
 			var node = q.Pop()
 			currentLevel = append(currentLevel, node.Val)
 			if node.Left != nil { q.Push(node.Left) }
 			if node.Right != nil { q.Push(node.Right) }
 			count++
+			
 		}
+
 		result = append(result, currentLevel)
 	}
 	return result
