@@ -82,6 +82,47 @@ func levels(root *TreeNode) [][]int {
 	return result
 }
 
+type Queue struct {
+	Container []*TreeNode
+}
+
+func (q *Queue) Push(item *TreeNode) {
+	q.Container = append(q.Container, item)
+}
+
+func (q *Queue) Pop() *TreeNode {
+	if len(q.Container) == 0 { return nil }
+	node := q.Container[0]
+	q.Container = q.Container[1:]
+	return node
+}
+
+func (q *Queue) Length() int {
+	return len(q.Container)
+}
+
+func bfs(root *TreeNode) doublearray {
+	if root == nil { return [][]int{} }
+	var result doublearray = [][]int{}
+	var q = Queue{}
+	q.Push(root)
+
+	for q.Length() != 0 {
+
+		var length, count = q.Length(), 0
+		var currentLevel = []int{}
+		for count < length {
+			var node = q.Pop()
+			currentLevel = append(currentLevel, node.Val)
+			if node.Left != nil { q.Push(node.Left) }
+			if node.Right != nil { q.Push(node.Right) }
+			count++
+		}
+		result = append(result, currentLevel)
+	}
+	return result
+}
+
 func main() {
 	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
 	length := len(values)
@@ -95,5 +136,7 @@ func main() {
 	postOrder(root)
 	fmt.Println("\nmax depth:", maxDepth(root, 0))
 
-	fmt.Println("\nlevels", levels(root))
+	fmt.Println("\nlevels recursion", levels(root))
+
+	fmt.Println("\nlevels bfs", bfs(root))
 }
