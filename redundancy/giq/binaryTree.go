@@ -46,6 +46,42 @@ func postOrder(root *TreeNode) {
 	}
 }
 
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func maxDepth(root *TreeNode, depth int) int {
+	if root == nil {
+		return depth
+	}
+	depth++
+	return max(maxDepth(root.Left, depth), maxDepth(root.Right, depth))
+}
+
+type doublearray [][]int
+
+func depths(root *TreeNode, depth int, levels *doublearray) {
+	if root == nil { return }
+	//fmt.Println("levels", depth, levels)
+	if len(*levels) > depth {
+		(*levels)[depth] = append((*levels)[depth], root.Val)
+	} else {
+		*(levels) = append((*levels), []int{root.Val})
+	}
+	depth++
+	depths(root.Left, depth, levels)
+	depths(root.Right, depth, levels)
+}
+
+func levels(root *TreeNode) [][]int {
+	var result doublearray = [][]int{}
+	depths(root, 0, &result)
+	return result
+}
+
 func main() {
 	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
 	length := len(values)
@@ -57,4 +93,7 @@ func main() {
 	preOrder(root)
 	fmt.Println("\npost order")
 	postOrder(root)
+	fmt.Println("\nmax depth:", maxDepth(root, 0))
+
+	fmt.Println("\nlevels", levels(root))
 }
