@@ -130,7 +130,7 @@ func bfs(root *TreeNode) doublearray {
 }
 
 func main() {
-	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
+	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
 	length := len(values)
 	var root *TreeNode
 	root = insertLevel(values, 0, length)
