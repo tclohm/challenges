@@ -129,6 +129,27 @@ func bfs(root *TreeNode) doublearray {
 	return result
 }
 
+func rideSideOfTree(root *TreeNode) []int {
+	if root == nil { return []int{} }
+	var result = []int{}
+	var q = Queue{}
+	q.Push(root)
+
+	for q.Length() != 0 {
+
+		var length, count = q.Length(), 0 
+
+		for count < length {
+			var node = q.Pop()
+			if node.Left != nil { q.Push(node.Left) }
+			if node.Right != nil { q.Push(node.Right) }
+			count++
+			if count == length { result = append(result, node.Val) }
+		}
+	}
+	return result
+}
+
 func main() {
 	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
 	length := len(values)
@@ -145,4 +166,6 @@ func main() {
 	fmt.Println("\nlevels recursion", levels(root))
 
 	fmt.Println("\nlevels bfs", bfs(root))
+
+	fmt.Println("right side", rideSideOfTree(root))
 }
