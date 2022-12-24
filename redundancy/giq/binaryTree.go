@@ -176,27 +176,26 @@ func rstBfs(root *TreeNode) []int {
 	return result
 }
 
-func rstDfs(root *TreeNode) []int {
+func dfsRightSide(root *TreeNode) []int {
+	var result = []int{}
+	dfs(root, 0, &result)
+	return result
+}
+
+func dfs(root *TreeNode, currentLevel int, result *[]int) {
 	// go right first as far as we can go
 	// save the depth and values
 	// then save depth left if there is no right
-	if root == nil { return []int{} }
-	var result = []int{}
-	var s = Stack{}
-	s.Push(root)
-
-	for s.Length() != 0 {
-		var depth, count = s.Length(), 0
-
-		for count < depth {
-			var node = s.Pop()
-			if node.Left != nil { s.Push(node.Left) }
-			if node.Right != nil { s.Push(node.Right) }
-			count++
-			if count == depth { result = append(result, node.Val) }
-		}
+	if root == nil { return }
+	if currentLevel >= len(*result) {
+		*result = append(*result, root.Val)
 	}
-	return result
+	if root.Right != nil {
+		dfs(root.Right, currentLevel + 1, result)
+	}
+	if root.Left != nil {
+		dfs(root.Left, currentLevel + 1, result)
+	}
 }
 
 
@@ -219,5 +218,5 @@ func main() {
 
 	fmt.Println("right side bfs", rstBfs(root))
 
-	fmt.Println("right side dfs", rstDfs(root))
+	fmt.Println("right side dfs", dfsRightSide(root))
 }
