@@ -101,6 +101,26 @@ func (q *Queue) Length() int {
 	return len(q.Container)
 }
 
+type Stack struct {
+	Container []*TreeNode
+}
+
+func (s *Stack) Push(item *TreeNode) {
+	s.Container = append(s.Container, item)
+}
+
+func (s *Stack) Pop() *TreeNode {
+	if len(s.Container) == 0 { return nil }
+	length := len(s.Container) - 1
+	node := s.Container[length]
+	s.Container = s.Container[:length]
+	return node
+}
+
+func (s *Stack) Length() int {
+	return len(s.Container)
+}
+
 func bfs(root *TreeNode) doublearray {
 	if root == nil { return [][]int{} }
 	
@@ -129,7 +149,13 @@ func bfs(root *TreeNode) doublearray {
 	return result
 }
 
-func rideSideOfTree(root *TreeNode) []int {
+						// 		     1
+						// 	    2          3
+						// 	 4    5     6     7
+						// 	8 9 10 11 12 13 14 15
+						// 16
+
+func rstBfs(root *TreeNode) []int {
 	if root == nil { return []int{} }
 	var result = []int{}
 	var q = Queue{}
@@ -150,6 +176,30 @@ func rideSideOfTree(root *TreeNode) []int {
 	return result
 }
 
+func rstDfs(root *TreeNode) []int {
+	// go right first as far as we can go
+	// save the depth and values
+	// then save depth left if there is no right
+	if root == nil { return []int{} }
+	var result = []int{}
+	var s = Stack{}
+	s.Push(root)
+
+	for s.Length() != 0 {
+		var depth, count = s.Length(), 0
+
+		for count < depth {
+			var node = s.Pop()
+			if node.Left != nil { s.Push(node.Left) }
+			if node.Right != nil { s.Push(node.Right) }
+			count++
+			if count == depth { result = append(result, node.Val) }
+		}
+	}
+	return result
+}
+
+
 func main() {
 	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
 	length := len(values)
@@ -167,5 +217,7 @@ func main() {
 
 	fmt.Println("\nlevels bfs", bfs(root))
 
-	fmt.Println("right side", rideSideOfTree(root))
+	fmt.Println("right side bfs", rstBfs(root))
+
+	fmt.Println("right side dfs", rstDfs(root))
 }
