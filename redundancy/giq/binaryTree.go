@@ -198,6 +198,51 @@ func dfs(root *TreeNode, currentLevel int, result *[]int) {
 	}
 }
 
+func countNodes(root *TreeNode) int {
+	if root == nil { return 0 }
+	var height = getTreeHeight(root)
+
+	if height == 0 { return 1 }
+
+	var upperbound = (2 ** height) - 1
+	var left, right = 0, upperbound
+
+	for left < right {
+		var indexToFind = left + (right - left) / 2
+		if nodeExists(indexToFind, head, root) { 
+			left =  indexToFind 
+		} else {
+			right = indexToFind - 1
+		}
+	}
+}
+
+func getTreeHeight(root *TreeNode) int {
+	var height = 0
+	for root.Left != nil {
+		height += 1
+		root = root.Left
+	}
+	return height
+}
+
+func nodeExists(indexToFind, height int, node *TreeNode) bool {
+	var left, right, count = 0, (2 ** height) - 1, 0
+	for count < height {
+		var midOfNode = left + (right - left) / 2
+		if indexToFind >= midOfNode {
+			node = node.Right
+			left = midOfNode
+		} else {
+			node = node.Left
+			right = midOfNode - 1
+		}
+		count += 1
+	}
+
+	return node != nil
+}
+
 
 func main() {
 	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
