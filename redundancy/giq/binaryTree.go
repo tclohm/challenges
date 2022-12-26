@@ -72,7 +72,7 @@ func depths(root *TreeNode, depth int, levels *doublearray) {
 	if len(*levels) > depth {
 		(*levels)[depth] = append((*levels)[depth], root.Val)
 	} else {
-		*(levels) = append((*levels), []int{root.Val})
+		(*levels) = append((*levels), []int{root.Val})
 	}
 	depth++
 	depths(root.Left, depth, levels)
