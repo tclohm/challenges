@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type TreeNode struct {
 	Val int
@@ -204,17 +207,18 @@ func countNodes(root *TreeNode) int {
 
 	if height == 0 { return 1 }
 
-	var upperbound = (2 ** height) - 1
+	var upperbound = math.Floor(math.Pow(2, float64(height)))
 	var left, right = 0, upperbound
 
-	for left < right {
-		var indexToFind = left + (right - left) / 2
-		if nodeExists(indexToFind, head, root) { 
+	for left < int(right) {
+		var indexToFind = left + (int(right) - left) / 2
+		if nodeExists(indexToFind, height, root) { 
 			left =  indexToFind 
 		} else {
-			right = indexToFind - 1
+			right = float64(indexToFind - 1)
 		}
 	}
+	return int(right)
 }
 
 func getTreeHeight(root *TreeNode) int {
@@ -227,20 +231,40 @@ func getTreeHeight(root *TreeNode) int {
 }
 
 func nodeExists(indexToFind, height int, node *TreeNode) bool {
-	var left, right, count = 0, (2 ** height) - 1, 0
+	var left, count = 0, 0
+	var right = math.Floor(math.Pow(2, float64(height)))
 	for count < height {
-		var midOfNode = left + (right - left) / 2
+		var midOfNode = left + (int(right) - left) / 2
 		if indexToFind >= midOfNode {
 			node = node.Right
 			left = midOfNode
 		} else {
 			node = node.Left
-			right = midOfNode - 1
+			right = float64(midOfNode - 1)
 		}
 		count += 1
 	}
 
 	return node != nil
+}
+
+func dfsValid(root *TreeNode, min, max int) bool {
+	if root.Val <= min || root.Val >= max { return false }
+
+	if root.Left != nil {
+		if !dfsValid(root.Left, min, root.Val) { return false }
+	}
+
+	if root.Right != nil {
+		if !dfsValid(root.Right, root.Val, max) { return false }
+	}
+
+	return true
+}
+
+func isValidBST(root *TreeNode) bool {
+	if root == nil { return true }
+	return dfsValid(root, -1000000, 1000000)
 }
 
 
@@ -264,4 +288,11 @@ func main() {
 	fmt.Println("right side bfs", rstBfs(root))
 
 	fmt.Println("right side dfs", dfsRightSide(root))
+
+	fmt.Println("-------")
+
+	v := []int{12, 7, 18, 5, 9, 16, 25}
+	r := insertLevel(v, 0, len(v))
+
+	fmt.Println(isValidBST(r))
 }
