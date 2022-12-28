@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	_ "fmt"
 	"math"
 )
 
@@ -17,9 +17,13 @@ import (
 
 
 type PriorityQueue struct {
-	Heap []int{}
-	Comparator func(a, b int) bool { return a > b }
+	Heap []int
 }
+
+func (pq *PriorityQueue) Comparator(a, b int) bool { 
+	return a > b 
+}
+
 
 func (pq *PriorityQueue) Size() int {
 	return len(pq.Heap)
@@ -29,12 +33,12 @@ func (pq *PriorityQueue) IsEmpty() bool {
 	return pq.Size() == 0
 }
 
-func (pq *PriorityQueue) Peek() {
+func (pq *PriorityQueue) Peek() int {
 	return pq.Heap[0]
 }
 
 func (pq *PriorityQueue) parent(index int) int {
-	return math.Floor((index - 1) / 2)
+	return int(math.Floor(float64((index - 1) / 2)))
 }
 
 func (pq *PriorityQueue) leftChild(index int) int {
@@ -73,7 +77,7 @@ func (pq *PriorityQueue) siftDown() {
 	pq.compare(pq.leftChild(nodeIndex), nodeIndex) || 
 	pq.rightChild(nodeIndex) < pq.Size() && 
 	pq.compare(pq.rightChild(nodeIndex), nodeIndex) {
-		var greaterNodeIndex
+		var greaterNodeIndex int
 		if pq.rightChild(nodeIndex) < pq.Size() &&
 		pq.compare(pq.rightChild(nodeIndex), pq.leftChild(nodeIndex)) {
 			greaterNodeIndex = pq.rightChild(nodeIndex)
@@ -86,11 +90,14 @@ func (pq *PriorityQueue) siftDown() {
 	}
 }
 
-func (pq *PriorityQueue) Pop() {
+func (pq *PriorityQueue) Pop() int {
 	if pq.Size() > 1 {
 		pq.swap(0, pq.Size() - 1)
 	}
-	var popped = pq.Heap()
+	var popped = pq.Heap[pq.Size()-1]
+	pq.Heap = pq.Heap[:pq.Size()-1]
 	pq.siftDown()
 	return popped
 }
+
+func main() {}
