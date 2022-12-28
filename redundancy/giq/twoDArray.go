@@ -13,8 +13,8 @@ func (s *Seen) fill(columnLength, rowLength int) {
 }
 
 func dfs(m matrix, row, col int, s Seen, v *[]int) {
-	// up, down, left, right
-	directions := [][]int{{-1,0}, {1,0}, {0,-1}, {0,1},}
+	// right, down, left, up
+	directions := [][]int{{0,1}, {1,0}, {0,-1}, {-1,0},}
 	if row < 0 || col < 0 || row >= len(m) ||
 	col >= len(m[0]) || s[row][col] {
 		return
