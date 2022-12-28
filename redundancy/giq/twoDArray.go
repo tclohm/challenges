@@ -5,6 +5,28 @@ import "fmt"
 type matrix [][]int
 type Seen [][]bool
 
+type Queue struct {
+	Coords [][]int
+	Size int
+}
+
+func (q *Queue) Push(coord []int) {
+	q.Coords = append(q.Coords, coord)
+	q.Size += 1
+}
+
+func (q *Queue) Pop() (int, int) {
+	var popped = q.Coords[0]
+	row, col := popped[0], popped[1]
+	q.Coords = q.Coords[1:]
+	q.Size -= 1
+	return row, col
+}
+
+func (q *Queue) Length() int {
+	return q.Size
+}
+
 func (s *Seen) fill(columnLength, rowLength int) {
 	for i := 0 ; i < columnLength ; i++ {
 		var inner = make([]bool, rowLength, rowLength)
@@ -21,7 +43,6 @@ func dfs(m matrix, row, col int, s Seen, v *[]int) {
 	}
 	*v = append(*v, m[row][col])
 	s[row][col] = true
-	fmt.Println(row, col)
 	for i := 0 ; i < len(directions) ; i++ {
 		var currentDir = directions[i]
 		dfs(m, row + currentDir[0], col + currentDir[1], s, v)
@@ -37,6 +58,36 @@ func traverseDFS(matrix matrix) []int {
 	return values
 }
 
+func traverseBFS(matrix matrix) []int {
+	directions := [][]int{{0,1}, {1,0}, {0,-1}, {-1,0},}
+	var seen = Seen{}
+	rl, cl := len(matrix[0]), len(matrix)
+	seen.fill(cl, rl)
+	var values = []int{}
+
+	var q = Queue{Size: 0}
+	q.Push([]int{0,0})
+
+	for q.Length() != 0 {
+		row, col := q.Pop()
+		if row < 0 || 
+		row >= len(matrix) || 
+		col < 0 || 
+		col >= len(matrix[0]) ||
+		seen[row][col] {
+			continue
+		}
+		seen[row][col] = true
+		values = append(values, matrix[row][col])
+
+		for i := 0 ; i < len(directions) ; i++ {
+			currentDirection := directions[i]
+			q.Push([]int{row + currentDirection[0], col + currentDirection[1]})
+		} 
+	}
+	return values
+}
+
 func main() {
 
 	ourMap := [][]int{
@@ -47,4 +98,5 @@ func main() {
 	}
 
 	fmt.Println(traverseDFS(ourMap))
+	fmt.Println(traverseBFS(ourMap))
 }
