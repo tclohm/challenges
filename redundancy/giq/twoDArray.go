@@ -88,6 +88,50 @@ func traverseBFS(matrix matrix) []int {
 	return values
 }
 
+// 1's land
+// 0's water
+func countIslands(matrix matrix) int {
+	var directions = [][]int{{0,1}, {1,0}, {0,-1}, {-1,0},}
+	var islands = 0
+
+	for row := 0 ; row < len(matrix) ; row++ {
+		for col := 0 ; col < len(matrix[0]) ; col++ {
+			if matrix[row][col] == 1 {
+				islands += 1
+				matrix[row][col] = 0
+
+				var queue = Queue{Size: 0}
+				queue.Push([]int{row, col})
+
+				for queue.Length() != 0 {
+					var currentRow, currentCol = queue.Pop()
+
+					for i := 0 ; i < len(directions) ; i++ {
+						var currentDir = directions[i]
+						var nextRow = currentRow + currentDir[0]
+						var nextCol = currentCol + currentDir[1]
+
+						if nextRow < 0 ||
+						nextRow >= len(matrix) ||
+						nextCol < 0 ||
+						nextCol >= len(matrix[0]) {
+							continue
+						}
+
+						if matrix[nextRow][nextCol] == 1 {
+							queue.Push([]int{nextRow, nextCol})
+							matrix[nextRow][nextCol] = 0
+						}
+					}
+
+				}
+			}
+		}
+	}
+	return islands
+}
+
+
 func main() {
 
 	ourMap := [][]int{
@@ -99,4 +143,21 @@ func main() {
 
 	fmt.Println(traverseDFS(ourMap))
 	fmt.Println(traverseBFS(ourMap))
+
+	m := [][]int{
+		{1, 1, 1, 1, 0}, 
+		{1, 1, 0, 0, 1}, 
+		{0, 0, 0, 1, 1}, 
+		{0, 1, 0, 0, 1},
+	}
+
+	m2 := [][]int{
+		{0, 1, 0, 1, 0}, 
+		{1, 0, 1, 0, 1}, 
+		{0, 1, 1, 1, 0}, 
+		{1, 0, 1, 0, 1},
+	}
+
+	fmt.Println(countIslands(m))
+	fmt.Println(countIslands(m2))
 }
