@@ -160,4 +160,15 @@ func main() {
 
 	fmt.Println(countIslands(m))
 	fmt.Println(countIslands(m2))
+
+
+	// oranges
+	m2 := [][]int{
+		{2, 1, 1, 0, 0}, 
+		{1, 1, 1, 0, 1}, 
+		{0, 1, 1, 1, 1}, 
+		{0, 1, 0, 0, 1},
+	}
+
+
 }
