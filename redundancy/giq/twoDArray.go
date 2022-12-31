@@ -131,6 +131,62 @@ func countIslands(matrix matrix) int {
 	return islands
 }
 
+func orangesRotting(matrix matrix) int {
+	if len(matrix) == 0 { return 0 }
+
+	var directions = [][]int{{0,1}, {1,0}, {0,-1}, {-1,0},}
+	var ROTTEN, FRESH = 2, 1
+
+	var q = Queue{}
+	var freshOranges = 0
+
+	for row := 0 ; row < len(matrix) ; row++ {
+		for col := 0 ; col < len(matrix[0]) ; col++ {
+			if matrix[row][col] == ROTTEN {
+				q.Push([]int{row, col})
+			}
+			if matrix[row][col] == FRESH {
+				freshOranges += 1
+			}
+		}
+	}
+
+	var minutes = 0
+	var queueSize = q.Size
+
+	for q.Length() > 0 {
+		if queueSize == 0 {
+			minutes += 1
+			queueSize = q.Size
+		}
+
+		var row, col = q.Pop()
+		queueSize -= 1
+
+		for i := 0 ; i < len(directions) ; i++ {
+			var currentDir = directions[i]
+			var nextRow = currentDir[0] + row
+			var nextCol = currentDir[1] + col
+
+			if nextRow < 0 || nextRow >= len(matrix) || nextCol < 0 || nextCol >= len(matrix[0]) {
+				continue
+			}
+
+			if matrix[nextRow][nextCol] == FRESH {
+				matrix[nextRow][nextCol] = 2
+				freshOranges -= 1
+				q.Push([]int{nextRow, nextCol})
+			}
+		}
+	}
+
+	if freshOranges > 0 {
+		return -1
+	}
+
+	return minutes
+}
+
 
 func main() {
 
@@ -143,6 +199,7 @@ func main() {
 
 	fmt.Println(traverseDFS(ourMap))
 	fmt.Println(traverseBFS(ourMap))
+	fmt.Println("===================================================")
 
 	m := [][]int{
 		{1, 1, 1, 1, 0}, 
@@ -160,15 +217,19 @@ func main() {
 
 	fmt.Println(countIslands(m))
 	fmt.Println(countIslands(m2))
-
+	fmt.Println("===================================================")
 
 	// oranges
-	m2 := [][]int{
+	m3 := [][]int{
 		{2, 1, 1, 0, 0}, 
 		{1, 1, 1, 0, 1}, 
 		{0, 1, 1, 1, 1}, 
 		{0, 1, 0, 0, 1},
 	}
-
+	fmt.Println("rotting oranges", m3)
+	fmt.Println("rotten oranges conclusion:", orangesRotting(m3), "minutes")
+	fmt.Println("===================================================")
+	fmt.Println("rotting oranges", m2)
+	fmt.Println("rotten oranges conclusion:", orangesRotting(m2), "minutes")
 
 }
