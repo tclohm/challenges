@@ -188,7 +188,7 @@ func orangesRotting(matrix matrix) int {
 }
 
 func depthFirstSearch(matrix matrix, row, col, step int) {
-	var direction = [][]int{{-1,0}, {0,1}, {1,0}, {0,-1}}
+	var directions = [][]int{{-1,0}, {0,1}, {1,0}, {0,-1}}
 	if row < 0 || row >= len(matrix) || col < 0 || col >= len(matrix[0]) || step > matrix[row][col] {
 		return
 	}
@@ -198,8 +198,9 @@ func depthFirstSearch(matrix matrix, row, col, step int) {
 	}
 }
 
-func wallsAndGates(matrix matrix) int {
-	var WALL, GATE = -1, 0
+func wallsAndGates(matrix matrix) matrix {
+	// var WALL = -1
+	var GATE = 0
 	for row := 0 ; row < len(matrix) ; row++ {
 		for col := 0 ; col < len(matrix[0]) ; col++ {
 			if matrix[row][col] == GATE {
@@ -255,4 +256,12 @@ func main() {
 	fmt.Println("rotting oranges", m2)
 	fmt.Println("rotten oranges conclusion:", orangesRotting(m2), "minutes")
 
+	fmt.Println("===================================================")
+	m4 := [][]int{
+		{1, -1, 0, 0}, 
+		{1, 1, 1, -1}, 
+		{0, -1, 1, -1}, 
+		{0, -1, 1, 1},
+	}
+	fmt.Println(wallsAndGates(m4))
 }
