@@ -187,6 +187,29 @@ func orangesRotting(matrix matrix) int {
 	return minutes
 }
 
+func depthFirstSearch(matrix matrix, row, col, step int) {
+	var direction = [][]int{{-1,0}, {0,1}, {1,0}, {0,-1}}
+	if row < 0 || row >= len(matrix) || col < 0 || col >= len(matrix[0]) || step > matrix[row][col] {
+		return
+	}
+	matrix[row][col] = step
+	for i := 0 ; i < len(directions) ; i++ {
+		depthFirstSearch(matrix, row + directions[i][0], col + directions[i][1], step + 1)
+	}
+}
+
+func wallsAndGates(matrix matrix) int {
+	var WALL, GATE = -1, 0
+	for row := 0 ; row < len(matrix) ; row++ {
+		for col := 0 ; col < len(matrix[0]) ; col++ {
+			if matrix[row][col] == GATE {
+				depthFirstSearch(matrix, row, col, 0)
+			}
+		}
+	}
+	return matrix
+}
+
 
 func main() {
 
