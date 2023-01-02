@@ -56,4 +56,13 @@ func main() {
 
 	fmt.Println(anotherAdjList)
 	// adjacency matrix
+
+	adjMatrix := [][]int{
+		{0, 0, 0, 1, 0, 0,},
+		{0, 0, 0, 1, 0, 0,},
+		{0, 0, 0, 1, 0, 0,},
+		{1, 1, 1, 0, 1, 0,},
+		{0, 0, 0, 1, 0, 1,},
+		{0, 0, 0, 0, 1, 0,},
+	}
 }
