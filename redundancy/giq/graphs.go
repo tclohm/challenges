@@ -5,9 +5,52 @@ import (
 	_"strconv"
 )
 
+type Queue struct {
+	Container []int
+}
+
+func (q *Queue) Push(node Node) {
+	q.Container = append(q.Container, node)
+}
+
+func (q *Queue) Pop() Node {
+	node := q.Container[0]
+	q.Container = q.Container[1:]
+	return node
+}
+
+func (q *Queue) Length() int {
+	return len(q.Container)
+}
+
+
 type Node struct {
 	Value int
 	Neighbors []*Node
+}
+
+type graph [][]*Node
+
+func BFS(graph graph) {
+	var q = Queue{}
+	q.Push(graph[0][0])
+	values := []int{}
+	seen := map[int]bool{}
+
+	for queue.Length() > 0 {
+		var node = Queue.Pop()
+		values = append(values, node.Val)
+		seen[node.Val] = true
+
+		var connections = graph[node.Val]
+		for i := 0 ; i < len(connections) ; i++ {
+			var connection = connections[i]
+			if _, ok := seen[connections]; !ok {
+				q.Push(connection)
+				// TODO
+			}
+		}
+	}
 }
 
 func main() {
