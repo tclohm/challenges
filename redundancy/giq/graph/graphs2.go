@@ -42,8 +42,8 @@ func makeAdjacentList(n int, managers []int) [][]int {
 func makeAL(n int, courses adjList) [][]int {
 	var al = make(adjList, n)
 	for i := 0 ; i < len(courses) ; i++ {
-		current, next := courses[i][0], courses[i][1]
-		al[next] = append(al[next], current)
+		pre, next := courses[i][0], courses[i][1]
+		al[next] = append(al[next], pre)
 	}
 	return al
 }
@@ -81,6 +81,7 @@ func canFinish(n int, prerequisites adjList) bool {
 			var current = q.Pop()
 			seen[current] = true
 
+			// is it a cycle? yes, return false
 			if current == v { return false }
 
 			var adjacent = al[current]
