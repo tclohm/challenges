@@ -9,11 +9,11 @@ type Queue struct {
 	Container []int
 }
 
-func (q *Queue) Push(node Node) {
+func (q *Queue) Push(node int) {
 	q.Container = append(q.Container, node)
 }
 
-func (q *Queue) Pop() Node {
+func (q *Queue) Pop() int {
 	node := q.Container[0]
 	q.Container = q.Container[1:]
 	return node
@@ -23,34 +23,75 @@ func (q *Queue) Length() int {
 	return len(q.Container)
 }
 
+type Stack struct {
+	Container []int
+}
+
+func (s *Stack) Push(node int) {
+	s.Container = append(s.Container, node)
+}
+
+func (s *Stack) Pop() int {
+	end := s.Length() - 1
+	node := s.Container[end]
+	s.Container = s.Container[0:end]
+	return node
+}
+
+func (s *Stack) Length() int {
+	return len(s.Container)
+}
 
 type Node struct {
 	Value int
 	Neighbors []*Node
 }
 
-type graph [][]*Node
+type graph [][]int
 
-func BFS(graph graph) {
+func BFS(graph graph) []int {
 	var q = Queue{}
-	q.Push(graph[0][0])
+	q.Push(0)
 	values := []int{}
 	seen := map[int]bool{}
 
-	for queue.Length() > 0 {
-		var node = Queue.Pop()
-		values = append(values, node.Val)
-		seen[node.Val] = true
+	for q.Length() > 0 {
+		var node = q.Pop()
+		values = append(values, node)
+		seen[node] = true
 
-		var connections = graph[node.Val]
+		var connections = graph[node]
 		for i := 0 ; i < len(connections) ; i++ {
 			var connection = connections[i]
-			if _, ok := seen[connections]; !ok {
+			if _, ok := seen[connection]; !ok {
 				q.Push(connection)
-				// TODO
 			}
 		}
 	}
+
+	return values
+}
+
+func DFS(graph graph) []int {
+	var s = Stack{}
+	s.Push(0)
+	values := []int{}
+	seen := map[int]bool{}
+
+	for s.Length() > 0 {
+		var node = s.Pop()
+		values = append(values, node)
+		seen[node] = true
+
+		var connections = graph[node]
+		for i := 0 ; i < len(connections) ; i++ {
+			var connection = connections[i]
+			if _, ok := seen[connection]; !ok {
+				s.Push(connection)
+			}
+		}
+	}
+	return values
 }
 
 func main() {
@@ -108,4 +149,23 @@ func main() {
 		{0, 0, 0, 1, 0, 1,},
 		{0, 0, 0, 0, 1, 0,},
 	}
+
+	fmt.Println(adjMatrix)
+
+	adjl := [][]int{
+		{3, 1},
+		{0},
+		{3, 8},
+		{0, 4, 5, 2},
+		{3, 6},
+		{3},
+		{4, 7},
+		{6},
+		{2},
+	}
+
+
+
+	fmt.Println(BFS(adjl))
+	fmt.Println(DFS(adjl))
 }
