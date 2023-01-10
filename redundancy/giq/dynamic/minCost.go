@@ -34,15 +34,20 @@ func climbStairs(cost []int) int {
 // bottom up
 func climbing(cost []int) int {
 	var n = len(cost)
-	var dp = make([]int, n, n)
-	for i := 0 ; i < n ; i++ {
-		if i < 2 {
-			dp[i] = cost[i]
-		} else {
-			dp[i] = cost[i] + min(dp[i-1], dp[i-2])
-		}
+	//var dp = make([]int, n, n)
+
+	if n == 0 { return 0 }
+	if n == 1 { return cost[0] }
+
+	var dpOne = cost[0]
+	var dpTwo = cost[1]
+
+	for i := 2 ; i < n ; i++ {
+		var current = cost[i] + min(dp[i-1], dp[i-2])
+		dpOne = dpTwo
+		dpTwo = current
 	}
-	return min(dp[n - 1], dp[n - 2])
+	return min(dpOne, dpTwo)
 }
 
 func main() {
