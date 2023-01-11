@@ -9,13 +9,13 @@ type Person struct {
 }
 
 type Monarchy struct {
-	King Person
-	persons map[string]Person
+	King *Person
+	persons map[string]*Person
 }
 
-func (this *Monarchy) Init() {
-	this.persons = map[string]Person{
-		"king": this.King,
+func (this *Monarchy) Init(name string) {
+	this.persons = map[string]*Person{
+		name: this.King,
 	}
 }
 
@@ -23,18 +23,21 @@ func (this *Monarchy) Birth(childName, parentName string) {
 	var parent = this.persons[parentName]
 	var newChild = Person{Name: childName, IsAlive: true}
 	parent.Children = append(parent.Children, &newChild)
-	this.persons[childName] = newChild
+	this.persons[childName] = &newChild
 }
 
 func (this *Monarchy) Death(name string) {
 	if person, ok := this.persons[name]; ok {
 		person.IsAlive = false
+		fmt.Println(name, "has passed away")
 	}
 }
 
-func (this *Monarchy) getOrderOfSucession() {
+func (this *Monarchy) getOrderOfSucession() []string {
 	var order = []string{}
-	this.dfs(this.King, &order)
+	var root = this.King
+	this.dfs(*root, &order)
+	return order
 }
 
 func (this *Monarchy) dfs(currentPerson Person, order *[]string) {
@@ -47,11 +50,19 @@ func (this *Monarchy) dfs(currentPerson Person, order *[]string) {
 }
 
 func main(){
-	m := Monarchy{King: Person{Name:"M", IsAlive: true, Children: []*Person{}}}
-	m.Init()
-	fmt.Println(m)
+	m := Monarchy{King: &Person{Name:"A", IsAlive: true, Children: []*Person{}}}
+	m.Init("A")
 
-	m.Birth("Henry", "M")
+	m.Birth("B", "A")
+	m.Birth("C", "A")
+	m.Birth("D", "A")
+	m.Birth("E", "C")
+	m.Birth("F", "C")
+	fmt.Println(m.getOrderOfSucession())
 
-	fmt.Println(m)
+	m.Death("A")
+	fmt.Println(m.getOrderOfSucession())
+
+	m.Death("E")
+	fmt.Println(m.getOrderOfSucession())
 }
