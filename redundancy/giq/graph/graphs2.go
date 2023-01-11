@@ -67,8 +67,9 @@ func numOfMinutes(n, headId int, managers, informTime []int) int {
 
 // Course Scheduler
 func canFinish(n int, prerequisites adjList) bool {
+	// build al and fill it out
 	var al = makeAL(n, prerequisites)
-	
+	// loop every vertex of graph and do BFS
 	for v := 0 ; v < n ; v++ {
 		q := Queue{}
 		seen := map[int]bool{}
@@ -83,9 +84,9 @@ func canFinish(n int, prerequisites adjList) bool {
 
 			// is it a cycle? yes, return false
 			if current == v { return false }
-
+			// grab adjacent array
 			var adjacent = al[current]
-
+			// loop over adjacent array, add it to the queue if not seen
 			for i := 0 ; i < len(adjacent) ; i++ {
 				var next = adjacent[i]
 				if _, ok := seen[next]; !ok {
