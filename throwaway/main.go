@@ -103,18 +103,15 @@ func islandCount(matrix matrix) int {
 }
 
 func clearIsland(matrix matrix, r, c int) {
-	if r < 0 || r >= len(matrix) ||
-	c < 0 || c >= len(matrix[r]) || 
-	matrix[r][c] != 1 {
-		return
-	}
-
+	DIRS := [][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}
+	
+	if r < 0 || r >= len(matrix) || c < 0 || c >= len(matrix[r]) ||  matrix[r][c] == 0 { return }
+	
 	matrix[r][c] = 0
-	clearIsland(matrix, r + 1, c)
-	clearIsland(matrix, r - 1, c)
-	clearIsland(matrix, r, c + 1)
-	clearIsland(matrix, r, c - 1)
 
+	for _, dir := range DIRS {
+		clearIsland(matrix, r + dir[0], c + dir[1])
+	}
 }
 
 func numIslands(matrix matrix) int {
@@ -143,14 +140,14 @@ func main() {
 		{0, 0, 0, 0, 0},
 	}
 
-	// np := [][]int{
-	// 	{1, 1, 1, 1, 0},
-	// 	{1, 1, 0, 1, 0},
-	// 	{1, 1, 0, 0, 0},
-	// 	{0, 0, 0, 0, 0},
-	// }
+	np := [][]int{
+		{1, 1, 1, 1, 0},
+		{1, 1, 0, 1, 0},
+		{1, 1, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+	}
 
 	fmt.Println("island count using BFS with queue:", islandCount(mp))
 
-	//fmt.Println("island count using BFS without queue:", numIslands(np))
+	fmt.Println("island count using BFS without queue:", numIslands(np))
 }
