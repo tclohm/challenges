@@ -37,18 +37,17 @@ func main() {
 
 	sc := bufio.NewScanner(file)
 
-	stacks := make([]stack, 3)
+	stacks := make([]stack, 9)
 
 	sc.Scan()
 
-	for (sc.Text() != " 1   2   3 ") {
+	for (sc.Text() != " 1   2   3   4   5   6   7   8   9 ") {
 		for i, r := range sc.Text() {
 			if r != ' ' && r != '[' && r != ']' {
 				// add to stack
-				fmt.Println(i, i/4, string(r))
+				// fmt.Println(i, i/4, string(r))
 				stacks[i / 4].addToBottom(r)
 			}
-			fmt.Println(stacks)
 		}
 		sc.Scan()
 	}
