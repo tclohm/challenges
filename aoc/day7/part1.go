@@ -62,16 +62,34 @@ func main() {
 			if line[2] == ".." {
 				currentDir = currentDir.parent
 			} else if line[2] == "/" {
-				currentDir = &node{"/", 0, false, make(map[string]*node), nil}
+				currentDir = &node{
+					name: "/", 
+					size: 0, 
+					isFile: false, 
+					children: make(map[string]*node), 
+					parent: nil,
+				}
 			} else {
 				currentDir = currentDir.children[line[2]]
 			}
 		} else if line[0] == "dir" {
-			currentDir.children[line[1]] = &node{line[1], 0, false, make(map[string]*node), currentDir}
+			currentDir.children[line[1]] = &node{
+				name: line[1], 
+				size: 0, 
+				isFile: false, 
+				children: make(map[string]*node), 
+				parent: currentDir,
+			}
 			dirs = append(dirs, currentDir.children[line[1]])
 		} else if line[0] != "$" {
 			size, _ := strconv.Atoi(line[0])
-			currentDir.children[line[1]] = &node{line[1], size, true, nil, currentDir}
+			currentDir.children[line[1]] = &node{
+				name: line[1], 
+				size: size, 
+				isFile: true, 
+				children: nil, 
+				parent: currentDir,
+			}
 		}
 	}
 
