@@ -22,7 +22,6 @@ func main() {
 		set := make(map[byte]bool)
 		
 		for j := 0 ; j < differentCharacters ; j++ {
-			fmt.Println(sc.Text()[i+j])
 			set[sc.Text()[i+j]] = true
 		}
 
