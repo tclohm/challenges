@@ -91,6 +91,7 @@ func main() {
 
 	for _, dir := range dirs {
 		size := calculate(*dir)
+		//fmt.Println(size, ">", free, size-free, "<", second-free)
 		if size > free && size - free < second - free {
 			second = size
 		}
