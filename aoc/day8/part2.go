@@ -17,16 +17,17 @@ import (
 // viewing distance : left trees seen * up trees seen * right trees seen * down trees seen
 
 // what is the highest viewing distance
+
 func main() {
 
-	file, _ := os.Open("test.txt")
+	file, _ := os.Open("file.txt")
 
 	defer file.Close()
 
 	sc := bufio.NewScanner(file)
 
 	forest := [][]rune{}
-	views := [][]int{}
+	//treeHouseViews := [][]int{}
 
 	for sc.Scan() {
 		row := []rune{}
@@ -35,10 +36,89 @@ func main() {
 			row = append(row, tree)
 		}
 		forest = append(forest, row)
-		views = append(views, make([]int, len(sc.Text()), len(sc.Text())))
 
+		//treeHouseViews = append(treeHouseViews, make([]int, len(sc.Text()), len(sc.Text())))
 	}
 
-	fmt.Println(forest, views)
+	bestView := -1
 
+	for row := 0 ; row < len(forest) ; row++ {
+		for col := 0 ; col < len(forest[0]) ; col++ {
+
+			currentTreeHeight := forest[row][col]
+
+			// look 'up' until we hit edge or a tree that is taller than our potential tree house
+			outlook := row - 1
+			northView := 1
+			southView := 1
+			westView := 1
+			eastView := 1
+
+			if outlook < 0 { northView = 0 }
+			for outlook > 0 {
+				northTreeHeight := forest[outlook][col]
+				if northTreeHeight < currentTreeHeight {
+					outlook -= 1
+					northView += 1
+				} else {
+					break
+				}
+			}
+
+			// look 'right' until we hit edge or a tree that is taller than our potential tree house
+
+			outlook = col + 1
+
+			if outlook >= len(forest[0]) { eastView = 0 }
+			for outlook < len(forest[0]) - 1 {
+				eastTreeHeight := forest[row][outlook]
+				if eastTreeHeight < currentTreeHeight {
+					outlook += 1
+					eastView += 1
+				} else {
+					break
+				}
+			}
+
+			// look 'down' until we hit edge or a tree that is taller than our potential tree house
+
+			outlook = row + 1
+
+			if outlook >= len(forest) { southView = 0 }
+			for outlook < len(forest) - 1 {
+				southTreeHeight := forest[outlook][col]
+				if southTreeHeight < currentTreeHeight {
+					outlook += 1
+					southView += 1
+				} else {
+					break
+				}
+			}
+			
+			// look 'left' until we hit edge or a tree that is taller than our potential tree house
+
+			outlook = col - 1
+
+			if outlook < 0 { westView = 0 }
+			for outlook > 0 {
+				westTreeHeight := forest[row][outlook]
+				if westTreeHeight < currentTreeHeight {
+					outlook -= 1
+					westView += 1
+				} else {
+					break
+				}
+			}
+
+			view := northView * eastView * southView * westView
+
+			//treeHouseViews[row][col] = view
+
+			if view > bestView {
+				bestView = view
+			}
+		}
+	}
+
+	fmt.Println(bestView)
 }
