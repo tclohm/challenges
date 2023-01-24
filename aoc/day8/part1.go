@@ -38,7 +38,7 @@ func (q *queue) length() int {
 
 func main() {
 	// left, up, right, down
-	//directions := [][]int{{0, -1}, {-1, 0}, {0, 1}, {1, 0},}
+	// directions := [][]int{{0, -1}, {-1, 0}, {0, 1}, {1, 0},}
 
 	file, _ := os.Open("file.txt")
 
@@ -48,7 +48,9 @@ func main() {
 
 	forest := [][]rune{}
 	visited := [][]bool{}
-	q := queue{}
+	// q := queue{}
+
+	visible := 0
 
 	// build the forest and visited 2d array
 	for sc.Scan() {
@@ -68,18 +70,51 @@ func main() {
 	for {
 		// right
 		for col < len(forest[0]) - 1 {
-			q.push(point{col, row})
-			visited[row][col] = true
+			if !visited[row][col] {
+				visited[row][col] = true
+				visible += 1
+			}
+			currentTree := forest[row][col]
+
+			// want to look down
+			for nextRow := 0 ; nextRow < len(forest) ; nextRow++ {
+				nextTree := forest[nextRow][col]
+
+				if nextTree > currentTree {
+					if !visited[nextRow][col] {
+						visited[nextRow][col] = true
+						visible += 1
+					}
+					currentTree = nextTree
+				}
+			}
+
 			col += 1
-			
 		}
 
 		// down
 		for col == len(forest[0]) - 1 && row <= len(forest) - 1 {
-			q.push(point{col, row})
-			visited[row][col] = true
+			if !visited[row][col] {
+				visited[row][col] = true
+				visible += 1
+			}
+			currentTree := forest[row][col]
+
+			// want to look left
+			for nextCol := len(forest[0]) - 1 ; nextCol > 0  ; nextCol-- {
+				nextTree := forest[row][nextCol]
+
+				if nextTree > currentTree {
+					if !visited[row][nextCol] {
+						visited[row][nextCol] = true
+						visible += 1
+					}
+					
+					currentTree = nextTree
+				}
+			}
+
 			row += 1
-			
 		} 
 
 		// left
@@ -87,26 +122,58 @@ func main() {
 		col = len(forest[0]) - 2
 		
 		for col >= 0 && row <= len(forest) {
-			q.push(point{col, row})
-			visited[row][col] = true
+			if !visited[row][col] {
+				visited[row][col] = true
+				visible += 1
+			}
+			currentTree := forest[row][col]
+
+			// want to look up
+			for nextRow := len(forest) - 1 ; nextRow > 0 ; nextRow-- {
+				nextTree := forest[nextRow][col]
+
+				if nextTree > currentTree {
+					if !visited[nextRow][col] {
+						visited[nextRow][col] = true
+						visible += 1
+					}
+					currentTree = nextTree
+				}
+			}
+
 			col -= 1
 		}
 
 		// up
-		
 		col = 0
 		row = len(forest) - 2
 		
 		for col == 0 && row <= len(forest) - 1 && row > 0 {
-			q.push(point{col, row})
-			visited[row][col] = true
+			if !visited[row][col] {
+				visited[row][col] = true
+				visible += 1
+			}
+			currentTree := forest[row][col]
+
+			// want to look right
+			for nextCol := 0 ; nextCol < len(forest[0]) ; nextCol++ {
+				nextTree := forest[row][nextCol]
+
+				if nextTree > currentTree {
+					if !visited[row][nextCol] {
+						visited[row][nextCol] = true
+						visible += 1
+					}
+					currentTree = nextTree
+				}
+
+			}
+			
 			row -= 1
 		}
 
 		break
 	}
 
-	// for q.Length() > 0 {
-	// 	col, row := q.pop()
-	// }
+	fmt.Println(visible)
 }
