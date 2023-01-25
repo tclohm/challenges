@@ -26,10 +26,10 @@ import (
 
 // signal strength -- cycle multiplied by the value of the X register during the 20th cycle
 
-func increment(cycleNumber, x, total *int) {
+func increment(cycleNumber, x, signalStrength *int) {
 	*cycleNumber++
 	if (*cycleNumber - 20) % 40 == 0 && *cycleNumber <= 220 {
-		*total += *x * *cycleNumber
+		*signalStrength += *x * *cycleNumber
 	}
 }
 
@@ -44,16 +44,16 @@ func main() {
 
 	var direction string
 	var number int
-	var value int
+	var signalStrength int
 
 	for sc.Scan() {
 		fmt.Sscanf(sc.Text(), "%s %d", &direction, &number)
-		increment(&cycle, &x, &value)
+		increment(&cycle, &x, &signalStrength)
 		if direction == "addx" {
-			increment(&cycle, &x, &value)
+			increment(&cycle, &x, &signalStrength)
 			x += number
 		}
 	}
 
-	fmt.Println(value)
+	fmt.Println(signalStrength)
 }
