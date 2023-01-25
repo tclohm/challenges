@@ -43,6 +43,7 @@ func adjust(tail, head point) (t point) {
 }
 
 func main() {
+
 	file, _ := os.Open("file.txt")
 
 	defer file.Close()
