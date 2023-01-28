@@ -8,6 +8,24 @@ type BinaryNode struct {
 	Right *BinaryNode
 }
 
+type Queue struct {
+	elements []*BinaryNode
+}
+
+func (self *Queue) length() int {
+	return len(self.elements)
+}
+
+func (self *Queue) push(element *BinaryNode) {
+	self.elements = append(self.elements, element)
+}
+
+func (self *Queue) shift() *BinaryNode {
+	var element = self.elements[0]
+	self.elements = self.elements[1:]
+	return element
+}
+
 func (self *BinaryNode) preorderWalk(curr *BinaryNode, path *[]int) {
 	
 	if curr == nil { return }
@@ -49,6 +67,33 @@ func (self *BinaryNode) postorder() []int{
 	return path
 }
 
+func (self *BinaryNode) bfs(item int) bool {
+	return self.levels(self, item)
+}
+
+func (self *BinaryNode) levels(head *BinaryNode, needle int) bool{
+	var q = Queue{}
+	q.push(head)
+
+	for q.length() > 0 {
+		var curr *BinaryNode = q.shift()
+
+		if curr.Value == needle {
+			return true
+		}
+
+		if curr.Left != nil {
+			q.push(curr.Left)
+		}
+
+		if curr.Right != nil {
+			q.push(curr.Right)
+		}
+	}
+
+	return false
+}
+
 func main() {
 	seven := &BinaryNode{7, nil, nil}
 	six := &BinaryNode{6, nil, nil}
@@ -63,4 +108,6 @@ func main() {
 	fmt.Println(one.inorder())
 	fmt.Println("postorder")
 	fmt.Println(one.postorder())
+
+	fmt.Println(one.bfs(2))
 }
