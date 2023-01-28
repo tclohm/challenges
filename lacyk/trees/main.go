@@ -94,20 +94,53 @@ func (self *BinaryNode) levels(head *BinaryNode, needle int) bool{
 	return false
 }
 
-func main() {
-	seven := &BinaryNode{7, nil, nil}
-	six := &BinaryNode{6, nil, nil}
-	five := &BinaryNode{5, nil, nil}
-	four := &BinaryNode{4, nil, nil}
-	three := &BinaryNode{3, six, seven}
-	two := &BinaryNode{2, four, five}
-	one := &BinaryNode{1, two, three}
-	fmt.Println("preorder")
-	fmt.Println(one.preorder())
-	fmt.Println("inorder")
-	fmt.Println(one.inorder())
-	fmt.Println("postorder")
-	fmt.Println(one.postorder())
+func (self *BinaryNode) compare(a, b *BinaryNode) bool {
+	if a == nil && b == nil { return true }
+	if a == nil || b == nil { return false }
+	if a.Value != b.Value { return false }
 
-	fmt.Println(one.bfs(2))
+	return self.compare(a.Left, b.Left) && self.compare(a.Right, b.Right)
+}
+
+func (self *BinaryNode) search(curr *BinaryNode, needle int) bool {
+	if curr == nil {
+		return false
+	}
+
+	if curr.Value == needle {
+		return true
+	}
+
+	if curr.Value < needle {
+		return self.search(curr.Right, needle)
+	}
+
+	return self.search(curr.Left, needle)
+}
+
+func (self *BinaryNode) dfs(needle int) bool {
+	return self.search(self, needle)
+}
+
+func main() {
+	one := &BinaryNode{1, nil, nil}
+	two := &BinaryNode{2, one, nil}
+	four := &BinaryNode{4, nil, nil}
+	five := &BinaryNode{5, four, nil}
+	three := &BinaryNode{3, two, five}
+	ten := &BinaryNode{10, nil, nil}
+	seven := &BinaryNode{7, nil, nil}
+	eight := &BinaryNode{8, seven, nil}
+	nine := &BinaryNode{9, eight, ten}
+	six := &BinaryNode{6, three, nine}
+	fmt.Println("preorder")
+	fmt.Println(six.preorder())
+	fmt.Println("inorder")
+	fmt.Println(six.inorder())
+	fmt.Println("postorder")
+	fmt.Println(six.postorder())
+
+	fmt.Println(six.bfs(2))
+
+	fmt.Println(six.dfs(4))
 }
