@@ -74,6 +74,24 @@ func (g graph) bfs(source, needle int) []int {
 	
 }
 
+type arraybool [][]bool
+
+type Point struct {
+	x, y int
+}
+
+func walk(maze []string, wall string, curr Point, end Point, seen arraybool, path []Point) bool {
+	// if curr.x < 0 || curr.x >= len(maze[0]) || curr.y < 0 || curr.y >= len(maze) {
+	// 	return false
+	// }
+
+	if curr == needle {
+		return true
+	}
+
+	if seen[curr] { return false }
+}
+
 func main() {
 	g := graph{{0,0},{1,1}, {2,2}}
 	g.bfs(0, 0)
