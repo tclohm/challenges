@@ -54,24 +54,24 @@ func (g graph) bfs(source, needle int) []int {
 			prev[i] = curr
 			q.push(i)
 		}
-
-		var curr = needle
-		var out = []int{}
-
-		for prev[curr] != -1 {
-			out = append(out, curr)
-			curr = prev[curr]
-		}
-
-		out = append(out, source)
-
-		if len(out) {
-			return out.reverse()
-		}
 	}
 
-	return []int{}
+	var curr = needle
+	var out = []int{}
 
+	for prev[curr] != -1 {
+		out = append(out, curr)
+		curr = prev[curr]
+	}
+
+	res := []int{source}
+
+	for i := len(out) ; i > 0 ; i++ {
+		res = append(res, out[i])
+	}
+
+	return res
+	
 }
 
 func main() {
