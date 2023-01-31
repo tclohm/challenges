@@ -4,6 +4,17 @@ import (
 	"fmt"
 )
 
+type GraphEdge struct {
+	to, weight int
+}
+
+type WeightedAdjacencyList [][]GraphEdge
+
+type WeightedAdjacencyMatrix [][]int
+
+type AdjacencyList [][]int
+type AdjacencyMatrix [][]int
+
 type queue struct {
 	elements []int
 }
@@ -81,15 +92,34 @@ type Point struct {
 }
 
 func walk(maze []string, wall string, curr Point, end Point, seen arraybool, path []Point) bool {
-	// if curr.x < 0 || curr.x >= len(maze[0]) || curr.y < 0 || curr.y >= len(maze) {
-	// 	return false
-	// }
 
+	if seen[curr] { 
+		return false 
+	}
+
+	// recurse
+	// pre
+	seen[curr] = true
+	path = append(path, curr)
 	if curr == needle {
 		return true
 	}
 
-	if seen[curr] { return false }
+
+	// recurse
+	var list = graph[curr]
+
+	for i := 0 ; i < len(list) ; i++ {
+		var edge = list[i]
+		if (walk(graph, edge.to, needle, seen, path)) {
+			return true
+		}
+	}
+
+	// post
+	path.pop()
+
+
 }
 
 func main() {
