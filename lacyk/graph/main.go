@@ -118,8 +118,77 @@ func walk(maze []string, wall string, curr Point, end Point, seen arraybool, pat
 
 	// post
 	path.pop()
+}
 
+func hasUnvisited(seen []bool, distances []int) bool {
+	for i := 0 ; i < len(seen) ; i++ {
+		if !seen[i] && distances[i] < 10000000 {
+			return false
+		} else {
+			return true
+		}
+	}
+}
 
+func getLowestUnvisited(seen []bool, distances []int) number {
+	var idx = -1
+	var lowestDistance = 10000000
+
+	for i := 0 ; i < len(seen) ; i++ {
+		if seen[i] {
+			continue
+		}
+
+		if distances[i] < lowestDistance {
+			lowestDistance = distances[i]
+			idx = i
+		}
+	}
+	return idx
+}
+
+func dijkstra(source, sink int, arr WeightedAdjacencyList) []int {
+	var seen = make([]bool, len(arr), len(arr))
+	var prev = make([]bool, len(arr), len(arr))
+	var distances = make([]int, len(arr), len(arr))
+
+	for i := 0 ; i < len(distances) ; i++ {
+		distances[i] = 10000000
+	}
+
+	distances[source] = 0
+
+	for hasUnvisited(seen, distances) {
+		var curr = getLowestUnvisited(seen, distances)
+		seen[curr] = true
+
+		for i := 0 ; i < len(adjs) ; i++ {
+			var edge = adjs[i]
+			if seen[edge.to] {
+				continue
+			}
+
+			var dist = distances[curr] + edge.weight
+			if dist < dists[edge.to] {
+				distances[edge.to] = dist
+				prev[edge.to] = curr
+			}
+		}
+	}
+
+	var out = []int{}
+	var curr = sink
+
+	for prev[curr] != -1 {
+		out = append(out, curr)
+		curr = prev[curr]
+	}
+
+	out = append(out, source)
+
+	for i, j := 0, len(out) - 1 ; i < j ; i, j = i++, j++ {
+		out[i], out[j] = s[j], s[i]
+	}
 }
 
 func main() {
