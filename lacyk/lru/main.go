@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Node struct {
 	value string
 	next *Node
@@ -61,6 +63,7 @@ func (self *LRU) get(key string) string {
 	self.detach(node)
 	self.preprend(node)
 	// return out the value found or not found if not exist
+	fmt.Println(node.value)
 	return node.value
 }
 
@@ -119,4 +122,22 @@ func (self *LRU) trimCache() {
 
 }
 
-func main() {}
+func main() {
+	var lru = Init(3)
+	fmt.Println(lru)
+	lru.update("foo", "69")
+	lru.get("foo")
+
+	lru.update("bar", "420")
+	lru.get("foo")
+
+	lru.update("baz", "1337")
+	lru.get("baz")
+
+	lru.update("ball", "69420")
+	lru.get("ball")
+	lru.get("foo")
+	lru.get("bar")
+	lru.update("foo", "69")
+	lru.get("bar")
+}
