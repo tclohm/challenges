@@ -3,17 +3,17 @@ package main
 import "fmt"
 
 type Solution struct {
-	canindates []int
+	candidates []int
 	target 	   int
 	result 	   [][]int
 }
 
-func (self *Solution) Run(canindates []int, target int) [][]int {
-	if len(canindates) == 0 {
+func (self *Solution) Run(candidates []int, target int) [][]int {
+	if len(candidates) == 0 {
 		return self.result
 	}
 
-	self.canindates = canindates
+	self.candidates = candidates
 	self.target = target
 	self.sum([]int{}, 0, 0)
 	return self.result
@@ -29,14 +29,14 @@ func (self *Solution) sum(current []int, summation, start int) {
 		return
 	}
 
-	for i := start ; i < len(self.canindates) ; i++ {
-		self.sum(append(current, self.canindates[i]), summation+self.canindates[i], i)
+	for i := start ; i < len(self.candidates) ; i++ {
+		self.sum(append(current, self.candidates[i]), summation+self.candidates[i], i)
 	}
 }
 
-func combinationSum(canindates []int, target int) [][]int {
+func combinationSum(candidates []int, target int) [][]int {
 	solution := Solution{}
-	return solution.Run(canindates, target)
+	return solution.Run(candidates, target)
 }
 
 
