@@ -2,9 +2,14 @@ package main
 
 import "fmt"
 
-// all possible permutations --- o(2^n)
+// all possible permutations --- 3 choices * 2 choices * 1 choice = 6 permutations
 // input: [1, 2, 3]
 // output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+
+//	Decision tree
+							 // 	1,     2,      3
+							 //  2  3    1  3    1  2
+						 	 // 3    2  3    1  2    1
 
 // MARK: -- more of a math problem
 func permute(nums []int) [][]int{
