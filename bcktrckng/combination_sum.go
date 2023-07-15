@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 type Solution struct {
 	candidates []int
@@ -39,8 +42,37 @@ func combinationSum(candidates []int, target int) [][]int {
 	return solution.Run(candidates, target)
 }
 
+func combSum(candidates []int, target int) [][]int {
+	result := make([][]int, 0)
+	current := make([]int, 0)
+	sort.Ints(candidates)
 
+	var backtrack func(index int, currentSum int, current []int)
+	backtrack = func(index int, currentSum int, current []int) {
+		if currentSum == target {
+			result = append(result, append([]int{}, current...))
+			return
+		}
+
+		if currentSum > target {
+			return
+		}
+
+		for i := index ; i < len(candidates) ; i++ {
+			if i > index && candidates[i] == candidates[i - 1] {
+				continue
+			}
+			current = append(current, candidates[i])
+			backtrack(i + 1, currentSum+candidates[i], current)
+			current = current[:len(current) - 1]
+		}
+	}
+	backtrack(0, 0, current)
+	return result
+}
 
 func main() {
 	fmt.Println(combinationSum([]int{2, 3, 6, 7}, 7))
+	fmt.Println(combSum([]int{10, 1, 2, 7, 6, 1, 5}, 8))
+	fmt.Println(combSum([]int{2, 5, 2, 1, 2}, 5))
 }
