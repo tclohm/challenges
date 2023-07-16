@@ -29,8 +29,11 @@ func letterCombination(digits string) []string {
 		str := phoneMap[digit]
 
 		for i := 0 ; i < len(str) ; i++ {
+			// add to our current
 			current += string(str[i])
+			// restart the algo
 			backtrack(index + 1)
+			// remove last item in string for other permutations
 			current = current[:len(current) - 1]
 		}
 	}
