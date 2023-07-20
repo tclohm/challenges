@@ -2,14 +2,19 @@ package main
 
 import "fmt"
 
+type set struct {
+	a int
+	b int
+}
+
 func oceans(heights [][]int) [][]int {
 	ROWS, COLS := len(heights), len(heights[0])
-    pac, atl := make(map[int]bool), make(map[int] bool)
+    pac, atl := make(map[set]bool), make(map[set] bool)
     
-    var dfs func(int, int, map[int]bool, int)
-    dfs = func(r, c int, visit map[int]bool, prevHeight int) {
+    var dfs func(int, int, map[set]bool, int)
+    dfs = func(r, c int, visit map[set]bool, prevHeight int) {
         if (
-            visit[r*COLS + c] ||
+            visit[set{r, c}] ||
             r < 0 ||
             c < 0 ||
             r == ROWS ||
@@ -17,7 +22,7 @@ func oceans(heights [][]int) [][]int {
             heights[r][c] < prevHeight) {
             return;
         }
-        visit[r*COLS + c] = true
+        visit[set{r, c}] = true
         dfs(r + 1, c, visit, heights[r][c])
         dfs(r - 1, c, visit, heights[r][c])
         dfs(r, c + 1, visit, heights[r][c])
@@ -37,7 +42,7 @@ func oceans(heights [][]int) [][]int {
     res := make([][]int, 0)
     for r := 0; r < ROWS; r++ {
         for c := 0; c < COLS; c++ {
-            if pac[r*COLS + c] && atl[r*COLS + c] {
+            if pac[set{r, c}] && atl[set{r, c}] {
                 res = append(res, []int{r, c})
             }
         }
