@@ -23,15 +23,14 @@ func max(a, b int) int {
 
 func rob(nums []int) int {
 	one, two := 0, 0
-	for i := 0 ; i < len(nums) ; i += 2 {
-		one += nums[i]
+	
+	for _, num := range nums {
+		tmp := max(num + one, two)
+		one = two
+		two = tmp
 	}
 
-	for i := 1 ; i < len(nums) ; i += 2 {
-		two += nums[i]
-	}
-
-	return max(two, one)
+	return two
 }
 
 func main() {
