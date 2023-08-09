@@ -18,11 +18,11 @@ func rob(nums []int) int {
 
 func robbing(nums []int, start, end int) int {
 	dp := make([]int, len(nums))
-	dp[start] = nums[stairs]
+	dp[start] = nums[start]
 	dp[start+1] = max(nums[start], nums[start + 1])
 
 	for i := start + 2 ; i < end ; i++ {
-		dp[i] = max(nums[i] + dp[i - 2], db[i - 1])
+		dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])
 	}
 
 	return dp[end - 1]
