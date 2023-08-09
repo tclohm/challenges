@@ -59,10 +59,11 @@ func climbOptimized(n int) int {
 	for i := 3 ; i <= n ; i++ {
 		prev, current = current, prev+current
 	}
+
 	return current
 }
 
 func main() {
-	fmt.Println(climb(2))
-	fmt.Println(climb(45))
+	fmt.Println(climbOptimized(2))
+	fmt.Println(climbOptimized(45))
 }
