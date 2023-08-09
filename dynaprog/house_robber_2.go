@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func rob(nums []int) int {
 	n := len(nums)
 
@@ -32,4 +34,9 @@ func max(a, b int) int {
 	}
 
 	return b
+}
+
+func main() {
+	fmt.Println(rob([]int{2, 3, 2}))
+	fmt.Println(rob([]int{1, 2, 3, 1}))
 }
