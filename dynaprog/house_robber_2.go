@@ -12,20 +12,18 @@ func rob(nums []int) int {
 	if n == 2 {
 		return max(nums[0], nums[1])
 	}
-
-	return max(robbing(nums, 0, n-1), robbing(nums, 1, n))
+	return max(robbing(nums[1:]), robbing(nums[:len(nums)-1]))
 }
 
-func robbing(nums []int, start, end int) int {
-	dp := make([]int, len(nums))
-	dp[start] = nums[start]
-	dp[start+1] = max(nums[start], nums[start + 1])
+func robbing(nums []int) int {
 
-	for i := start + 2 ; i < end ; i++ {
-		dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])
+	prev, current := 0, 0
+
+	for _, n := range nums {
+		prev, current = current, max(prev + n, current)
 	}
 
-	return dp[end - 1]
+	return current
 }
 
 func max(a, b int) int {
@@ -39,4 +37,6 @@ func max(a, b int) int {
 func main() {
 	fmt.Println(rob([]int{2, 3, 2}))
 	fmt.Println(rob([]int{1, 2, 3, 1}))
+	fmt.Println(rob([]int{2, 7, 9, 3, 1}))
+	fmt.Println(rob([]int{1, 2, 3}))
 }
