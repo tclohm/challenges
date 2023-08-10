@@ -36,4 +36,9 @@ func main() {
 	fmt.Println(longest("babad"))
 	fmt.Println(longest("racecar"))
 	fmt.Println(longest("cbbd"))
+	fmt.Println(longest("ababababa"))
+	fmt.Println(longest("babbbad"))
+	fmt.Println(longest("aaadb"))
+	fmt.Println(longest("ffffff"))
+	fmt.Println(longest("f"))
 }
