@@ -12,7 +12,6 @@ func rob(nums []int) int {
 	if n == 2 {
 		return max(nums[0], nums[1])
 	}
-
 	return max(robbing(nums[1:]), robbing(nums[:len(nums)-1]))
 }
 
@@ -38,4 +37,6 @@ func max(a, b int) int {
 func main() {
 	fmt.Println(rob([]int{2, 3, 2}))
 	fmt.Println(rob([]int{1, 2, 3, 1}))
+	fmt.Println(rob([]int{2, 7, 9, 3, 1}))
+	fmt.Println(rob([]int{1, 2, 3}))
 }
