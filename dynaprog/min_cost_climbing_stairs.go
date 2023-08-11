@@ -25,6 +25,21 @@ func min_cost(stairs []int) int {
 	return min(dp[n - 1], dp[n - 2])
 }
 
+func min_cost_op(stairs []int) int {
+	first, second := stairs[0], stairs[1]
+	n := len(stairs)
+
+	for i := 2 ; i < n ; i++ {
+		if first > second {
+			first, second = second, second + stairs[i]
+		} else {
+			first, second = second, first + stairs[i]
+		}
+	}
+
+	return min(first, second)
+}
+
 func min(a, b int) int {
 	if a < b { return a }
 	return b
