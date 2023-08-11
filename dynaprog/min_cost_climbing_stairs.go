@@ -11,6 +11,7 @@ import "fmt"
 // 		20 		end end 	end end end
 
 func min_cost(stairs []int) int {
+	// dp -- tracking
 	dp := make([]int, len(stairs))
 	n := len(stairs)
 
