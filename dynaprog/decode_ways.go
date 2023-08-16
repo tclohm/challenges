@@ -19,8 +19,8 @@ func numDecodings(s string) int {
 	dp[0], dp[1] = 1, 1
 
 	for i := 2 ; i <= size ; i++ {
-		s2 := s[i - 2:i]
-		if "10" <= s2 && s2 <= "26" {
+		remaining := s[i - 2:i]
+		if "10" <= remaining && remaining <= "26" {
 			dp[i] = dp[i - 2]
 		}
 
