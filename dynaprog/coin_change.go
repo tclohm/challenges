@@ -14,13 +14,13 @@ func coin_change(coins []int, amount int) int {
 	for i := 1 ; i < amount + 1; i++ {
 		for _, coin := range coins {
 			if i - coin >= 0 {
-				// coin = 4
-				// i = 7
-				// dp[7] = 1 + dp[3]
+				fmt.Println("i", i, "coin", coin)
 				dp[i] = min(dp[i], 1 + dp[i - coin])
+				fmt.Println(dp)
 			}
 		}
 	}
+	fmt.Println("dp at end\t", dp)
 	if dp[amount] != amount + 1 {
 		return dp[amount]
 	}
@@ -42,7 +42,7 @@ func min(a, b int) int {
 // dp[5] => min(1)
 // dp[6] => dp[5] + dp[1] = min(2)
 // dp[7] => dp[5] + dp[2] = min(2)
-// dp[8] => dp[7] + dp[1] = min(4)
+// dp[8] => dp[7] + dp[1] = min(3)
 // dp[9] => dp[5] + dp[4] = min(3)
 // dp[10] => dp[5] + dp[5] = min(2)
 // dp[11] => dp[10] + dp[1] = min(3)
