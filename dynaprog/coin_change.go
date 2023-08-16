@@ -5,22 +5,25 @@ import (
 )
 
 func coin_change(coins []int, amount int) int {
+	// track how much the amount will be at every coin
 	dp := make([]int, amount+1)
+	// make all the amounts one higher than the amount
 	for i := range dp {
 		dp[i] = amount + 1
 	}
+	// zero is zero
 	dp[0] = 0
-
+	// for each amount
 	for i := 1 ; i < amount + 1; i++ {
+		// for each coin
 		for _, coin := range coins {
+			// if the amount - coin is greater than 0, add the 
 			if i - coin >= 0 {
-				fmt.Println("i", i, "coin", coin)
 				dp[i] = min(dp[i], 1 + dp[i - coin])
-				fmt.Println(dp)
 			}
 		}
 	}
-	fmt.Println("dp at end\t", dp)
+	
 	if dp[amount] != amount + 1 {
 		return dp[amount]
 	}
