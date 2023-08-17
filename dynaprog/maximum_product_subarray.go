@@ -38,6 +38,7 @@ func max(a, b int) int {
 }
 
 func main() {
-	// subarray -> [2][2,3][2,3,-2][3,-2][3,-2,4][-2,4] 
+	// subarray -> [2][2,3][2,3,-2][3,-2][3,-2,4][-2,4]
+	// continous subarray -> [2][2,3][2,3,-2][2,3,-2,4][3][3,-2][3,-2,4][-2][-2.4][4]
 	fmt.Println(max_product([]int{2, 3, -2, 4})) // output 6 because [2,3]
 }
