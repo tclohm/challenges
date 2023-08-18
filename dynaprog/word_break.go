@@ -2,6 +2,11 @@ package main
 
 import "fmt"
 
+// Two approaches : DP and DFS
+
+// DP, build a boolean array, check if the string can be segmented into dictionary words
+// leverages the subproblem overlap and build a bottom up solution
+
 func wordBreak(s string, wordDict []string) bool {
 	dp := make([]bool, len(s) + 1)
 	dp[len(s)] = true
@@ -16,7 +21,6 @@ func wordBreak(s string, wordDict []string) bool {
 			}
 		}
 	}
-	fmt.Println(dp)
 	return dp[0]
 }
 
