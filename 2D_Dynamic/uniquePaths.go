@@ -35,7 +35,7 @@ func uniquePathDFS(m, n int) int {
 	return explore(1, 1)
 }
 
-func uniquePath(m, n int) int {
+func uniquePathMemo(m, n int) int {
 	paths := make([][]int, n)
 	for i := 0 ; i < len(paths) ; i++ {
 		paths[i] = make([]int, m)
@@ -61,6 +61,30 @@ func uniquePath(m, n int) int {
 	}
 
 	return explore(0, 0)
+}
+
+func uniquePath(m, n int) int {
+	paths := make([][]int, n)
+
+	for i := 0 ; i < len(paths) ; i++ {
+		paths[i] = make([]int, m)
+	}
+
+	for i := 0 ; i < m ; i++ {
+		paths[0][i] = 1
+	}
+
+	for i := 0 ; i < n ; i++ {
+		paths[i][0] = 1
+	}
+
+	for i := 1 ; i < m ; i++ {
+		for k := 1; k < n ; k++ {
+			paths[k][i] = paths[k][i - 1] + paths[k - 1][i]
+		}
+	}
+
+	return paths[n - 1][m - 1]
 }
 
 func main() {
