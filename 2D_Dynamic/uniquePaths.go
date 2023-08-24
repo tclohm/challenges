@@ -13,7 +13,7 @@ import "fmt"
 // return the number of possible unique paths 
 // that the robot can take to reach the bottom-right corner.
 
-func uniquePath(m, n int) int {
+func uniquePathDFS(m, n int) int {
 	var explore func(i, j int) int
 	explore = func(i, j int) int {
 		if i == m && j == n {
@@ -33,6 +33,34 @@ func uniquePath(m, n int) int {
 		return ipaths + jpaths
 	}
 	return explore(1, 1)
+}
+
+func uniquePath(m, n int) int {
+	paths := make([][]int, n)
+	for i := 0 ; i < len(paths) ; i++ {
+		paths[i] = make([]int, m)
+	}
+	paths[n - 1][m - 1] = 1
+
+	var explore func(i, j int) int
+	explore = func(i, j int) int {
+		if paths[j][i] != 0 {
+			return paths[j][i]
+		}
+
+		var ipaths, jpaths int
+
+		if i < m - 1 {
+			ipaths = explore(i + 1, j)
+		}
+		if j < n - 1 {
+			jpaths = explore(i, j + 1)
+		}
+		paths[j][i] = ipaths + jpaths
+		return ipaths + jpaths
+	}
+
+	return explore(0, 0)
 }
 
 func main() {
