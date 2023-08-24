@@ -64,27 +64,16 @@ func uniquePathMemo(m, n int) int {
 }
 
 func uniquePath(m, n int) int {
-	paths := make([][]int, n)
-
-	for i := 0 ; i < len(paths) ; i++ {
-		paths[i] = make([]int, m)
-	}
+	dp := make([]int, n)
+	dp[0] = 1
 
 	for i := 0 ; i < m ; i++ {
-		paths[0][i] = 1
-	}
-
-	for i := 0 ; i < n ; i++ {
-		paths[i][0] = 1
-	}
-
-	for i := 1 ; i < m ; i++ {
-		for k := 1; k < n ; k++ {
-			paths[k][i] = paths[k][i - 1] + paths[k - 1][i]
+		for j := 1 ; j < n ; j++ {
+			dp[j] += dp[j - 1]
 		}
 	}
 
-	return paths[n - 1][m - 1]
+	return dp[n - 1]
 }
 
 func main() {
