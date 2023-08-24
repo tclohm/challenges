@@ -63,17 +63,18 @@ func uniquePathMemo(m, n int) int {
 	return explore(0, 0)
 }
 
-func uniquePath(m, n int) int {
-	dp := make([]int, n)
+func uniquePath(height, width int) int {
+	dp := make([]int, width)
 	dp[0] = 1
 
-	for i := 0 ; i < m ; i++ {
-		for j := 1 ; j < n ; j++ {
-			dp[j] += dp[j - 1]
+	for h := 0 ; h < height ; h++ {
+		for w := 1 ; w < width ; w++ {
+			dp[w] += dp[w - 1]
 		}
 	}
 
-	return dp[n - 1]
+
+	return dp[width - 1]
 }
 
 func main() {
