@@ -48,4 +48,6 @@ func groupAnagrams(strs []string) [][]string {
 
 func main() {
 	fmt.Println(groupAnagrams([]string{"eat","tea","tan","ate","nat","bat"}))
+	fmt.Println(groupAnagrams([]string{""}))
+	fmt.Println(groupAnagrams([]string{"racecar", "car", "race", "lame", "blame", "flame", "label", "bell", "lebl"}))
 }
