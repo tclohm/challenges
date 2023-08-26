@@ -51,9 +51,10 @@ func topKFrequent(nums []int, k int) []int {
 
 	result := []int{}
 	for i := len(frequency) - 1 ; i > 0 ; i-- {
-		numbers := frequency[i]
-		if i >= k {
-			result = append(result, numbers...)
+		for _, number := range frequency[i] {
+			if i >= k {
+				result = append(result, number)
+			}
 		}
 	}
 	return result
