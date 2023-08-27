@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-
+// travel forward and back
 func productExceptSelf(nums []int) []int {
 	result := make([]int, len(nums))
 	pre := 1
