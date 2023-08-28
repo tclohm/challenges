@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func longestConsecutive(nums []int) int {
+func mySolution(nums []int) int {
     largest := 0
 
     for _, n := range nums {
@@ -34,6 +34,33 @@ func longestConsecutive(nums []int) int {
     }
 
     return longest
+}
+
+func longestConsecutive(nums []int) int {
+    set := map[int]bool{}
+
+    for _, num := range nums {
+        set[num] = true
+    }
+
+    res := 0
+
+    for _, num := range nums {
+        if set[num-1] { continue }
+        sequence := 1
+        tmp := num + 1
+
+        for set[tmp] {
+            sequence++
+            tmp++
+        }
+
+        if sequence > res {
+            res = sequence
+        }
+    }
+
+    return res
 }
 
 func main() {
