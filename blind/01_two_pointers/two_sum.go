@@ -14,7 +14,7 @@ func twoSum(numbers []int, target int) []int {
    		if numbers[end] + numbers[start] > target { end-- }
    	}
     	
-    return []int{0}
+    return []int{0,0}
 }
 
 func main() {
