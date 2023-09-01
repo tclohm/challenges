@@ -24,6 +24,7 @@ func threeSum(nums []int) [][]int {
             target := nums[i] + nums[left] + nums[right]
 
             if target == 0 {
+                
                 res = append(res, []int{nums[i], nums[left], nums[right]})
 
                 left, right = left+1, right-1
