@@ -3,25 +3,26 @@ package main
 import "fmt"
 
 func length_of_longest_substring(s string) int {
-	ht := make(map[byte]int)
-	longest := 0
-	length := 0
-	for i := 0 ; i < len(s) ; i++ {
-		b := s[i]
-		if _, exist := ht[b]; exist {
-			if length >= longest {
-				longest = length
-				length = 0
-			}
-			ht[b] = i
-			length += 1
-		} else {
-			ht[b] = i
-			length += 1
+	set := make(map[byte]int)
+	left, longest := 0, 0
+
+	for right, _ := range s {
+		for set(s[right]) {
+			delete(set, s[left])
+			l++
 		}
+		set[s[right]] = true
+		longest = max(longest, right - left + 1)
 	}
+
 	return longest
 }
+
+func max(a, b int) int {
+	if a > b { return a }
+	return b
+}
+
 
 func main() {
 	fmt.Println(length_of_longest_substring("abcabcbb"))
