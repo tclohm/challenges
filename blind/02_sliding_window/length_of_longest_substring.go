@@ -3,13 +3,13 @@ package main
 import "fmt"
 
 func length_of_longest_substring(s string) int {
-	set := make(map[byte]int)
+	set := make(map[byte]bool)
 	left, longest := 0, 0
 
 	for right, _ := range s {
-		for set(s[right]) {
+		for set[s[right]] {
 			delete(set, s[left])
-			l++
+			left++
 		}
 		set[s[right]] = true
 		longest = max(longest, right - left + 1)
