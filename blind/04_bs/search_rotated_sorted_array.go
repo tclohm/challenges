@@ -4,10 +4,8 @@ import "fmt"
 
 func search(nums []int, target int) int {
 	right, left := len(nums) - 1, 0
-
 	// is the target larger than the right, search left side
 	// is the target larger than the left, search right side
-
 	for left <= right {
 		middle := left + ((right - left) / 2)
 		if nums[middle] == target { return middle }
