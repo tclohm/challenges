@@ -1,27 +1,28 @@
 package main
 
 import "fmt"
-
+// either the smallest will be on the left side or right side
 func findMin(nums []int) int {
 	left_bound := 0
 	right_bound := len(nums) - 1
 	// left + ((right - left) / 2)
-	middle := left_bound + ((right_bound - left_bound) / 2)
+	smallest := nums[0]
 
-	for {
-		if nums[left_bound] == nums[right_bound] {
-			return nums[middle]
-		} else if nums[left_bound] > nums[right_bound] {
-			//fmt.Println("left is greater")
-			left_bound = middle
-			middle = left_bound + ((right_bound - left_bound) / 2)
+	for left_bound <= right_bound {
+		middle := left_bound + ((right_bound - left_bound) / 2)
+		// if left is less than middle than move the left to the middle
+		if nums[0] <= nums[middle] {
+			left_bound = middle + 1
 		} else {
-			//fmt.Println("right is greater")
-			right_bound = middle
-			middle = left_bound + ((right_bound - left_bound) / 2)
+			// if middle is smaller than smallest, set it as smallest and move right to middle
+			if nums[middle] < smallest {
+				smallest = nums[middle]
+			}
+			right_bound = middle - 1
 		}
+
 	}
-	return middle
+	return smallest
 }
 
 func main() {
