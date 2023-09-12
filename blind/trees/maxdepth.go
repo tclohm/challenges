@@ -53,22 +53,15 @@ func print_binary_tree(root *Node, level int, prefix string) {
 }
 
 func maxdepth(root *Node) int {
-	deepest := 0
-	var dfs func(root *Node, level int, deepest *int)
-	dfs = func(root *Node, level int, deepest *int)  {
-		if level > *deepest {
-			*deepest = level
-		}
-		if root.left != nil {
-			dfs(root.left, level+1, deepest)
-		}
-		if root.right != nil {
-			dfs(root.right, level+1, deepest)
-		}
+	if root == nil {
+		return 0
 	}
 
-	dfs(root, 0, &deepest)
-	return deepest + 1
+	left := maxdepth(root.left)
+	right := maxdepth(root.right)
+
+	if left > right { return 1 + left }
+	return right + 1
 }
 
 func line_break() {
