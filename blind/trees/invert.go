@@ -53,8 +53,8 @@ func print_binary_tree(root *Node, level int, prefix string) {
 }
 
 func invert(root *Node) *Node {
-	// breadth first swapping
 	if root == nil { return root }
+	
 	left := invert(root.left)
 
 	root.left = invert(root.right)
