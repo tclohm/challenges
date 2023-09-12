@@ -44,7 +44,6 @@ func build_binary_tree(list []int) *Node {
 
 func print_binary_tree(root *Node, level int, prefix string) {
 	if root != nil {
-
 		fmt.Println(strings.Repeat(" ", level * 4), prefix, root.value)
 		if root.left != nil || root.right != nil {
 			print_binary_tree(root.left, level+1, "L--- ")
