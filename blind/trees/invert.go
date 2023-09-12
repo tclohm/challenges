@@ -55,10 +55,12 @@ func print_binary_tree(root *Node, level int, prefix string) {
 func invert(root *Node) *Node {
 	if root == nil { return root }
 	
-	left := invert(root.left)
+	tmp := root.left
+	root.left = root.right
+	root.right = tmp
 
-	root.left = invert(root.right)
-	root.right = left
+	invert(root.left)
+	invert(root.right)
 
 	return root
 }
