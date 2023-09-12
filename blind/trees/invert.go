@@ -52,14 +52,22 @@ func print_binary_tree(root *Node, level int, prefix string) {
 	}
 }
 
-// func invert(tree *TreeNode) *TreeNode {
-// 	// breadth first swapping
-// }
+func invert(root *Node) *Node {
+	// breadth first swapping
+	if root != nil {
+
+	}
+
+	return &Node{}
+}
 
 func main() {
 	// n
 	// left = parent_index * 2 + 1
 	// right = parent_index * 2 + 2
-	root := build_binary_tree([]int{45, 22, 32, 40, 88, 92, 12})
+	root := build_binary_tree([]int{4, 2, 7, 1, 3, 6, 9})
 	print_binary_tree(root, 0, "Root: ")
+	fmt.Println("\n", strings.Repeat("-", 45), "\n")
+	r := build_binary_tree([]int{2, 1, 3})
+	print_binary_tree(r, 0, "Root: ")
 }
