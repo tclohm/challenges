@@ -1,4 +1,4 @@
-package base
+package common
 
 import (
 	"fmt"
@@ -6,9 +6,9 @@ import (
 )
 
 type Node struct {
-	value int
-	left *Node
-	right *Node
+	Value int
+	Left *Node
+	Right *Node
 }
 
 func Build_binary_tree(list []int) *Node {
@@ -16,7 +16,7 @@ func Build_binary_tree(list []int) *Node {
 	nodes := make([]*Node, len(list))
 
 	for i := 0 ; i < len(list) ; i++ {
-		nodes[i] = &Node{value: list[i]}
+		nodes[i] = &Node{Value: list[i]}
 	}
 
 	root := nodes[0]
@@ -28,11 +28,11 @@ func Build_binary_tree(list []int) *Node {
 			right_index := 2 * index + 2
 
 			if left_index < len(list) {
-				node.left = nodes[left_index]
+				node.Left = nodes[left_index]
 			}
 
 			if right_index < len(list) {
-				node.right = nodes[right_index]
+				node.Right = nodes[right_index]
 			}
 
 			index += 1
@@ -44,10 +44,10 @@ func Build_binary_tree(list []int) *Node {
 
 func Print_binary_tree(root *Node, level int, prefix string) {
 	if root != nil {
-		fmt.Println(strings.Repeat(" ", level * 4), prefix, root.value)
-		if root.left != nil || root.right != nil {
-			Print_binary_tree(root.left, level+1, "L--- ")
-			Print_binary_tree(root.right, level+1, "R--- ")
+		fmt.Println(strings.Repeat(" ", level * 4), prefix, root.Value)
+		if root.Left != nil || root.Right != nil {
+			Print_binary_tree(root.Left, level+1, "L--- ")
+			Print_binary_tree(root.Right, level+1, "R--- ")
 		}
 	}
 }
