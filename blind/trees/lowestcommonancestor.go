@@ -5,7 +5,9 @@ import (
 	"fmt"
 )
 
+// root is the most common ancestor, maybe not the lowest
 func lca(root, n1, n2 *tree.Node) *tree.Node {
+	// right is bigger and left is lower
 	if n1.Value > root.Value && n2.Value > root.Value {
 		return lca(root.Right, n1, n2)
 	}
