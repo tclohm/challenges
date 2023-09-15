@@ -12,8 +12,11 @@ func subtree(a, b *tree.Node) bool {
 }
 
 func equals(a, b *tree.Node) bool {
+	// is empty?
 	if a == nil && b == nil { return true }
+	// is one of them not empty or are the values different?
 	if a == nil || b == nil || a.Value != b.Value { return false }
+	// left subtrees same? right same?
 	return equals(a.Left, b.Left) && equals(a.Right, b.Right)
 }
 
