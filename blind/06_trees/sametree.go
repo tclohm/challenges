@@ -6,6 +6,8 @@ import (
 )
 
 func sametree(a, b *tree.Node) bool {
+	// is a and b nil, equals true
+	// if a or b is nil, or the values are not the same, equal false
 	if a == nil && b == nil { return true }
 	if a == nil || b == nil || a.Value != b.Value { return false }
 	return sametree(a.Left, b.Left) && sametree(a.Right, b.Right)
