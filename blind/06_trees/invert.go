@@ -6,14 +6,16 @@ import (
 )
 
 func invert(root *tree.Node) *tree.Node {
+	// left to right
+	// right to left
+
 	if root == nil { return root }
 
-	left := invert(root.Right)
-	root.Right = invert(root.Left)
-	root.Left = left
+	left := invert(root.Left)
+	root.Left = invert(root.Right)
+	root.Right = left
 
 	return root
-
 }
 
 func main() {
