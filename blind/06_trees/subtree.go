@@ -7,7 +7,6 @@ import (
 
 func subtree(a, b *tree.Node) bool {
 	if a == nil { return false }
-	
 	return equals(a, b) || subtree(a.Left, b) && subtree(a.Right, b)
 }
 
