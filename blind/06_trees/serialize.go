@@ -8,6 +8,13 @@ import (
 )
 
 // Serializes a tree to a single string.
+
+// empty string and store the tree
+// perform a depth-first traversal (pre-order traversal) of the binary tree
+// each node append it's value to the string, followed by a delimiter
+// if a node is empty, append with special marker, "null"
+// continue process for all nodes in the tree
+// result string will represent serialized binary tree
 func serialize(root *tree.Node) string {
 	var serialized = []string{}
     var dfs func(root *tree.Node)
@@ -26,6 +33,12 @@ func serialize(root *tree.Node) string {
 }
 
 // Deserializes your encoded data to tree.
+// split the string using the delimiter to obtain a list of node values
+// init an index to 0, keep track of the current position in the list of values and 
+// index an arguments and return next node in tree
+// recurse, if the current value at the index is the special marker, "null", increment the index and return nil
+// otherwise create a new node with the current values and increment the index
+// recurse on left and right child and return node
 func deserialize(data string) *tree.Node {    
     var build_tree func() *tree.Node
     var position = 0
