@@ -7,6 +7,12 @@ import (
 	"strings"
 )
 
+type Codec struct {}
+
+func Constructor() Codec {
+	return Codec{}
+}
+
 // Serializes a tree to a single string.
 
 // empty string and store the tree
@@ -15,7 +21,7 @@ import (
 // if a node is empty, append with special marker, "null"
 // continue process for all nodes in the tree
 // result string will represent serialized binary tree
-func serialize(root *tree.Node) string {
+func (self *Codec) serialize(root *tree.Node) string {
 	var serialized = []string{}
     var dfs func(root *tree.Node)
 
@@ -39,7 +45,7 @@ func serialize(root *tree.Node) string {
 // recurse, if the current value at the index is the special marker, "null", increment the index and return nil
 // otherwise create a new node with the current values and increment the index
 // recurse on left and right child and return node
-func deserialize(data string) *tree.Node {    
+func (self *Codec) deserialize(data string) *tree.Node {    
     var build_tree func() *tree.Node
     var position = 0
     var values = strings.Split(data, ",")
@@ -60,12 +66,13 @@ func deserialize(data string) *tree.Node {
 }
 
 func main() {
+	c := Constructor()
 	r := tree.Build_binary_tree([]int{1,2,3,4,5,6,7,8,9,10,11,12})
 	tree.Print_binary_tree(r, 0, "Root: ")
-	s := serialize(r)
+	s := c.serialize(r)
 	tree.Line_break()
 	fmt.Println("serialized", s)
-	d := deserialize(s)
+	d := c.deserialize(s)
 	tree.Print_binary_tree(d, 0, "Root: ")
 	tree.Line_break()
 }
