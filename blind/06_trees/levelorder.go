@@ -8,7 +8,7 @@ import (
 func order(root *tree.Node) [][]int {
 	if root == nil { return nil }
 
-	var result [][]int
+	var result = [][]int{}
 	var level = 0
 	var queue = []*tree.Node{root}
 
