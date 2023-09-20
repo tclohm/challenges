@@ -10,16 +10,17 @@ func kthSmallest(root *tree.Node, k int) int {
 
 	for {
 		for root != nil {
+			// left should be smaller
 			stack = append(stack, root)
 			root = root.Left
 		}
-
+		// move through left side from above
 		root = stack[len(stack) - 1]
 		stack = stack[:len(stack) - 1]
 
 		k--
 		if k == 0 { return root.Value }
-
+		// if didn't find k, we make root the right side
 		root = root.Right
 	}
 
