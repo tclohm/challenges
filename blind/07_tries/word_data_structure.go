@@ -5,7 +5,7 @@ import (
 )
 
 type TrieNode struct {
-	children map[rune]*TrieNode
+	children map[byte]*TrieNode
 	word bool
 }
 
@@ -15,17 +15,17 @@ type WordDictionary struct {
 
 
 func Constructor() WordDictionary {
-    return WordDictionary{root: &TrieNode{children: make(map[rune]*TrieNode)}}
+    return WordDictionary{root: &TrieNode{children: make(map[byte]*TrieNode)}}
 }
 
 
 func (this *WordDictionary) AddWord(word string)  {
 	node := this.root
-    for _, r := range word {
-    	if node.children[r] == nil {
-    		node.children[r] = &TrieNode{children: make(map[rune]*TrieNode)}
+    for i, _ := range word {
+    	if node.children[word[i]] == nil {
+    		node.children[word[i]] = &TrieNode{children: make(map[byte]*TrieNode)}
     	}
-    	node = node.children[r]
+    	node = node.children[word[i]]
     }
     node.word = true
 }
@@ -37,20 +37,20 @@ func (this *WordDictionary) Search(word string) bool {
 		node := root
 
 		for index := i ; index < len(word) ; index++ {
-			r := rune(word[index])
+			b := word[index]
 
-			if r == '.' {
+			if b == '.' {
 				for _, child := range node.children {
-					if dfs(i + 1, child) {
+					if dfs(index + 1, child) {
 						return true
 					}
 				}
 				return false
 			} else {
-				if _, ok := node.children[r]; !ok {
+				if _, ok := node.children[b]; !ok {
 					return false
 				}
-				node = node.children[r]
+				node = node.children[b]
 			}
 		}
 		return node.word
