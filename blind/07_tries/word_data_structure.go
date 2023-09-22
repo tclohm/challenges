@@ -22,35 +22,37 @@ func Constructor() WordDictionary {
 func (this *WordDictionary) AddWord(word string)  {
 	node := this.root
     for i, _ := range word {
-    	if node.children[word[i]] == nil {
-    		node.children[word[i]] = &TrieNode{children: make(map[byte]*TrieNode)}
+    	bite := word[i]
+    	if node.children[bite] == nil {
+    		node.children[bite] = &TrieNode{children: make(map[byte]*TrieNode)}
     	}
-    	node = node.children[word[i]]
+    	node = node.children[bite]
     }
     node.word = true
 }
 
 
 func (this *WordDictionary) Search(word string) bool {
-	var dfs func(i int, root *TrieNode) bool
+	var dfs func(int, *TrieNode) bool
 	dfs = func(i int, root *TrieNode) bool {
 		node := root
 
 		for index := i ; index < len(word) ; index++ {
-			b := word[index]
+			bite := word[index]
 
-			if b == '.' {
+			if bite == '.' {
 				for _, child := range node.children {
+					// backtracking or recursion
 					if dfs(index + 1, child) {
 						return true
 					}
 				}
 				return false
 			} else {
-				if _, ok := node.children[b]; !ok {
+				if _, ok := node.children[bite]; !ok {
 					return false
 				}
-				node = node.children[b]
+				node = node.children[bite]
 			}
 		}
 		return node.word
