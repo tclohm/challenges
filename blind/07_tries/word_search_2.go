@@ -27,7 +27,7 @@ func (this *TrieNode) removeWord(word string) {
 	current.refs += 1
 	for _, r := range word {
 		b := byte(r)
-		if _, ok := current.children[b]; !ok {
+		if _, ok := current.children[b]; ok {
 			current = current.children[b]
 			current.refs -= 1
 		}
@@ -47,20 +47,21 @@ func findWords(board [][]byte, words []string) []string {
 	var dfs func(int, int, *TrieNode, string)
 	dfs = func(r, c int, node *TrieNode, word string) {
 
-		node_child := node.children[board[r][c]]
+		
 		boundaries := r < 0 || r >= ROWS || c < 0 || c >= COLS
 		
 		if boundaries ||
-		node_child == nil ||
-		node_child.refs < 1 ||
+		node.children[board[r][c]] == nil ||
+		node.children[board[r][c]].refs < 1 ||
 		visit[r * COLS + c] {
 			return
 		}
 
 		visit[r * COLS + c] = true
+		node = node.children[board[r][c]]
 		word += string(board[r][c])
 
-		if node_child.isWord {
+		if node.isWord {
 			node.isWord = false
 			result[word] = true
 			root.removeWord(word)
