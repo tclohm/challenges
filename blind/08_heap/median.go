@@ -1,13 +1,17 @@
 package main
 
+import "fmt"
+
 type IntHeap []int
 func (this IntHeap)  Len()          	int  		{ return len(this) }
-func (this IntHeap)  Less(i, j int) 	bool 		{ return this[i], this[j] }
+func (this IntHeap)  Less(i, j int) 	bool 		{ return this[i] < this[j] }
 func (this IntHeap)  Swap(i, j int) 	 	 		{ this[i], this[j] = this[j], this[i] }
 func (this *IntHeap) Push(x interface{}) 	        { *this = append(*this, x.(int)) }
 func (this *IntHeap) Pop() 				interface{} {
-	el := *this[len(*this) - 1]
-	*this = *this[0 : len(*this) - 1]
+	hp := *this
+    n := len(hp)
+    el := hp[n - 1]
+	*this = hp[0 : n - 1]
 	return el
 }
 
@@ -51,5 +55,10 @@ func (this *MedianFinder) FindMedian() float64 {
 }
 
 func main() {
-    
+    mf := Constructor()
+    mf.AddNum(1)
+    mf.AddNum(2)
+    fmt.Println(mf.FindMedian())
+    mf.AddNum(3)
+    fmt.Println(mf.FindMedian())
 }
