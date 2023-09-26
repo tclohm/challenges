@@ -27,24 +27,37 @@ func Constructor() MedianFinder {
 
 
 func (this *MedianFinder) AddNum(num int)  {
-    if len(this.large) > 0 && num > this.large[0] {
+    // if large length is greater than 0 
+    // and the number being added is larger than
+    // largest element
+    // add it
+    // if not add it to the small heap and make it negative
+    if this.large.Len() > 0 && num > this.large[0] {
         this.large.Push(num)
     } else {
         this.small.Push(-1 * num)
     }
-
+    // if small heap is larger than the big heap
+    // pull the value from the small heap and make it positive
+    // then add it to the large heap
     if this.small.Len() > this.large.Len() + 1 {
         val := -1 * this.small.Pop().(int)
         this.large.Push(val)
     }
-
+    // if the large heap is bigger than the small heap
+    // pull a value from the large heap and place it into the small heap as a negative
     if this.large.Len() > this.small.Len() + 1 {
         val := -1 * this.large.Pop().(int)
         this.large.Push(-1 * val)
     }
 }
 
-
+// if small heap larger than large heap
+// return first element from small and make it positive
+// if large heap is larger than small heap
+// return from large heap
+// if both heaps are equal
+// take the from the first of both heaps and add them together and divide by 2
 func (this *MedianFinder) FindMedian() float64 {
     if this.small.Len() > this.large.Len() {
         return float64(-1 * this.small[0])
