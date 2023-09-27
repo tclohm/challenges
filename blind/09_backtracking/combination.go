@@ -19,13 +19,13 @@ func combination(candidates []int, target int) [][]int {
 		if sum > target {
 			return
 		}
-		// the meat of the algo, move through numbers and call func
-		// after func called, decrease currents length
-		// index is the starting point
+		
+		// two choices are being made here
+		// 1. we attach the candidate onto current and proceed with the backtrack
+		// 2. the next backtrack will occur without the canindate we appending earlier
 		for i := index ; i < len(candidates) ; i++ {
 			current = append(current, candidates[i])
 			backtrack(i, sum+candidates[i], current)
-			// pop the last element off our current array
 			current = current[:len(current) - 1]
 		}
 	}
