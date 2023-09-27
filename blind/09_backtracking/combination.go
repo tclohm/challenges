@@ -8,29 +8,31 @@ func combination(candidates []int, target int) [][]int {
 	var current = make([]int, 0)
 	var backtrack func (int, int, []int)
 
-	backtrack = func (index int, sum int, current []int) {
-		// check if sum === target
-		// if true, append current to result
-		if sum == target {
+	backtrack = func (index, total int, current []int) {
+		if total == target {
 			result = append(result, append([]int{}, current...))
 			return
 		}
-		// if sum is greater than target, return
-		if sum > target {
+
+		if total > target {
 			return
 		}
-		// the meat of the algo, move through numbers and call func
-		// after func called, decrease currents length
-		// index is the starting point
+
 		for i := index ; i < len(candidates) ; i++ {
+			// append candidates[i] to array
 			current = append(current, candidates[i])
-			backtrack(i, sum+candidates[i], current)
-			// pop the last element off our current array
+			// backtrack
+			backtrack(i, total+candidates[i], current)
+			// pull the candidates last element, for the next backtrack
 			current = current[:len(current) - 1]
 		}
+
 	}
-	backtrack(0,0,current)
+
+	backtrack(0, 0, current)
+
 	return result
+
 }
 
 func main() {

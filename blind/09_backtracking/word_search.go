@@ -11,6 +11,7 @@ func exist(board [][]byte, word string) bool {
 		if row < 0 || col < 0 || row >= ROWS || col >= COLS || current == len(word) {
 			return false
 		}
+		// is the letter != board[r][c] || has board[r][c] been visited
 		if board[row][col] != word[current] || board[row][col] == '*' {
 			return false
 		}
@@ -19,10 +20,11 @@ func exist(board [][]byte, word string) bool {
 		}
 
 		char := board[row][col]
+		// visited spot			
 		board[row][col] = '*'
 
 		result := dfs(row + 1, col, current + 1) || dfs(row - 1, col, current + 1) || dfs(row, col + 1, current + 1) || dfs(row, col - 1, current + 1)
-		
+		// remove visited sport after dfs
 		board[row][col] = char
 
 		return result
