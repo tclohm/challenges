@@ -8,8 +8,9 @@ func count(n int, edges [][]int) int {
 	var components int = 0
 
 	var visited = make([]bool, n)
+	// adjacency list
 	var graph = make(map[int][]int)
-
+	// build adjacency
 	for _, edge := range edges {
 		var to = edge[0]
 		var from = edge[1]
@@ -19,19 +20,20 @@ func count(n int, edges [][]int) int {
 	}
 
 	var dfs func (int)
-
 	dfs = func (node int) {
 		visited[node] = true
 
 		neighbors := graph[node]
-
+		// visit the neighbors
 		for _, neighbor := range neighbors {
+			// if neighbor not in visited, 
+			// let's pop it onto the stack
 			if !visited[neighbor] {
 				dfs(neighbor)
 			}
 		}
 	}
-
+	// start the visiting and increment components
 	for node := 0 ; node < n ; node++ {
 		if !visited[node] {
 			components++
