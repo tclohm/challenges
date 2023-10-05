@@ -2,10 +2,10 @@ package main
 
 import "fmt"
 
-type set map[string]struct{}
+type set map[string][]string
 
-func (s set) add(c string) {
-	s[c] = struct{}{}
+func (s set) add(w1, w2 string) {
+	s[w1] = append(s[w1], w2)
 }
 
 // return a string of the unique letters in the new alien language sorted in lexicographically
@@ -30,7 +30,7 @@ func alien(words []string) string {
 
 		for index := 0 ; index < smaller ; index++ {
 			if w1[index] != w2[index] {
-				adjancency[string(w1[index])].add(string(w2[index]))
+				adjancency[string(w1[index])].add(string(w1[index]), string(w2[index]))
 				break
 			}
 		}
@@ -47,9 +47,11 @@ func alien(words []string) string {
 
 		visited[s] = true
 
-		for _, neighbor := range adjancency[s] {
-			if dfs(neighbor) {
-				return true
+		for _, neighbors := range adjancency[s] {
+			for _, neighbor := range neighbors {
+				if dfs(neighbor) {
+					return true
+				}
 			}
 		}
 
@@ -58,8 +60,9 @@ func alien(words []string) string {
 		return false
 	}
 
-	for _, char := range adjancency {
-		if dfs(char) {
+	for key, _ := range adjancency {
+
+		if dfs(key) {
 			return ""
 		}
 	}
