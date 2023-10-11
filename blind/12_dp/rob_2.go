@@ -3,18 +3,8 @@ package main
 import "fmt"
 
 func rob(nums []int) int {
-	highest := nums[0]
-	i := 0
-
-	if i + 1 == len(nums) {
-		return 0
-	}
-
-	// max(nums[i], nums[i+1])
-
-	// nums[step]
-	// nums[step + 1] 
-	
+	if len(nums) == 1 { return nums[0] }
+	return -1
 }
 
 func main() {
