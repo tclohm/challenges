@@ -8,7 +8,8 @@ func rob(nums []int) int {
 	if len(nums) == 2 {
 		return max(nums[0], nums[1])
 	}
-	// what's bigger, nums[0:length - 1] or nums[1:length]
+	// what's bigger, nums[0:length - 1] or nums[1:length], 
+	// this just looking at rob house with more boundaries
 	return max(robbing(nums, 0, len(nums)-1), robbing(nums, 1, len(nums)))
 }
 
