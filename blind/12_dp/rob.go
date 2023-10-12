@@ -39,6 +39,7 @@ func robMemo(nums []int, index int, memo []int) int {
 	}
 	// index - 2, index - 1 is always comparing against each other
 	// index - 2 always adds nums[index]
+	// recursive call on both using the stack to keep stored results
 	result := max(robMemo(nums, index - 2, memo) + nums[index], robMemo(nums, index - 1, memo))
 	memo[index] = result
 	return result
