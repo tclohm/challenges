@@ -8,11 +8,11 @@ func rob(nums []int) int {
 	return robbing(nums, len(nums) - 1)
 }
 
-func robbing(nums []int , length int) int {
-	if length < 0 {
+func robbing(nums []int , index int) int {
+	if index < 0 {
 		return 0
 	}
-	return max(robbing(nums, length - 2) + nums[length], robbing(nums, length - 1))
+	return max(robbing(nums, index - 2) + nums[index], robbing(nums, index - 1))
 }
 
 func max(a, b int) int {
@@ -30,16 +30,17 @@ func robbingMemo(nums []int) int {
 	return robMemo(nums, len(nums) - 1, memo)
 }
 
-func robMemo(nums []int, length int, memo []int) int {
-	if length < 0 {
+func robMemo(nums []int, index int, memo []int) int {
+	if index < 0 {
 		return 0
 	}
-	if memo[length] >= 0 {
-		return memo[length]
+	if memo[index] >= 0 {
+		return memo[index]
 	}
-
-	result := max(robMemo(nums, length - 2, memo) + nums[length], robMemo(nums, length - 1, memo))
-	memo[length] = result
+	// index - 2, index - 1 is always comparing against each other
+	// index - 2 always adds nums[index]
+	result := max(robMemo(nums, index - 2, memo) + nums[index], robMemo(nums, index - 1, memo))
+	memo[index] = result
 	return result
 }
 
