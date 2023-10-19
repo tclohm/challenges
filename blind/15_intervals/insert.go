@@ -21,8 +21,10 @@ func insert(intervals double, newInterval []int) double {
 			result = append(result, array)
 
 		} else {
+
 			newInterval[0] = min(newStart, currentStart)
 			newInterval[1] = max(newEnd, currentEnd)
+			
 		}
 
 	}
