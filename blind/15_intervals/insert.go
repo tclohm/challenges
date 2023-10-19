@@ -42,4 +42,7 @@ func min(a, b int) int {
 
 func main() {
 	fmt.Println(insert(double{{1,3},{6,9}}, []int{2,5}))
+	fmt.Println(insert(double{{1,2},{3,5},{6,7},{8,10},{12,16}}, []int{4,8}))
 }
+
+
