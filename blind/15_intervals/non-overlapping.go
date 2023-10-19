@@ -1,9 +1,37 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func eraseOverlap(intervals [][]int) int {
-	return 1
+	start := 0
+	end := 1
+
+	sort.Slice(intervals, func(a, b int) bool { return intervals[a][start] < intervals[b][start] })
+
+	removal := 0
+
+	currentArrayEnd := intervals[0][end]
+
+	for i := 1 ; i < len(intervals) ; i++ {
+		currentArray := intervals[i]
+
+		if currentArray[start] < currentArrayEnd {
+			removal += 1
+			currentArrayEnd = min(currentArray[end], currentArrayEnd)
+		} else {
+			currentArrayEnd = currentArray[end]
+		}
+	}
+
+	return removal
+}
+
+func min(a, b int) int {
+	if a < b { return a }
+	return b
 }
 
 func main() {
