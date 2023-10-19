@@ -19,14 +19,17 @@ func merge(intervals double) [][]int {
 	result := [][]int{intervals[0]}
 
 	for i := 0 ; i < len(intervals) ; i++ {
-		lastIndex := len(result) - 1
-		currentEnd := result[lastIndex]
-		current := intervals[i]
-
-		if currentEnd[end] < current[start] {
-			result = append(result, current)
-		} else if currentEnd[end] < current[end] {
-			result[lastIndex][end] = current[end]
+		lastArrayIndex := len(result) - 1
+		resultEndArray := result[lastArrayIndex]
+		currentArray := intervals[i]
+		// if the current arrays start is greater than results arrays end,
+		// we append				
+		if resultEndArray[end] < currentArray[start] {
+			result = append(result, currentArray)
+		// if the results array last number is less than current arrays end,
+		// change the end
+		} else if resultEndArray[end] < currentArray[end] {
+			result[lastArrayIndex][end] = currentArray[end]
 		}
 	}
 
