@@ -3,9 +3,26 @@ package main
 import "fmt"
 
 func rotate(matrix [][]int) {
-	for array := range matrix {
-		fmt.Println(array)
+	left, right := 0, len(matrix) - 1
+	for left < right {
+		for index := 0 ; index < right - left ; index++ {
+			top, bottom := left, right
+
+			topLeft := matrix[top][left + index]
+			// move bottom left to top left
+			matrix[top][left + index] = matrix[bottom - index][left]
+			// bottom  right to bottom left
+			matrix[bottom - index][left] = matrix[bottom][right - index]
+			// top right to bottom right
+			matrix[bottom][right - index] = matrix[top + index][right]
+			// top left to top right
+			matrix[top + index][right] = topLeft
+		}
+		right -= 1
+		left += 1
 	}
+
+	fmt.Println(matrix)
 }
 
 func main() {
