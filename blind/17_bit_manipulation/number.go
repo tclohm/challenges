@@ -3,12 +3,12 @@ package main
 import "fmt"
 
 func hammingWeight(num uint32) int {
-	res := 0
-	for num > 0 {
+	var res uint32
+	for num != 0 {
 		num &= num - 1
 		res += 1
 	}
-	return res
+	return int(res)
 }
 
 func main() {
