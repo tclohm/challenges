@@ -18,11 +18,6 @@ func (h *IntHeap) Pop() interface{} {
 	return x
 }
 
-type KthLargest struct {
-	minHeap *IntHeap
-	k int
-}
-
 func lastStoneWeight(stones []int) int {
 	for s := 0 ; s < len(stones) ; s++ {
 		stones[s] *= -1
