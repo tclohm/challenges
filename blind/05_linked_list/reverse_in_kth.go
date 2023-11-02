@@ -61,6 +61,14 @@ func reverseKGroup(head *Node, k int) *Node {
 }
 
 
+func getKth(curr *Node, k int) *Node {
+	for curr != nil && k > 0 {
+		curr = curr.next
+		k -= 1
+	}
+	return curr
+}
+
 func main() {
 	Node5 := Node{value: 5, next: nil}
 	Node4 := Node{value: 4, next: &Node5}
