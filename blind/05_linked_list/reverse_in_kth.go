@@ -32,9 +32,42 @@ func (n *Node) Reverse() *Node {
 }
 
 func reverseKGroup(head *Node, k int) *Node {
-	return &Node{}
+	dummy := &Node{value: 0, next: head}
+	p := dummy
+
+	for true {
+		kth := getKth(prev, k)
+		if kth == nil {
+			break
+		}
+
+		next := kth.Next
+
+		// reverse
+		prev, curr := kth.next, p.next
+		for curr != p {
+			tmp := curr.next
+			curr.next = prev
+			prev = curr
+			curr = tmp
+		}
+
+		tmp := p.next
+		p.next = kth
+		p = tmp
+	}
+
+	return dummy.next
 }
 
+
+func getKth(curr *Node, k int) *Node {
+	for curr != nil && k > 0 {
+		curr = curr.next
+		k -= 1
+	}
+	return curr
+}
 
 func main() {
 	Node5 := Node{value: 5, next: nil}
