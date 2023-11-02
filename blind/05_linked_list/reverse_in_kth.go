@@ -18,43 +18,30 @@ func (n *Node) Print() {
 	}
 }
 
-func (n *Node) Reverse() *Node {
-	var prev  *Node
-	curr := n
-	for curr != nil {
-		next := curr.next
-		curr.next = prev
-		prev = curr
-		curr = next
-	}
-
-	return prev
-}
-
 func reverseKGroup(head *Node, k int) *Node {
 	dummy := &Node{value: 0, next: head}
-	p := dummy
+	groupPrev := dummy
 
 	for true {
-		kth := getKth(prev, k)
+		kth := getKth(groupPrev, k)
 		if kth == nil {
 			break
 		}
 
-		next := kth.Next
+		groupNext := kth.next
 
 		// reverse
-		prev, curr := kth.next, p.next
-		for curr != p {
+		prev, curr := kth.next, groupPrev.next
+		for curr != groupNext {
 			tmp := curr.next
 			curr.next = prev
 			prev = curr
 			curr = tmp
 		}
 
-		tmp := p.next
-		p.next = kth
-		p = tmp
+		tmp := groupPrev.next
+		groupPrev.next = kth
+		groupPrev = tmp
 	}
 
 	return dummy.next
@@ -76,10 +63,6 @@ func main() {
 	Node2 := Node{value: 2, next: &Node3}
 	Node1 := Node{value: 1, next: &Node2}
 	Node1.Print()
-	Node1.Reverse()
-	fmt.Println("\nReversed")
-	Node5.Print()
-	fmt.Println("\nReversed again")
-	Node5.Reverse()
-	Node1.Print()
+
+	reverseKGroup(&Node1, 2).Print()
 }
