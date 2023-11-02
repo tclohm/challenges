@@ -24,9 +24,7 @@ func reverseKGroup(head *Node, k int) *Node {
 
 	for true {
 		kth := getKth(groupPrev, k)
-		if kth == nil {
-			break
-		}
+		if kth == nil { break }
 
 		groupNext := kth.next
 
