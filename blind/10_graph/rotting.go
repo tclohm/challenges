@@ -43,27 +43,32 @@ func rotting(grid [][]int) int {
 	directions := [4][2]int{{0,1},{0,-1},{1,0},{-1,0}}
 
 	for fresh > 0 && q.length() != 0 {
+
 		for i := 0 ; i < q.length() ; i++ {
 
 			item := q.pop()
 
 			for _, dir := range directions {
-				row, col := item[0] + dir[0], item[1] + dir[1]
 
+				row, col := item[0] + dir[0], item[1] + dir[1]
 				if row >= 0 && row < len(grid) && col >= 0 && col < len(grid[0]) && grid[row][col] == 1 {
+					
 					grid[row][col] = 2
 					q.push([]int{row,col})
 					fresh -= 1
+
 				}
+
 			}
+
 		}
+
 		time += 1
+
 	}
 
-	if fresh == 0 {
-		return time
-	}
-
+	if fresh == 0 { return time }
+	
 	return -1
 }
 
