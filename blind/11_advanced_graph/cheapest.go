@@ -41,6 +41,11 @@ func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
    	return cost[dst]
 }
 
+func min(x, y int) int {
+	if x < y { return x }
+	return y
+}
+
 func main() {
 	fmt.Println(findCheapestPrice(4, [][]int{{0,1,100},{1,2,100},{2,0,100},{1,3,600}}, 0, 3, 1))
 }
