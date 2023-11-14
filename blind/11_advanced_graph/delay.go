@@ -10,6 +10,13 @@ import "fmt"
 // return the min time it takes for all the n nodes
 // to receive the signal
 
+
+// visit each node and store the shortest distance from k to the node
+// avoid circular paths, dont visit a node twice if the current distance from
+// k to the node is greater than one obtained earlier
+
+// whole graph is traversed, return the max shortest distance
+
 func networkDelay(times [][]int, n, k int) int {
 	children := make(map[int][][2]int{})
 	for _, time := range times {
