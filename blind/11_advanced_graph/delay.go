@@ -109,6 +109,33 @@ func dijkstra(times times, n, k int) int {
 	return max
 }
 
+func bellmanFord(times times, n, k int) int {
+	dist := make([]int, n+1)
+	for i := 1 ; i <= n ; i++ { dist[i] = -1 }
+
+	dist[k] = 0
+
+	for i := 0 ; i < n - 1 ; i++ {
+		for _, time := range times {
+			from, to, weight := time[0], time[1], time[2]
+
+			if dist[from] == -1 { continue }
+
+			if dist[to] == 1 || dist[from] + weight < dist[to] {
+				dist[to] = dist[from] + weight
+			}
+		}
+	}
+
+	max := dist[1]
+
+	for i := 1 ; i <= n ; i++ {
+		if dist[i] == -1 { return -1 }
+		if dist[i] > max { max = dist[i] }
+	}
+	return max
+}
+
 func main() {
 
 	fmt.Println(networkDelay([][]int{{2,1,1},{2,3,1},{3,4,1}}, 4, 2)) // 2
