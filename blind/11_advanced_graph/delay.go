@@ -133,6 +133,7 @@ func bellmanFord(times times, n, k int) int {
 		if dist[i] == -1 { return -1 }
 		if dist[i] > max { max = dist[i] }
 	}
+
 	return max
 }
 
