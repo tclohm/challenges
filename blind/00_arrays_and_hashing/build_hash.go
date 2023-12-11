@@ -21,7 +21,6 @@ func Init() Hashmap {
 }
 
 func (self *Hashmap) hash(key int) int {
-	//fmt.Println("hash", key % len(self.array))
 	return key % len(self.array)
 }
 
