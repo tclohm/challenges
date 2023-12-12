@@ -16,6 +16,7 @@ func add(array []int, k int) []int {
 	idx := 0
 	for k > 0 {
 		digit := k % 10
+		
 		if idx < len(n) {
 			n[idx] += digit
 		} else {
