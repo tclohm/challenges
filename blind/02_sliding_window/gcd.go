@@ -9,7 +9,7 @@ func gcdOfStrings(s, t string) string {
 	x := gcd(len(s), len(t))
 	return s[:x]
 }
-
+// this assumes b is less than a
 func gcd(a, b int) int {
 	for b != 0 {
 		a, b = b, a % b
