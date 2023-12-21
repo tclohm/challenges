@@ -43,4 +43,7 @@ func max(a, b int) int {
 func main() {
 	fmt.Println(sum(tree.Build_binary_tree([]int{1,2,3})))
 	fmt.Println(sum(tree.Build_binary_tree([]int{-1,2,3,4,5})))
+	t := tree.Build_binary_tree([]int{5,4,8,11,0,13,4,7,2,0,0,0,0,0,1})
+	tree.Print_binary_tree(t, 0, "Root")
+	fmt.Println(sum(t))
 }
