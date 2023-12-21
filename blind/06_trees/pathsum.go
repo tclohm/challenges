@@ -10,6 +10,7 @@ func pathsum(root *tree.Node, target int) bool {
 		return false
 	}
 	//fmt.Println(target, root.Value)
+	// this is an awesome trick to know! start with nil first!
 	if nil == root.Left && nil == root.Right {
 		return root.Value == target
 	}
