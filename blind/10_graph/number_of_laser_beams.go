@@ -20,7 +20,7 @@ func (b Bank) count(row int) int {
 			total += 1
 		}
 	}
-	fmt.Println("ROW:", row, "total count:", total)
+	//fmt.Println("ROW:", row, "total count:", total)
 	return total
 }
 
