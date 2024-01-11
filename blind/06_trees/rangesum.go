@@ -23,15 +23,31 @@ func inorder(root *tree.Node) []int {
 	return array
 }
 
+// func rangeSum(root *tree.Node, low, high int) int {
+// 	array := inorder(root)
+// 	total := 0 
+// 	for i := 0 ; i < len(array) ; i++ {
+// 		if array[i] >= low && array[i] <= high {
+// 			total += array[i]
+// 		}
+// 	}
+// 	return total
+// }
+
 func rangeSum(root *tree.Node, low, high int) int {
-	array := inorder(root)
-	total := 0 
-	for i := 0 ; i < len(array) ; i++ {
-		if array[i] >= low && array[i] <= high {
-			total += array[i]
-		}
+	if nil == root || root.Value == 0 {
+		return 0
 	}
-	return total
+
+	if root.Value > high {
+		// left is lower
+		return rangeSum(root.Left, low, high)
+	}
+	if root.Value < low {
+		// right is higher
+		return rangeSum(root.Right, low, high) 
+	}
+	return root.Value + rangeSum(root.Left, low, high) + rangeSum(root.Right, low, high)
 }
 
 
