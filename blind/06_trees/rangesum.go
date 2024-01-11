@@ -40,9 +40,11 @@ func rangeSum(root *tree.Node, low, high int) int {
 	}
 
 	if root.Value > high {
+		// left is lower
 		return rangeSum(root.Left, low, high)
 	}
 	if root.Value < low {
+		// right is higher
 		return rangeSum(root.Right, low, high) 
 	}
 	return root.Value + rangeSum(root.Left, low, high) + rangeSum(root.Right, low, high)
