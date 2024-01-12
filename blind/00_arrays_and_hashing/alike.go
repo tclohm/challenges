@@ -35,6 +35,23 @@ func halvesAreAlike(s string) bool {
 	return first_vowels == second_vowels
 }
 
+func alike(s string) bool {
+	half := len(s) / 2
+	mark := 0
+
+	for i, r := range s {
+		switch r {
+		case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U':
+			if i < half {
+				mark++
+			} else {
+				mark--
+			}
+		}
+	}
+	return mark == 0
+}
+
 func main() {
 	fmt.Println(halvesAreAlike("book"))
 	fmt.Println(halvesAreAlike("textbook"))
