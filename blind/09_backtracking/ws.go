@@ -7,34 +7,32 @@ func search(board [][]string, word string) bool {
 	ROWS := len(board)
 	COLS := len(board[0])
 
-	DIRS := [][]int{{0,1},{0,-1},{1,0},{-1,0}}
+	index := 0
 
-	var dfs func(row, col int)
-	dfs = func(row, col int) {
+	var dfs func(row, col, index int) bool
+	dfs = func(row, col, index int) bool {
 
-		if board[row][col] != string(word[0]) { return }
+		if string(word[index]) != board[row][col] { return false }
 		board[row][col] = "."
-		word = word[1:]
-		fmt.Println(word)
-		for _, d := range DIRS {
-			x, y := d[0], d[1]
-			fmt.Println(x, y, row, col)
-			if row + y < len(board) { dfs(row + y, col) }
-			if row + y >= 0 { dfs(row + y, col) }
-			if col + x < len(board[0]) { dfs(row, col + x) }
-			if col + y >= 0 { dfs(row, col + y) }
-		}
+		index++
+		if index == len(word) - 1 { return true }
+		
+		if row + 1 < len(board) { dfs(row + 1, col, index) }
+		if row - 1 >= 0 { dfs(row - 1, col, index) }
+		if col + 1 < len(board[0]) { dfs(row, col + 1, index) }
+		if col - 1 >= 0 { dfs(row, col - 1, index) }
+		return false
 	}
 
 	for row := 0 ; row < ROWS ; row++ {
 		for col := 0 ; col < COLS ; col++ {
 			if board[row][col] == string(word[0]) {
-				dfs(row, col)
+				dfs(row, col, index)
 			}
 		}
 	}
 
-	return len(word) == 0
+	return false
 }
 
 func main() {
