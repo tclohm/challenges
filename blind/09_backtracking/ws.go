@@ -11,23 +11,28 @@ func search(board [][]string, word string) bool {
 
 	var dfs func(row, col, index int) bool
 	dfs = func(row, col, index int) bool {
+		if row < 0 || col < 0 || row >= ROWS || col >= COLS || index == len(word) { return false }
 
-		if string(word[index]) != board[row][col] { return false }
-		board[row][col] = "."
-		index++
+		if board[row][col] != string(word[index]) || board[row][col] == "." { return false }
+
 		if index == len(word) - 1 { return true }
-		
-		if row + 1 < len(board) { dfs(row + 1, col, index) }
-		if row - 1 >= 0 { dfs(row - 1, col, index) }
-		if col + 1 < len(board[0]) { dfs(row, col + 1, index) }
-		if col - 1 >= 0 { dfs(row, col - 1, index) }
-		return false
+
+		letter := board[row][col]
+
+		exist := dfs(row + 1, col, index + 1) || dfs(row - 1, col, index + 1) || dfs(row, col + 1, index + 1) || dfs(row, col - 1, index + 1)
+
+		board[row][col] = letter
+
+		return exist
+
 	}
 
 	for row := 0 ; row < ROWS ; row++ {
 		for col := 0 ; col < COLS ; col++ {
 			if board[row][col] == string(word[0]) {
-				dfs(row, col, index)
+				if dfs(row, col, index) {
+					return true
+				}
 			}
 		}
 	}
