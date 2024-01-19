@@ -136,3 +136,35 @@ func backtrack(list [][]int, tmp, nums []int, remain, start int) {
 	}
 }
 ```
+
+## Palindrome Partition
+```go
+func partition(s string) [][]string {
+	var list [][]string
+	backtrack(list, []string{}, s, 0)
+	return list
+}
+
+func backtrack(list [][]string, tmp []string, s string, start int) {
+	if start == len(s) {
+		list = append(list, append([]string{}, tmp...))
+	} else {
+		for i := start ; i < len(s) ; i++ {
+			if isPalindrome(s, start, i) {
+				tmp = append(tmp, s[start:i + 1])
+				backtrack(list, tmp, s, i + 1)
+				tmp = tmp[:len(tmp) - 1]
+			}
+		}
+	}
+}
+
+func isPalindrome(s string, low int, high int) {
+	for low < high {
+		if s[low] != s[high] { return false }
+		low++
+		high--
+	}
+	return true
+}
+```
