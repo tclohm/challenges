@@ -38,3 +38,56 @@ func backtrack(list [][]int, tmp, nums []int, start int) {
 	}
 }
 ```
+
+## Permutations
+```go
+func permute(nums []int) {
+	var list [][]int
+	backtrack(list, []int{}, nums)
+	return list
+}
+
+func contains(element int, list []int) bool {
+	for _, el := range list {
+		if el == element { return true }
+	}
+	return false
+}
+
+func backtrack(result [][]int, tmp, nums []int) {
+	if len(tmp) == len(nums) {
+		list = append(list, append([]int{}, tmp...))
+	} else {
+		for i := 0 ; i < len(nums) ; i++ {
+			if contains(nums[i], tmp) continue
+			tmp = append(tmp, nums[i])
+			backtrack(result, tmp, nums)
+			tmp = tmp[:len(tmp) - 1]
+		}
+	}
+}
+```
+
+## Permutations 2
+```go
+func permute(nums []int) {
+	var list [][]int
+	var used make([]bool, len(nums), len(nums))
+	backtrack(list, []int{}, nums, used)
+	return list
+}
+
+func backtrack(result [][]int, tmp, nums []int, used []bool) {
+	if len(tmp) == len(nums) {
+		result = append(result, append([]int{}, tmp...))
+	} else {
+		for i := 0 ; i < len(nums) ; i++ {
+			if used[i] || i > 0 && nums[i] == nums[i - 1] && !used[i - 1] continue
+			used[i] = true
+			tmp = append(tmp, nums[i])
+			backtrack(list, tmp, nums, used)
+			tmp = tmp[:len(tmp) - 1]
+		}
+	}
+}
+```
