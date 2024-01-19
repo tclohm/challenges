@@ -9,6 +9,7 @@ func subset(nums []int) [][]int {
 	backtrack = func(tmp, nums []int, start int) {
 		list = append(list, append([]int{}, tmp...))
 		for i := start ; i < len(nums) ; i++ {
+			if i > start && nums[i] == nums[i - 1] { continue }
 			tmp = append(tmp, nums[i])
 			backtrack(tmp, nums, i + 1)
 			tmp = tmp[:len(tmp) - 1]
@@ -19,9 +20,7 @@ func subset(nums []int) [][]int {
 	return list
 }
 
-
-
 func main() {
-	fmt.Println(subset([]int{1,2,3}))
+	fmt.Println(subset([]int{1,2,2}))
 	fmt.Println(subset([]int{0}))
 }
