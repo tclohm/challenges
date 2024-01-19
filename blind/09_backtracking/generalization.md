@@ -91,3 +91,25 @@ func backtrack(result [][]int, tmp, nums []int, used []bool) {
 	}
 }
 ```
+
+## Combination Sum
+```go
+func combinationSum(nums []int, target int) [][]int {
+	var list [][]int
+	backtrack(list, []int{}, nums, target, 0)
+	return list
+}
+
+func backtrack(list [][]int, tmp, nums []int, remain, start int) {
+	if remain < 0 { return }
+	else if remain == 0 {
+		list = append(list, append([]int{}, tmp...))
+	} else {
+		for i := start ; i < len(nums) ; i++ {
+			tmp = append(tmp, nums[i])
+			backtrack(list, tmp, nums, remain - nums[i], i)
+			tmp = tmp[:len(tmp) - 1]
+		}
+	}
+}
+```
