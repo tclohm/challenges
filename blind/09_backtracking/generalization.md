@@ -107,7 +107,30 @@ func backtrack(list [][]int, tmp, nums []int, remain, start int) {
 	} else {
 		for i := start ; i < len(nums) ; i++ {
 			tmp = append(tmp, nums[i])
-			backtrack(list, tmp, nums, remain - nums[i], i)
+			backtrack(list, tmp, nums, remain - nums[i], i + 1)
+			tmp = tmp[:len(tmp) - 1]
+		}
+	}
+}
+```
+
+## Combination Sum 2
+```go
+func combinationSum2(nums []int, target int) [][]int {
+	var list [][]int
+	backtrack(list, []int{}, nums, target, 0)
+	return list
+}
+
+func backtrack(list [][]int, tmp, nums []int, remain, start int) {
+	if remain < 0 { return }
+	else if remain == 0 {
+		list = append(list, append([]int{}, tmp...))
+	} else {
+		for i := start ; i < len(nums) ; i++ {
+			if i > start && nums[i] == nums[i - 1] { continue }
+			tmp = append(tmp, nums[i])
+			backtrack(list, tmp, nums, remain - nums[i], i + 1)
 			tmp = tmp[:len(tmp) - 1]
 		}
 	}
