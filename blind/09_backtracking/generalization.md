@@ -159,7 +159,7 @@ func backtrack(list [][]string, tmp []string, s string, start int) {
 	}
 }
 
-func isPalindrome(s string, low int, high int) {
+func isPalindrome(s string, low int, high int) bool {
 	for low < high {
 		if s[low] != s[high] { return false }
 		low++
