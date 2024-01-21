@@ -29,4 +29,5 @@ func main() {
 	fmt.Println(letterCombinations("99"))
 	fmt.Println(letterCombinations(""))
 	fmt.Println(letterCombinations("5"))
+	fmt.Println(letterCombinations("2568"))
 }
