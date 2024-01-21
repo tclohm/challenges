@@ -1,6 +1,10 @@
 # Generalize backtracking
 
-## Subsets
+
+## Examples
+
+
+### Subsets
 ```go
 func subset(nums []int) [][]int {
 	var list [][]int
@@ -19,7 +23,7 @@ func backtrack(list [][]int, tmp, nums []int, start int) {
 }
 ```
 
-## Subsets 2
+### Subsets 2
 ```go
 func subsetWithDuplicates(nums []int) [][]int {
 	var list [][]int
@@ -39,7 +43,7 @@ func backtrack(list [][]int, tmp, nums []int, start int) {
 }
 ```
 
-## Permutations
+### Permutations
 ```go
 func permute(nums []int) {
 	var list [][]int
@@ -68,7 +72,19 @@ func backtrack(result [][]int, tmp, nums []int) {
 }
 ```
 
-## Permutations 2
+#### permutation example using backtrack visualization
+```
+													[],[1,2,3]
+											/         |             \
+								[1],[2,3]        [2],[1,3]       [3],[1,2]
+							/    \                /    \               /  \
+				[1,2],[3]   [1,3],[2]   [2,1],[3]  [2,3],[1]  [3,1],[2]   [3,2],[1]
+			/                  /           /             \         \           \
+		[1,2,3],[]    [1,3,2],[]        [2,1,3],[]    [2,3,1],[]    [3,1,2],[]  [3,2,1],[]
+```
+
+
+### Permutations 2
 ```go
 func permute(nums []int) {
 	var list [][]int
@@ -92,7 +108,7 @@ func backtrack(result [][]int, tmp, nums []int, used []bool) {
 }
 ```
 
-## Combination Sum
+### Combination Sum
 ```go
 func combinationSum(nums []int, target int) [][]int {
 	var list [][]int
@@ -114,7 +130,7 @@ func backtrack(list [][]int, tmp, nums []int, remain, start int) {
 }
 ```
 
-## Combination Sum 2
+### Combination Sum 2
 ```go
 func combinationSum2(nums []int, target int) [][]int {
 	var list [][]int
@@ -137,7 +153,7 @@ func backtrack(list [][]int, tmp, nums []int, remain, start int) {
 }
 ```
 
-## Palindrome Partition
+### Palindrome Partition
 ```go
 func partition(s string) [][]string {
 	var list [][]string
