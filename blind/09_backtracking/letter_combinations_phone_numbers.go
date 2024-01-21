@@ -3,26 +3,24 @@ package main
 import "fmt"
 
 func letterCombinations(digits string) []string {
-	var combinations []string
-	var phone = map[rune]string{
-		'2': "abc",
-		'3': "def",
-		'4': "ghi",
-		'5': "jkl",
-		'6': "mno",
-		'7': "pqrs",
-		'8': "tuv",
-		'9': "wxuz",
+	if digits == "" { return []string{} }
+	var list []string
+	var phone = []string{"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"}
+
+	var backtrack func(combination, nextDigit string)
+	backtrack = func(combination, nextDigit string) {
+		if nextDigit == "" {
+			list = append(list, combination)
+		} else {
+			// rune
+			letters := phone[nextDigit[0]-'2']
+			for _, letter := range letters {
+				backtrack(combination + string(letter), nextDigit[1:])
+			}
+		}
 	}
-
-	var punched_numbers []string
-	for _, r := range digits {
-		punched_numbers = append(punched_numbers, phone[r])
-	}
-
-	var backtrack func()
-
-	return combinations
+	backtrack("", digits)
+	return list	
 }
 
 func main() {
