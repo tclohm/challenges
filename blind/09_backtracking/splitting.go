@@ -10,7 +10,7 @@ func splitString(s string) bool {
 	var backtrack func(index int, prev int) bool
 	backtrack = func(index int, prev int) bool {
 		if index == len(s) { return true }
-
+		// we have the previous value in our parameters, move through the others and compare
 		for i := index ; i < len(s) ; i++ {
 			// value : start at index and add i + 1
 			v, _ := strconv.Atoi(string(s[index: i + 1]))
@@ -23,6 +23,8 @@ func splitString(s string) bool {
 	}
 
 	// starting the run
+	// s - 1 because we need to have two things to compare
+	// if we go to the end, we will have nothing to compare the end to
 	for i := 0 ; i < len(s) - 1 ; i++ {
 		v, _ := strconv.Atoi(string(s[:i + 1]))
 		if backtrack(i + 1, v) {
