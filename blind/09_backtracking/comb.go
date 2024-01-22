@@ -10,6 +10,7 @@ func comb(nums []int, target int) [][]int {
 		if remain < 0 {
 			return 
 		} else if remain == 0 {
+			// coping tmp			
 			list = append(list, append([]int{}, tmp...))
 		} else {
 			for i := start ; i < len(nums) ; i++ {
