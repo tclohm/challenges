@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	//"strings"
+	"strings"
 )
 
 func in(el int, ht map[int]struct{}) bool {
@@ -32,9 +32,12 @@ func solveNQueen(n int) [][]string {
 	backtrack = func (row int) {
 		if row == n { 
 			// copy board
-			var tmp = append([][]string{}, board...)
-			result = append(result, tmp...)
-			fmt.Println("result", result)
+			var copy = []string{}
+			for r := 0 ; r < len(board) ; r++ {
+				rowStrings := strings.Join(board[r], "")
+				copy = append(copy, rowStrings)
+			}
+			result = append(result, copy)
 			return
 		}
 
