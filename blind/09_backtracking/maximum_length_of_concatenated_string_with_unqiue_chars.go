@@ -25,6 +25,8 @@ func maxLength(chars []string) int {
 			return len(set)
 		}
 		var result = 0
+		// if not overlapping we add the letters to the set and
+		// then backtrack
 		if !overlap(set, chars[index]) {
 			for _, letter := range chars[index] {
 				if _, ok := set[letter]; !ok {
