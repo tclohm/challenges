@@ -17,12 +17,17 @@ func restore(ipAddress string) []string {
 
 		if dots > 4 { return }
 		minimum := min(index + 3, len(ipAddress))
-		
+
 		for i := index ; i < minimum ; i++ {
+
 			var integer, err = strconv.Atoi(ipAddress[index:i+1])
+
 			if err != nil { return }
-			if integer < 255 && index == i || ipAddress[index] != 0 {
+
+			if integer < 255 && index == i || ipAddress[index] != '0' {
+
 				backtrack(currentIP + string(ipAddress[index:i + 1]) + ".", i + 1, dots + 1)
+				
 			}
 		}
 	}
