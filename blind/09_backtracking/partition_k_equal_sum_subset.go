@@ -52,6 +52,10 @@ func partition(nums []int, k int) bool {
 }
 
 func part(nums []int, k int) bool {
+	if sum(nums) % k == 1 {
+		return false
+	}
+	sort.Ints(nums)
 	var target = sum(nums) / k
 	var used = make([]bool, len(nums), len(nums))
 
