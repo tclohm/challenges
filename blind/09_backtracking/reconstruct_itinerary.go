@@ -15,6 +15,7 @@ func findItinerary(tickets [][]string) []string {
 		adjacent_list[src] = append(adjacent_list[src], dst)
 	}
 
+	// lexical sorting
 	for _, ticket := range tickets {
 		src := ticket[0]
 		sort.Strings(adjacent_list[src])
@@ -24,16 +25,14 @@ func findItinerary(tickets [][]string) []string {
 
 	var backtrack func(src string) bool
 	backtrack = func(src string) bool {
-		if len(result) == len(tickets) + 1 {
-			return true
-		}
-		if len(adjacent_list[src]) == 0 {
-			return false
-		}
+		
+		if len(result) == len(tickets) + 1 { return true }
+		if len(adjacent_list[src]) == 0 { return false }
 
 		temporary := append([]string{}, adjacent_list[src]...)
 
 		for i, v := range temporary {
+			// popping item	
 			popped := adjacent_list[src][i]
 			adjacent_list[src] = append(adjacent_list[src][:i], adjacent_list[src][i+1:]...)
 			
@@ -42,9 +41,13 @@ func findItinerary(tickets [][]string) []string {
 			if backtrack(v) { 
 				return true 
 			}
+
+			// depending where we are in the index, we either append or insert
 			if len(adjacent_list[src]) == i {
+				// append
 				adjacent_list[src] = append(adjacent_list[src], popped)
 			} else {
+				// insert
 				adjacent_list[src] = append(adjacent_list[src][:i+1], adjacent_list[src][i:]...)
 				adjacent_list[src][i] = popped
 			}
