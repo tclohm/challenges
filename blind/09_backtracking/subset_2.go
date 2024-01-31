@@ -9,6 +9,9 @@ func subset(nums []int) [][]int {
 	backtrack = func(tmp, nums []int, start int) {
 		list = append(list, append([]int{}, tmp...))
 		for i := start ; i < len(nums) ; i++ {
+			// is current index greater than our start?
+			// is our current number a duplicate as the the other?
+			// if both to yes, continue
 			if i > start && nums[i] == nums[i - 1] { continue }
 			tmp = append(tmp, nums[i])
 			backtrack(tmp, nums, i + 1)
