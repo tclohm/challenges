@@ -3,10 +3,12 @@ package main
 import "fmt"
 
 func length_of_longest_substring(s string) int {
-	set := make(map[byte]bool)
-	left, longest := 0, 0
+	var set = map[byte]bool{}
+	var longest = 0
+	var left = 0
 
 	for right, _ := range s {
+		// keep deleting from the left until right is not true
 		for set[s[right]] {
 			delete(set, s[left])
 			left++
