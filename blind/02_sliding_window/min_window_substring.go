@@ -28,13 +28,13 @@ func minWindow(str string, target string) string {
 		} else {
 			window[char] = 1
 		}
-
+		// after we start to fill the window, look at our target hash map and compare
 		if _, ok := target_ht[char]; ok && window[char] == target_ht[char] {
 			have += 1
 		}
-
+		// if the needs and haves equal
 		for have == need {
-
+			// check the right and left pointers against our left
 			if r - l + 1 < result_length {
 				result = []int{l, r}
 				result_length = r - l + 1
@@ -42,13 +42,13 @@ func minWindow(str string, target string) string {
 
 			left_char := string(str[l])
 
-
+			// lets start removing the left from our window
 			window[left_char] -= 1
-
+			// lets remove our have if our window and target hash map do not equate
 			if _, ok := target_ht[left_char]; ok && window[left_char] < target_ht[left_char] {
 				have -= 1
 			}
-
+			// move our left pointer forward
 			l += 1
 		}
 	}
