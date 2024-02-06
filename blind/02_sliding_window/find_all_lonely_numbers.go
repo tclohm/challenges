@@ -8,15 +8,10 @@ func findLonely(nums []int) []int {
 	var result = []int{}
 	var ht = map[int]int{}
 
-	for i := 0 ; i < len(nums) ; i++ {
-		n := nums[i]
-		if _, exist := ht[n]; !exist {
-			ht[n] = 1
-		} else {
-			ht[n] += 1
-		}
+	for _, value := range nums {
+		ht[value]++
 	}
-
+	
 	for _, n := range nums {
 		_, ok := ht[n-1]
 		_, exist := ht[n+1]
