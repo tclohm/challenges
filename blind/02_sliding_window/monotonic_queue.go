@@ -31,15 +31,17 @@ func maxSlidingWindow(nums []int, k int) [] int {
 		// push
 		// remove all indices from deque that corresponds
 		// to numbers less than number we are trying to push
+		// will keep deque in ascending order
 		for len(deque) > 0 && nums[deque[len(deque) - 1]] < n {
 			deque = deque[:len(deque) - 1]
 		}
+		// append the current indexes
 		deque = append(deque, i)
-
+		/// if our windows reaches k
 		if i < k - 1 { continue }
 
 		result = append(result, nums[deque[0]])
-
+		// pop from the front, (i - k)
 		if deque[0] == i - k + 1 {
 			deque = deque[1:]
 		}
