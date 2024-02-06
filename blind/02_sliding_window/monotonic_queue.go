@@ -39,6 +39,7 @@ func maxSlidingWindow(nums []int, k int) [] int {
 		if i < k - 1 { continue }
 		// append the first
 		result = append(result, nums[deque[0]])
+		// if our index is out of bounds
 		// pop from the front if our index - k + 1
 		if deque[0] == i - k + 1 {
 			deque = deque[1:]
