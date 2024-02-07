@@ -5,17 +5,24 @@ import "fmt"
 
 // compare finger prints
 func checkInclusion(s1, s2 string) bool {
-	left, count := 0, [26]int{}
-	for i := range s1 { count[s1[i]-'a']++ }
+	want := [26]int{}
+	for _, r := range s1 { 
+		want[r -'a']++ 
+	}
 
-	for right := range s2 {
-		count[s2[right]-'a']--
-		if count == [26]int{} { return true }
-
-		if right + 1 >= len(s1) {
-			count[s2[left]-'a']++
-			left++
+	window := len(s1)
+	have := [26]int{}
+	// build up an array, if the arrays are similar, we have a match
+	for right, char := range s2 {
+		// count tells us how many of the current chars we have seen in the window
+		have[char-'a']++
+		// decrement chars out of the window
+		if right >= window {
+			outOfWindow := s2[right - window]
+			have[outOfWindow - 'a']--
 		}
+		// if our arrays are equal return true
+		if have == want { return true }
 	}
 	return false
 }
