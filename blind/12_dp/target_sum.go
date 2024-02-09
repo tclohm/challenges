@@ -5,6 +5,7 @@ import "fmt"
 func findTargetSumWays(nums []int, target int) int {
 	index := len(nums) - 1
 	current_sum := 0
+	memo := map[string]int{}
 
 	var dp func (nums []int, target int, index int, current_sum int) int
 	dp = func (nums []int, target int, index int, current_sum int) int {
@@ -15,10 +16,16 @@ func findTargetSumWays(nums []int, target int) int {
 			return 0
 		}
 
+		if _, ok := memo[fmt.Sprintf("%d, %d", index, current_sum)]; ok {
+			return memo[fmt.Sprintf("%d, %d", index, current_sum)]
+		}
+
 		positive := dp(nums, target, index-1, current_sum + nums[index])
 		negative := dp(nums, target, index-1, current_sum + -nums[index])
 
-		return positive + negative
+		memo[fmt.Sprintf("%d, %d", index, current_sum)] = positive + negative
+
+		return memo[fmt.Sprintf("%d, %d", index, current_sum)]
 	}
 
 	return dp(nums, target, index, current_sum)
