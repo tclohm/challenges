@@ -27,7 +27,7 @@ func dpclimb(n int) int {
 	} else if val, ok := mem[n]; ok {
 		return val
 	}
-
+	// two choices step one stair or step two stairs
 	res := dpclimb(n - 1) + dpclimb(n - 2)
 	mem[n] = res
 	return res
