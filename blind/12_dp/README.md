@@ -97,3 +97,30 @@ Differentiating Characteristics:
     Multiple Sequences: Longest Common Subsequence/Substring problems typically involve more than one sequence to compare.
 
 Understanding these core aspects will help you identify the type of DP problem.
+
+
+1. Fibonacci Numbers
+Climbing Stairs
+House Robber
+Fibonacci Number
+Maximum Alternating Subsequence Sum
+
+2. Zero / One Knapsack
+Partition Equal Subset Sum
+Target Sum
+
+3. Unbounded Knapsack
+Coin Change
+Coin Change II
+Minimum Cost for Tickets
+
+4. Longest Common Subsequence
+Longest Common Subsequence
+Longest Increasing Subsequence
+Edit Distance
+Distinct Subsequences
+
+5. Palindromes
+Longest Palindromic Substring
+Palindromic Substrings
+Longest Palindromic Subsequence
