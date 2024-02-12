@@ -38,4 +38,5 @@ func main() {
 	// travel 20, buy 1 day   :$2
 	fmt.Println(minCost([]int{1,4,6,7,8,20}, []int{2,7,15}))
 	fmt.Println(minCost([]int{1,2,3,4,5,6,7,8,9,10,30,31}, []int{2,7,15}))
+	fmt.Println(minCost([]int{1,4,6,9,10,11,12,13,14,15,16,17,18,20,21,22,23,27,28}, []int{3,13,45}))
 }
