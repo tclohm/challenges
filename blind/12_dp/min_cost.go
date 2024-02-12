@@ -19,9 +19,11 @@ func minCost(days, costs []int) int {
 		var i int
 		
 		for i = index + 1 ; i < len(days) && days[i] < days[index]+7 ; i++ {}
+
 		sevenDaysTicket := dfs(i) + costs[1]
 
 		for i = index + 1 ; i < len(days) && days[i] < days[index]+30 ; i++ {}
+
 		thirtyDaysTicket := dfs(i) + costs[2]
 
 		return min(oneDayTickets, min(sevenDaysTicket, thirtyDaysTicket))
