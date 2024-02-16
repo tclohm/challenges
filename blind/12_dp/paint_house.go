@@ -26,6 +26,31 @@ func paint(costs [][]int) int {
 	return result
 }
 
+func dyan(costs [][]int) int {
+	dp := make([]int, len(costs[0]), len(costs[0]))
+
+	for i := range costs {
+		dp0 := costs[i][0] + min(dp[1], dp[2])
+		dp1 := costs[i][1] + min(dp[0], dp[2])
+		dp2 := costs[i][2] + min(dp[0], dp[1])
+		dp = []int{dp0, dp1, dp2}
+	}
+
+
+	return minArray(dp)
+}
+
+func minArray(nums []int) int {
+	var smaller = 1000
+	for _, n := range nums {
+		if n < smaller {
+			smaller = n
+		}
+	}
+
+	return smaller
+}
+
 func min(a, b int) int {
 	if a < b {
 		return a
@@ -35,5 +60,6 @@ func min(a, b int) int {
 
 func main() {
 	// red, blue, green
-	fmt.Println(paint([][]int{{17,2,17},{16,16,5},{14,3,19}}))
+	fmt.Println(dyan([][]int{{17,2,17},{16,16,5},{14,3,19}}))
+	fmt.Println(dyan([][]int{{1,2,3},{1,4,6}}))
 }
