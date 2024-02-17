@@ -3,17 +3,17 @@ package main
 import "fmt"
 
 // paint all the houses, but no two adjacent houses can be the same color
-func paint(costs [][]int) int {
+func paint(houses [][]int) int {
 
 	var result = 1000
 
-	var painting func(index, paint int) int
-	painting = func(index, paint int) int {
-		if index == len(costs) { return 0 }
+	var painting func(house_index, prev_cost_index int) int
+	painting = func(house_index, prev_cost_index int) int {
+		if house_index == len(houses) { return 0 }
 		var smaller = 1000
-		for i, p := range costs[index] {
-			if i != paint {
-				smaller = min(p + painting(index + 1, i), smaller)
+		for i, p := range houses[house_index] {
+			if i != prev_cost_index {
+				smaller = min(p + painting(house_index + 1, i), smaller)
 			}
 		}
 		return smaller
@@ -26,13 +26,13 @@ func paint(costs [][]int) int {
 	return result
 }
 
-func dyan(costs [][]int) int {
-	dp := make([]int, len(costs[0]), len(costs[0]))
+func dyan(houses [][]int) int {
+	dp := make([]int, len(houses[0]), len(houses[0]))
 
-	for i := range costs {
-		dp0 := costs[i][0] + min(dp[1], dp[2])
-		dp1 := costs[i][1] + min(dp[0], dp[2])
-		dp2 := costs[i][2] + min(dp[0], dp[1])
+	for i := range houses {
+		dp0 := houses[i][0] + min(dp[1], dp[2])
+		dp1 := houses[i][1] + min(dp[0], dp[2])
+		dp2 := houses[i][2] + min(dp[0], dp[1])
 		dp = []int{dp0, dp1, dp2}
 	}
 
