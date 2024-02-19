@@ -8,9 +8,9 @@ func lengthOfLIS(nums []int) int {
 		cache[i] = 1
 	}
 
-	for i := len(nums) - 1 ; i >= 0 ; i-- {
-		for j := i + 1 ; j < len(nums) ; j++ {
-			if nums[i] < nums[j] {
+	for i := 0 ; i < len(nums) ; i++ {
+		for j := 0 ; j < i ; j++ {
+			if nums[i] > nums[j] {
 				cache[i] = bigger(cache[i], 1 + cache[j])
 			}
 		}
@@ -34,8 +34,23 @@ func max(items []int) int {
 	return largest
 }
 
+func longest_increasing_sub(sequence []int) int {
+	var solve func(index int, prev int) int
+	solve = func(index int, prev int) int {
+		if index >= len(sequence) { return 0 } // cant pick any more
+		take := 0 
+		dont := solve(index + 1, prev) // try skipping current element
+		if sequence[index] > prev {
+			take = 1 + solve(index + 1, sequence[index]) // or pick it if it is greater than previous picked element
+		}
+		return bigger(take, dont)
+	}
+	return solve(0, -10)
+}
+
+// are we going to include it or not include it : 2 choices
 func main() {
-	fmt.Println(lengthOfLIS([]int{10,9,2,5,3,7,101,18}))
-	fmt.Println(lengthOfLIS([]int{0,1,0,3,2,3}))
-	fmt.Println(lengthOfLIS([]int{7,7,7,7,7,7,7}))
+	fmt.Println(longest_increasing_sub([]int{10,9,2,5,3,7,101,18}))
+	fmt.Println(longest_increasing_sub([]int{0,1,0,3,2,3}))
+	fmt.Println(longest_increasing_sub([]int{7,7,7,7,7,7,7}))
 }
