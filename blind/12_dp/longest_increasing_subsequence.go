@@ -48,9 +48,40 @@ func longest_increasing_sub(sequence []int) int {
 	return solve(0, -10)
 }
 
+func nlogn(nums []int) int {
+	tail := []int{}
+	index := 0
+
+	for _, n := range nums {
+		index = binary(tail, n)
+		if index == len(tail) {
+			tail = append(tail, n)
+		} else {
+			tail[index] = n
+		}
+	}
+
+	return len(tail)
+} 
+
+func binary(tail []int, target int) int {
+	n := len(tail)
+	left, right := 0, n
+	for left < right {
+		mid := left + (right - left) / 2
+		if tail[mid] < target {
+			left = mid + 1
+		} else if tail[mid] > target {
+			right = mid
+		} else {
+			return mid
+		}
+	}
+	return left
+}
 // are we going to include it or not include it : 2 choices
 func main() {
-	fmt.Println(longest_increasing_sub([]int{10,9,2,5,3,7,101,18}))
-	fmt.Println(longest_increasing_sub([]int{0,1,0,3,2,3}))
-	fmt.Println(longest_increasing_sub([]int{7,7,7,7,7,7,7}))
+	fmt.Println(nlogn([]int{10,9,2,5,3,7,101,18}))
+	fmt.Println(nlogn([]int{0,1,0,3,2,3}))
+	fmt.Println(nlogn([]int{7,7,7,7,7,7,7}))
 }
