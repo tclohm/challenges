@@ -19,7 +19,6 @@ func change(coins []int, amount int) int {
 			if c <= i {
 				changes[i] = min(changes[i], 1 + changes[i - c])
 			}
-			fmt.Println(changes)
 		}
 	}
 
