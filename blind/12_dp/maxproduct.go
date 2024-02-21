@@ -8,7 +8,7 @@ func maxproduct(nums []int) int {
 	for i := 0 ; i < len(nums) ; i++ {
 		tmp := currentMax * nums[i]
 		// what's bigger? currentMax * the current index or the currentMin * the current index, or current index
-		currentMax = max(max(nums[i] * currentMax, nums[i] * currentMin), nums[i])
+		currentMax = max(max(tmp, nums[i] * currentMin), nums[i])
 		// what's smaller? current * the current index or current index * currentMin or current index
 		currentMin = min(min(tmp, nums[i] * currentMin), nums[i])
 		// result, will hold max
