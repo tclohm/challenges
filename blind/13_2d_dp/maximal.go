@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// T : O(m * n) M : O(m * n)
 func maximalSquare(matrix [][]string) int {
 	ROWS, COLS := len(matrix), len(matrix[0])
 	cache := map[string]int{}
