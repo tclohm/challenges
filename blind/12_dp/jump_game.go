@@ -57,6 +57,25 @@ func dp_can_jump(nums []int) bool {
 	return dp[0]
 }
 
+func can_jump(nums []int) bool{
+	var can_jump_from_position func(position_index int) bool
+	can_jump_from_position = func(position_index int) bool {
+		if position_index == len(nums) - 1 {
+			return true
+		}
+		// furthest jump from current position
+		furthest_jump := min(position_index + nums[position_index], len(nums) - 1)
+		// try all possible jumps from the current position
+		for next_position_index := position_index + 1 ; next_position_index < furthest_jump ; next_position_index++ {
+			if can_jump_from_position(next_position_index) {
+				return true
+			}
+		}
+		return false
+	}
+	return can_jump_from_position(0)
+}
+
 func main() {
 	fmt.Println(dp_can_jump([]int{2,3,1,1,4}))
 	fmt.Println(dp_can_jump([]int{3,2,1,0,4}))
