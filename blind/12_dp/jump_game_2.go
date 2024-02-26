@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-// nums[i] = max lenght you can jump forward
+// nums[i] = max length you can jump forward
 // 0 <= j <= nums[i]
 // return the min number of jumps to reach nums[n - 1]
 
@@ -31,11 +31,27 @@ func minimum(a, b int) int {
 	return b
 }
 
+func jumpGreedy(nums []int) int {
+	min := 0
+	left, right := 0, 0
+
+	for right < len(nums) - 1 {
+		farthest := 0
+		for i := left ; i < right + 1 ; i++ {
+			farthest = max(farthest, i + nums[i])
+		}
+		left = right + 1
+		right = farthest
+		min += 1
+	}
+	return min
+}
+
 func main() {
-	fmt.Println(jump([]int{2,3,1,1,4}))
-	fmt.Println(jump([]int{3,2,0,1,4}))
-	fmt.Println(jump([]int{1,1,1,1,1,1,1,1}))
-	fmt.Println(jump([]int{1,2,2,1,1,2,2,1}))
+	fmt.Println(jumpGreedy([]int{2,3,1,1,4}))
+	fmt.Println(jumpGreedy([]int{3,2,0,1,4}))
+	fmt.Println(jumpGreedy([]int{1,1,1,1,1,1,1,1}))
+	fmt.Println(jumpGreedy([]int{1,2,2,1,1,2,2,1}))
 }
 
 // 2 => [3,1]
