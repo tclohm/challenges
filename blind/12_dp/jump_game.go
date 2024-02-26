@@ -37,6 +37,11 @@ func max(a, b int) int {
 	return b
 }
 
+func min(a, b int) int {
+	if a < b { return a }
+	return b
+}
+
 func dp_can_jump(nums []int) bool {
 	n := len(nums)
 
@@ -80,6 +85,10 @@ func main() {
 	fmt.Println(dp_can_jump([]int{2,3,1,1,4}))
 	fmt.Println(dp_can_jump([]int{3,2,1,0,4}))
 }
+
+// 3 => 1: 2, 2: 1, 3: 0
+//		   2 => 1: 1, 2: 0
+//				1 => 1: 0
 
 // Greed algos make local optimal choices at each stage 
 // with the hope of finding global optimum
