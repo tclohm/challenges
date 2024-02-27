@@ -5,7 +5,7 @@ import (
 	"sort"
 )
 
-func findContentChildren(g, s []int) int {
+func findContentChildren(children, cookies []int) int {
 	// at most one cookie for one child
 	// each child, i, has a greed factor. min size of a cookie that the child will be content with
 	// each cookie, j, has a size of s[j]
@@ -16,11 +16,11 @@ func findContentChildren(g, s []int) int {
 
 	hashtable := make(map[int]int)
 
-	for _, cookie := range s {
+	for _, cookie := range cookies {
 		hashtable[cookie]++
 	}
 
-	for _, greed_level := range g {
+	for _, greed_level := range children {
 		if hashtable[greed_level] > 0 {
 			hashtable[greed_level]--
 			fed++
@@ -29,23 +29,23 @@ func findContentChildren(g, s []int) int {
 	return fed
 }
 
-func findContentChildrenSorted(g, s []int) int {
-	sort.Ints(g)
-	sort.Ints(s)
+func findContentChildrenSorted(children, cookies[]int) int {
+	sort.Ints(children)
+	sort.Ints(cookies)
 
-	var i, j = 0, 0
+	var child_index, cookie_index = 0, 0
 
-	for i < len(g) {
-		for j < len(s) && g[i] > s[j] {
-			j++
+	for child_index < len(children) {
+		for cookie_index < len(cookies) && children[child_index] > cookies[cookie_index] {
+			cookie_index++
 		}
-		if j == len(s) {
+		if cookie_index == len(cookies) {
 			break
 		}
-		i++
-		j++
+		child_index++
+		cookie_index++
 	}
-	return i
+	return child_index
 }
 
 func main() {
