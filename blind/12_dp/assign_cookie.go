@@ -51,4 +51,5 @@ func findContentChildrenSorted(g, s []int) int {
 func main() {
 	fmt.Println(findContentChildrenSorted([]int{1,2,3}, []int{1,1}))
 	fmt.Println(findContentChildrenSorted([]int{1,2}, []int{1,2,3}))
+	fmt.Println(findContentChildrenSorted([]int{1,2,3}, []int{1,2,3}))
 }
