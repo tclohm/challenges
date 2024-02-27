@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 
@@ -18,14 +17,9 @@ func maximumDetonation(bombs [][]int) int {
     for i := 0 ; i < len(bombs) ; i++ {
     	for j := i + 1 ; j < len(bombs) ; j++ {
     		x1, y1, r1 := bombs[i][0], bombs[i][1], bombs[i][2]
-    		x2, y2, r2 := bombs[j][0], bombs[j][1], bombs[j][2]
-    		diameter := int(math.Sqrt(float64((x1 - x2) * (x1 - x2)) + float64((y1 - y2) * (y1 - y2))))
-
-    		if diameter <= r1 {
-    			adjacency[i] = append(adjacency[i], j)
-    		}
-    		if diameter <= r2 {
-    			adjacency[j] = append(adjacency[j], i)
+    		x2, y2 := bombs[j][0], bombs[j][1]
+    		if (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) <= r1 * r1 {
+    			adjacency[i] = append(adjacency[i], i)
     		}
     	}
     }
