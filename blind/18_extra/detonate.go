@@ -22,7 +22,7 @@ func maximumDetonation(bombs [][]int) int {
     		m := ((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2))
     		distance := int(math.Sqrt(float64(m)))
     		if distance <= r1 {
-    			adjacency[i] = append(adjacency[i], i)
+    			adjacency[i] = append(adjacency[i], j)
     		}
 
     		if distance <= r2 {
