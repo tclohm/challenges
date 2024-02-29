@@ -35,11 +35,18 @@ func order(root *tree.Node) [][]int {
 
 func isEvenOddTree(result [][]int) bool {
 	for i, array := range result {
-		if i % 2 == 0 && len(array) % 2 == 0 {
-			return false
-		}
-		if i % 2 == 1 && len(array) % 2 == 1 {
-			return false
+		if i % 2 == 0 {
+			for _, value := range array {
+				if value % 2 == 0 {
+					return false
+				}
+			}
+		} else {
+			for _, value := range array {
+				if value % 2 == 1 {
+					return false
+				}
+			}
 		}
 	}
 	return true
