@@ -13,28 +13,26 @@ func isEvenOddTree(root *tree.Node) bool {
 	var queue = []*tree.Node{root}
 
 	for len(queue) > 0 {
-		var prev int
-		if even {
-			prev = -10000
-		} else {
-			prev = 10000
-		}
 		length := len(queue)
+		prev := queue[0].Value
 
 		for i := 0 ; i < length ; i++ {
 			node := queue[0]
 			queue = queue[1:]
 
-			if even && (node.Value % 2 == 0 || node.Value <= prev) {
+			if even && (node.Value % 2 == 0 || node.Value <= prev && i >= 1) {
 				return false
-			} else if !even && (node.Value % 2 == 1 || node.Value >= prev) {
+			} else if !even && (node.Value % 2 == 1 || node.Value >= prev && i >= 1) {
 				return false
 			}
 
+			prev = node.Value
+
 			if node.Left != nil { queue = append(queue, node.Left) }
 			if node.Right != nil { queue = append(queue, node.Right) }
-			prev = node.Value
+			
 		}
+
 		even = !even
 	}
 	return true
