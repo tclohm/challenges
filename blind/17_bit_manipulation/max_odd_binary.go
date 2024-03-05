@@ -23,7 +23,27 @@ func maxOddBinaryNumber(s string) string {
 	return strings.Join(arr, "")
 }
 
+func oddBinary(s string) string {
+	count := 0 
+	for _, r := range s {
+		if r == '1' {
+			count += 1
+		}
+	}
+
+	str := ""
+	for i := 0 ; i < count - 1 ; i++ {
+		str += "1"
+	}
+
+	for i := 0 ; i < len(s) - count ; i++  {
+		str += "0"
+	}
+
+	return str + "1"
+}
+
 func main() {
-	fmt.Println(maxOddBinaryNumber("010"))
-	fmt.Println(maxOddBinaryNumber("1001"))
+	fmt.Println(oddBinary("010"))
+	fmt.Println(oddBinary("1001"))
 }
