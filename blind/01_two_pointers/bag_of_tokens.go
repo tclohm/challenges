@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 // return the MAX possible socre you can achieve after playing any number of tokens
 
 // power
@@ -15,19 +18,25 @@ import "fmt"
 //		face down -- current score is at least 1, play token, gaining the token power, and score--
 
 func bagOfTokensScore(tokens []int, power int) int {
-	score := 0
 
-	for i := 0 ; i < len(tokens) ; i++ {
-		if power >= tokens[i] {
-			power -= tokens[i]
+	sort.Ints(tokens)
+
+	result, score, left, right := 0, 0, 0, len(tokens) - 1
+
+	for left <= right {
+		if power >= tokens[left] {
+			power -= tokens[left]
+			left++
 			score++
-		} else if score >= 1 && power <= tokens[i] {
+			result = max(result, score)
+		} else if score > 0 {
+			power += tokens[right]
+			right--
 			score--
-			power += tokens[i]
-		}
+		} else { break }
 	}
 
-	return score
+	return result
 }
 
 func main() {
