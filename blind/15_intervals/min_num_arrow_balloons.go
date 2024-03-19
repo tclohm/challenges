@@ -27,6 +27,7 @@ func findMinArrowShots(points [][]int) int {
 	count := 1
 	end := points[0][1]
 	for i := 1 ; i < len(points) ; i++ {
+		// overlapping?
 		if points[i][0] > end {
 			count++
 			end = points[i][1]
