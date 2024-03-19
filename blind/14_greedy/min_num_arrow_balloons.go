@@ -13,16 +13,13 @@ import (
 
 // return the min number of arrows that must be shot to burst all balloons
 
-// diameter = 2 * r
-// area of a circle
-// pi * r^2
-// or
-// pi * (d / 2)^2
+// sort the slice of points by x_end in ascending order
+// simulate an arrow that shoots positions with x = x_end 
+// of current point[i] and greedily pass through all points
+// that are also shot by that arrow
+
+// time : O(n log n) , space : O(1)
 func findMinArrowShots(points [][]int) int {
-	// sort the slice of points by x_end in ascending order
-	// simulate an arrow that shoots positions with x = x_end 
-	// of current point[i] and greedily pass through all points
-	// that are also shot by that arrow
 	sort.Slice(points, func (i, j int) bool {
 		return points[i][1] < points[j][1]
 	})
