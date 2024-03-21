@@ -38,33 +38,27 @@ func build(nums []int) *Node {
 // 1 <= a <= b < length of list1 - 1
 // 1 <= lenght of list2 <= 10**4
 func mergeInBetween(list1 *Node, a int, b int, list2 *Node) *Node {
-	var pointer1 *Node = list1
-    var pointer2 *Node = list1
-    var head = list1
-    var start = 1
-    var end = 0
+	current := list1
+	index := 0
 
-    for end <= b {
-    	end++
-    	pointer2 = pointer2.next
-    }
+	for index < a - 1 {
+		current = current.next
+		index++
+	}
 
-    for start < a {
-    	start++
-    	pointer1 = pointer1.next
-    }
+	head := current
+	for index <= b {
+		current = current.next
+		index++
+	}
+	head.next = list2
 
-    var current = list2
+	for list2.next != nil {
+		list2 = list2.next
+	}
+	list2.next = current
 
-    for current.next != nil {
-    	current = current.next
-    }
-
-    current.next = pointer2
-
-    pointer1.next = list2
-
-    return head
+	return list1
 }
 
 func main() {
