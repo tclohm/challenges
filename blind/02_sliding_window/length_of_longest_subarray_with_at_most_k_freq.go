@@ -10,7 +10,7 @@ import "fmt"
 func maxSubarrayLength(nums []int, k int) int {
 	var length int = 0
 	var count = map[string]int{}
-	var left = 0
+	var left int = 0
 	
 	for right, _ := range nums {
 		char := string(nums[right])
@@ -26,5 +26,7 @@ func maxSubarrayLength(nums []int, k int) int {
 }
 
 func main() {
-
+	fmt.Println(maxSubarrayLength([]int{1,2,3,1,2,3,1,2}, 2))
+	fmt.Println(maxSubarrayLength([]int{1,2,1,2,1,2,1,2}, 1))
+	fmt.Println(maxSubarrayLength([]int{5,5,5,5,5,5,5}, 4))
 }
