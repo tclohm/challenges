@@ -18,7 +18,11 @@ func (s *stack) push(v rune) {
 }
 
 func (s *stack) isEmpty() bool {
-	return len(s.container) == 0
+	return s.length() == 0
+}
+
+func (s *stack) length() int {
+	return len(s.container)
 }
 
 func max(a, b int) int {
@@ -27,20 +31,16 @@ func max(a, b int) int {
 }
 
 func maxDepth(s string) int {
-	depth := 0
 	deepest := 0
 	stack := &stack{}
     for _, r := range s {
-    	if !stack.isEmpty() && r == ')'{
-    		if stack.pop() == '(' {
-    			depth--
-    		}
+    	if r == ')' {
+    		deepest = max(deepest, stack.length())
+    		stack.pop()
     	}
     	if r == '(' {
     		stack.push(r)
-    		depth++
     	}
-    	deepest = max(deepest, depth)
     }
 
     return deepest
