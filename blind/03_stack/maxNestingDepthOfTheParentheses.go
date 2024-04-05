@@ -46,7 +46,23 @@ func maxDepth(s string) int {
     return deepest
 }
 
+func noStackSolution(s string) int {
+	deepest := 0
+	currentDepth := 0
+
+	for _, el := range s {
+		if el == '(' {
+			currentDepth++
+		} else if el == ')' {
+			deepest = max(currentDepth, deepest)
+			currentDepth--
+		}
+	}
+
+	return deepest
+}
+
 func main() {
-	fmt.Println(maxDepth("(1+(2*3)+((8)/4))+1"))
-	fmt.Println(maxDepth("(1)+((2))+(((3)))"))
+	fmt.Println(noStackSolution("(1+(2*3)+((8)/4))+1"))
+	fmt.Println(noStackSolution("(1)+((2))+(((3)))"))
 }
