@@ -15,21 +15,24 @@ func max(ns []int) int {
 }
 
 func countSubarrays(nums []int, k int) int {
-   max_n, max_freq := max(nums), 0
-   left, count := 0, 0
-   for right, _ := range nums {
-   	if nums[right] == max_n {
-   		max_freq++
-   	}
-   	for max_freq == k {
-   		if nums[left] == max_n {
-   			max_freq--
-   		}
-   		left++
-   	}
-   	count++
-   }
-   return count
+	max_n, max_freq := max(nums), 0
+	left, count := 0, 0
+   
+	for _, val := range nums {
+		if val == max_n {
+			max_freq++
+		}
+
+		for max_freq >= k {
+			if nums[left] == max_n {
+				max_freq--
+			}
+			left++
+		}
+
+		count += left
+	}
+	return count
 }
 
 func main() {
