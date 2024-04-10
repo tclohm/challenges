@@ -17,6 +17,26 @@ func timeNeeded(tickets []int, k int) int {
 	return time
 }
 
+// slower
+func timeRequired(tickets []int, k int) int {
+	time := 0
+	index := 0
+
+	for tickets[k] > 0 {
+		if tickets[i] > 0 {
+			tickets[i]--
+			time++
+		}
+		i++
+
+		if i >= len(tickets) {
+			i = 0
+		}
+	}
+	
+	return time
+}
+
 func main() {
 	fmt.Println(timeNeeded([]int{2,3,2}, 2))
 	fmt.Println(timeNeeded([]int{5,1,1,1}, 0))
