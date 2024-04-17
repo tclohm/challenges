@@ -8,29 +8,38 @@ import (
 // given root value [0,25] -- ['a', z']
 // lexicographically smallest string at a leaf
 
-func smallest(root *tree.Node) {
-	stack := []*tree.Node{root}
+func smallest(root *tree.Node) string {
 
-	for len(stack) > 0 {
-		end := len(stack) - 1
-		node := stack[end]
-		stack = stack[:end]
+	var result string = ""
 
-		fmt.Println(string('a' + node.Value))
+	var dfs func(node *tree.Node, text string)
+	dfs = func(node *tree.Node, text string) {
+		if node == nil { return }
 
-		if nil != node.Left {
-			stack = append(stack, node.Left)
+		text = string('a' + node.Value) + text
+		if nil == node.Right && nil == node.Left {
+			if result == "" || result > text {
+				result = text
+			}
+			return
 		}
 
-		if nil != node.Right {
-			stack = append(stack, node.Right)
-		}
+		dfs(node.Left, text)
+		dfs(node.Right, text)
 	}
+
+	dfs(root, "")
+
+	return result
 }
 
 
 func main() {
 	root := tree.Build_binary_tree([]int{0,1,2,3,4,3,4})
 	tree.Print_binary_tree(root, 0, "root")
-	smallest(root)
+	fmt.Println(smallest(root))
+
+	root2 := tree.Build_binary_tree([]int{25,1,3,1,3,0,2})
+	tree.Print_binary_tree(root2, 0, "root")
+	fmt.Println(smallest(root2))
 }
