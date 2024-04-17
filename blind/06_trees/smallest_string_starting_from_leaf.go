@@ -42,4 +42,8 @@ func main() {
 	root2 := tree.Build_binary_tree([]int{25,1,3,1,3,0,2})
 	tree.Print_binary_tree(root2, 0, "root")
 	fmt.Println(smallest(root2))
+
+	root3 := tree.Build_binary_tree([]int{2,2,1,0,1,0,0,0})
+	tree.Print_binary_tree(root3, 0, "root")
+	fmt.Println(smallest(root3))
 }
