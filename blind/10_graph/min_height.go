@@ -3,6 +3,9 @@ package main
 import "fmt"
 
 func findMinHeightTrees(n int, edges [][]int) []int {
+	if n == 1 {
+		return []int{0}
+	}
 	adjacency := make(map[int][]int)
 	for i := range n {
 		adjacency[i] = []int{}
@@ -42,7 +45,7 @@ func findMinHeightTrees(n int, edges [][]int) []int {
 		}
 	}
 
-	return []int{}
+	return []int{0}
 }
 
 func main() {
