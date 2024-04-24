@@ -6,17 +6,21 @@ func findMinHeightTrees(n int, edges [][]int) []int {
 	if n == 1 {
 		return []int{0}
 	}
+
+	// list
 	adjacency := make(map[int][]int)
 	for i := range n {
 		adjacency[i] = []int{}
 	}
 	
+	// add to list
 	for _, nodes := range edges {
 		n1, n2 := nodes[0], nodes[1]
 		adjacency[n1] = append(adjacency[n1], n2)
 		adjacency[n2] = append(adjacency[n2], n1)
 	}
 
+	// add to leaves and edge count
 	edge_count := map[int]int{}
 	leaves := []int{}
 	for src, neighbors := range adjacency {
@@ -25,7 +29,7 @@ func findMinHeightTrees(n int, edges [][]int) []int {
 		}
 		edge_count[src] = len(neighbors)
 	}
-
+	// this is the real meat
 	for len(leaves) > 0 {
 		if n <= 2 {
 			return leaves
