@@ -16,18 +16,17 @@ func longestIdealString(s string, k int) int {
 		result = dfs(index + 1, previous)
 
 		
-		if previous != "" {
-			index_number := s[index] - 'a'
-			prev_number := previous - 'a'
-			if int(math.Abs(float64(index_number) - float64(prev_number))) <= k {
-				result = max(result, dfs(index + 1, string(s[index])))
-			}
+	
+		index_number := s[index] - 'a'
+		prev_number := previous - 'a'
+		if int(math.Abs(float64(index_number) - float64(prev_number))) <= k {
+			result = max(result, dfs(index + 1, string(s[index])))
 		}
 
 		return result
 	}
 
-	return dfs(0, "")
+	return dfs(0, string(s[0]))
 }
 
 
