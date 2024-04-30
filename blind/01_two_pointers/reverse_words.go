@@ -3,26 +3,20 @@ package main
 import (
 	"fmt"
 	"strings"
-	"unicode"
 )
 
-func reverse(words string) string {
-	// cut the extra space
-	words = strings.Join(strings.Fields(words), " ")
-	words = strings.TrimLeftFunc(words, unicode.IsSpace)
-	words = strings.TrimRightFunc(words, unicode.IsSpace)
-
+func reverse(s string) string {
+	words := strings.Fields(s)
+	
 	left, right := 0, len(words) - 1
 
-	arr := strings.Split(words, "")
-	// reverse the positions
 	for left < right {
-		arr[left], arr[right] = arr[right], arr[left]
+		words[left], words[right] = words[right], words[left]
 		left++
 		right--
 	}
 
-	return strings.Join(arr, "")
+	return strings.TrimSpace(strings.Join(words, " "))
 }
 
 func main() {
