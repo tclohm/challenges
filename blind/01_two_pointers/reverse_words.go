@@ -26,7 +26,7 @@ func rev(s string) string {
 		if s[l] == ' ' { continue }
 
 		r := l
-
+		// we found a word
 		for r < len(s) && s[r] != ' ' {
 			r++
 		}
