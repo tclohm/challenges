@@ -55,6 +55,24 @@ func removeNodes(head *Node) *Node {
 	return head
 }
 
+func removeNodesPointer(head *Node) *Node {
+	head = reverse(head)
+
+	current := head
+	currentMax := current.value
+
+	for current.next != nil {
+		if current.next.value < currentMax {
+			current.next = current.next.next
+		} else {
+			currentMax = current.next.value
+			current = current.next
+		}
+	}
+
+	return reverse(head)
+}
+
 
 func reverse(head *Node) *Node {
 	var prev, curr *Node = nil, head
@@ -70,6 +88,27 @@ func reverse(head *Node) *Node {
 	return prev
 }
 
+// linear time solution
+func removeNodesWithStack(head *Node) *Node {
+	stack := []int{}
+	current := head
+	for current != nil {
+		for len(stack) > 0 && current.value > stack[len(stack) - 1] {
+			stack = stack[:len(stack) - 1]
+		}
+		stack = append(stack, current.value)
+		current = current.next
+	}
+
+	dummy := &Node{}
+	current = dummy
+	for _, n := range stack {
+		current.next = &Node{value: n}
+		current = current.next
+	}
+	return dummy.next
+}
+
 func main() {
 	b1 := build([]int{5,2,13,3,8})
 	b2 := build([]int{1,1,1,1})
@@ -77,9 +116,9 @@ func main() {
 	b1.Print()
 	b2.Print()
 
-	removeNodes(b1)
-	removeNodes(b2)
+	newB1 := removeNodesPointer(b1)
+	newB2 := removeNodesPointer(b2)
 
-	b1.Print()
-	b2.Print()
+	newB1.Print()
+	newB2.Print()
 }
