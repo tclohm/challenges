@@ -55,6 +55,24 @@ func removeNodes(head *Node) *Node {
 	return head
 }
 
+func removeNodesPointer(head *Node) *Node {
+	head = reverse(head)
+
+	current := head
+	currentMax := current.value
+
+	for current.next != nil {
+		if current.next.value < currentMax {
+			current.next = current.next.next
+		} else {
+			currentMax = current.next.value
+			current = current.next
+		}
+	}
+
+	return reverse(head)
+}
+
 
 func reverse(head *Node) *Node {
 	var prev, curr *Node = nil, head
@@ -98,8 +116,8 @@ func main() {
 	b1.Print()
 	b2.Print()
 
-	newB1 := removeNodesWithStack(b1)
-	newB2 := removeNodesWithStack(b2)
+	newB1 := removeNodesPointer(b1)
+	newB2 := removeNodesPointer(b2)
 
 	newB1.Print()
 	newB2.Print()
