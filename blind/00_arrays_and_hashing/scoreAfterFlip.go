@@ -32,27 +32,27 @@ import "fmt"
 //               Trying all possilbe combinations of row/column toggles
 //               We will find the the max possible score
 func matrixScore(grid [][]int) int {
-  m, n := len(grid), len(grid[0])
+  ROWS, COLS := len(grid), len(grid[0])
   maxScore := 0
 
   // initial score
   for _, row := range grid {
     score := 0
-    for i := 0 ; i < n ; i++ {
+    for i := 0 ; i < COLS ; i++ {
       score = (score << 1) + row[i]
     }
     maxScore += score
   }
 
   // toggle each row
-  for i := 0 ; i < m ; i++ {
+  for i := 0 ; i < ROWS ; i++ {
     // toggle current row
     toggleRow(grid, i)
     // calculate score with the toggled row
     score := 0
     for _, row := range grid {
       rowScore := 0
-      for j := 0 ; j < n ; j++ {
+      for j := 0 ; j < COLS ; j++ {
         rowScore = (rowScore << 1) + row[j]
       }
       score += rowScore
@@ -66,14 +66,15 @@ func matrixScore(grid [][]int) int {
   }
 
   // toggle each column
-  for j := 0 ; j < n ; j++ {
+  for j := 0 ; j < COLS ; j++ {
     // toggle current column
     toggleColumn(grid, j)
     // calculate score with the toggled column
     score := 0
     for _, row := range grid {
       rowScore := 0
-      for k := 0 ; k < n ; k++ {
+      for k := 0 ; k < COLS ; k++ {
+        // shift to to the left
         rowScore = (rowScore << 1) + row[k]
       }
       score += rowScore
