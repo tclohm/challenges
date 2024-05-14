@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+  "fmt"
+  "math"
+)
 
 // input : binary matrix 
 //  a move consists of toggling (flipping 0s to 1s and 1s to 0s)
@@ -33,72 +36,51 @@ import "fmt"
 //               We will find the the max possible score
 func matrixScore(grid [][]int) int {
   ROWS, COLS := len(grid), len(grid[0])
-  maxScore := 0
 
-  // initial score
-  for y, _ := range grid {
-    score := 0
+  for y := 0 ; y < ROWS ; y++ {
+    if grid[y][0] == 1 { continue }
     for x := 0 ; x < COLS ; x++ {
-      score = (score << 1) + grid[y][x]
+      grid[y][x] = toggle(grid[y][x])
     }
-    maxScore += score
   }
 
-  // toggle each row
+  for x := 0 ; x < COLS ; x++ {
+    count := 0
+    for y := 0 ; y < ROWS ; y++ {
+      if grid[y][x] == 1 {
+        count += 1
+      }
+    }
+    if float32(count) >= float32(ROWS)/2 {
+      continue
+    }
+    for y := 0 ; y < ROWS ; y++ {
+      grid[y][x] = toggle(grid[y][x])
+    }
+  }
+
+  maximum := 0
   for i := 0 ; i < ROWS ; i++ {
-    // toggle current row
-    toggleRow(grid, i)
-    // calculate score with the toggled row
-    score := 0
-    for y, _ := range grid {
-      rowScore := 0
-      for x := 0 ; x < COLS ; x++ {
-        rowScore = (rowScore << 1) + grid[y][x]
-      }
-      score += rowScore
-    }
-    if score > maxScore {
-      maxScore = score
-    }
-
-    // revert the changes to the current row
-    toggleRow(grid, i)
+    maximum += binaryTo(grid[i])
   }
 
-  // toggle each column
-  for j := 0 ; j < COLS ; j++ {
-    // toggle current column
-    toggleColumn(grid, j)
-    // calculate score with the toggled column
-    score := 0
-    for y, _ := range grid {
-      rowScore := 0
-      for x := 0 ; x < COLS ; x++ {
-        // shift to to the left
-        rowScore = (rowScore << 1) + grid[y][x]
-      }
-      score += rowScore
-    }
-    if score > maxScore {
-      maxScore = score
-    }
-
-    toggleColumn(grid, j) 
-  }
-
-  return maxScore
+  return maximum
 }
 
-func toggleRow(grid [][]int, row int) {
-  for x := range grid[row] {
-    grid[row][x] = 1 - grid[row][x]
+func binaryTo(arr []int) int {
+  N := len(arr)
+  var sum float64 = 0 
+  for i := 0 ; i < N ; i++ {
+    if arr[i] == 1 {
+      sum += math.Pow(float64(2), float64(N - i - 1))
+    }
   }
+  return int(sum)
 }
 
-func toggleColumn(grid [][]int, col int) {
-  for y := range grid {
-    grid[y][col] = 1 - grid[y][col]
-  }
+func toggle(num int) int {
+  if num == 0 { return 1 }
+  return 0 
 }
 
 func main() {
