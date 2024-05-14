@@ -1,104 +1,69 @@
 package main
 
-import "fmt"
+import (
+  "fmt"
+  "math"
+)
 
-// input : binary matrix 
-//  a move consists of toggling (flipping 0s to 1s and 1s to 0s)
-//  all the values in a single row or column
-//  each row of the matrix is interpreted as a binary number
-//  score is the sum of all these binary numbers
+// Intuition : task is to maximize the score of a given
+//             binay matrix by flipping rows and cols
 //
-// goal : find the max possible score by performing any number of moves
-//  (including zero moves) on the matrix
+// Approach :
+//             1. flip rows : check if the first col is 0, if so flip it 
+//             2. flip cols : count the number of zeros, if the # of zeros is greater than half the total rows, flip the cols
+//             3. calc score : bitwise left shift to calc 
 
-// step-by-step approach
-// 1. init max_score
-// 2. calculate the initial score of the matrix by interpreting each row
-//    as a binary number and summing them
-// 3. store the initial max_score
-// 4. for each row: 
-//      4a. toggle the elements in the current row
-//      4b. calculate the score of the modified matrix 
-//      4c. update max_score if the new score is higher
-//      4d. revert the changes made in step 4a (toggle the elements back)
-// 5. for each column:
-//      5a. toggle the elements in the current column
-//      5b. calculate the score of the modified matrix 
-//      5c. update max_score if the new score is higher
-//      5d. revert the changes made in step 4a (toggle the elements back)
-//
-// Take away: -- toggling the row or column effectively flips the binary
-//               representation of each number in that row/column.
-//               Trying all possilbe combinations of row/column toggles
-//               We will find the the max possible score
+func (a ) Len() int           { return len(a) }
+func (a ) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ) Less(i, j int) bool { return a[i] < a[j] }
+
 func matrixScore(grid [][]int) int {
   ROWS, COLS := len(grid), len(grid[0])
-  maxScore := 0
 
-  // initial score
-  for y, _ := range grid {
-    score := 0
+  for y := 0 ; y < ROWS ; y++ {
+    if grid[y][0] == 1 { continue }
     for x := 0 ; x < COLS ; x++ {
-      score = (score << 1) + grid[y][x]
+      grid[y][x] = toggle(grid[y][x])
     }
-    maxScore += score
   }
 
-  // toggle each row
+  for x := 0 ; x < COLS ; x++ {
+    count := 0
+    for y := 0 ; y < ROWS ; y++ {
+      if grid[y][x] == 1 {
+        count += 1
+      }
+    }
+    if float32(count) >= float32(ROWS)/2 {
+      continue
+    }
+    for y := 0 ; y < ROWS ; y++ {
+      grid[y][x] = toggle(grid[y][x])
+    }
+  }
+
+  maximum := 0
   for i := 0 ; i < ROWS ; i++ {
-    // toggle current row
-    toggleRow(grid, i)
-    // calculate score with the toggled row
-    score := 0
-    for y, _ := range grid {
-      rowScore := 0
-      for x := 0 ; x < COLS ; x++ {
-        rowScore = (rowScore << 1) + grid[y][x]
-      }
-      score += rowScore
-    }
-    if score > maxScore {
-      maxScore = score
-    }
-
-    // revert the changes to the current row
-    toggleRow(grid, i)
+    maximum += binaryTo(grid[i])
   }
 
-  // toggle each column
-  for j := 0 ; j < COLS ; j++ {
-    // toggle current column
-    toggleColumn(grid, j)
-    // calculate score with the toggled column
-    score := 0
-    for y, _ := range grid {
-      rowScore := 0
-      for x := 0 ; x < COLS ; x++ {
-        // shift to to the left
-        rowScore = (rowScore << 1) + grid[y][x]
-      }
-      score += rowScore
-    }
-    if score > maxScore {
-      maxScore = score
-    }
-
-    toggleColumn(grid, j) 
-  }
-
-  return maxScore
+  return maximum
 }
 
-func toggleRow(grid [][]int, row int) {
-  for x := range grid[row] {
-    grid[row][x] = 1 - grid[row][x]
+func binaryTo(arr []int) int {
+  N := len(arr)
+  var sum float64 = 0 
+  for i := 0 ; i < N ; i++ {
+    if arr[i] == 1 {
+      sum += math.Pow(float64(2), float64(N - i - 1))
+    }
   }
+  return int(sum)
 }
 
-func toggleColumn(grid [][]int, col int) {
-  for y := range grid {
-    grid[y][col] = 1 - grid[y][col]
-  }
+func toggle(num int) int {
+  if num == 0 { return 1 }
+  return 0 
 }
 
 func main() {
