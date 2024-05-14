@@ -36,10 +36,10 @@ func matrixScore(grid [][]int) int {
   maxScore := 0
 
   // initial score
-  for _, row := range grid {
+  for y, _ := range grid {
     score := 0
-    for i := 0 ; i < COLS ; i++ {
-      score = (score << 1) + row[i]
+    for x := 0 ; x < COLS ; x++ {
+      score = (score << 1) + grid[y][x]
     }
     maxScore += score
   }
@@ -50,10 +50,10 @@ func matrixScore(grid [][]int) int {
     toggleRow(grid, i)
     // calculate score with the toggled row
     score := 0
-    for _, row := range grid {
+    for y, _ := range grid {
       rowScore := 0
-      for j := 0 ; j < COLS ; j++ {
-        rowScore = (rowScore << 1) + row[j]
+      for x := 0 ; x < COLS ; x++ {
+        rowScore = (rowScore << 1) + grid[y][x]
       }
       score += rowScore
     }
@@ -71,11 +71,11 @@ func matrixScore(grid [][]int) int {
     toggleColumn(grid, j)
     // calculate score with the toggled column
     score := 0
-    for _, row := range grid {
+    for y, _ := range grid {
       rowScore := 0
-      for k := 0 ; k < COLS ; k++ {
+      for x := 0 ; x < COLS ; x++ {
         // shift to to the left
-        rowScore = (rowScore << 1) + row[k]
+        rowScore = (rowScore << 1) + grid[y][x]
       }
       score += rowScore
     }
