@@ -5,7 +5,7 @@ import (
   "tree" common/tree
 )
 
-func deleteValue(root *tree.Node) *tree.Node {
+func deleteValue(root *tree.Node, target int) *tree.Node {
   if nil == root { return nil }
   root.Left = deleteValue(root.Left, target)
   root.Right = deleteValue(root.Right, target)
