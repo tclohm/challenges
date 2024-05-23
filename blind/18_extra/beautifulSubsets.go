@@ -1,7 +1,7 @@
 package main
 
 import "fmt"
-
+// A subset of nums is beautiful if it does not contain two integers with an absolute difference equal to k.
 func beautifulSubsets(nums []int, k int) int {
   return 0
 }
