@@ -1,8 +1,10 @@
 package main
 
 import "fmt"
-
+// Time : 2^n, Space : n
 func wordBreak(s string, dict []string) []string {
+  var backtracking func (index int)
+  backtracking = func (index int) {}
   return []string{}
 }
 
