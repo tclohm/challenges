@@ -18,7 +18,7 @@ func wordBreak(s string, dict []string) []string {
     }
     for jndex := index ; jndex < len(s) ; jndex++ {
       word := s[index:jndex+1]
-      if _, exist := set[word]; exist {
+      if _, exist := set[word]; exist {  
         current = append(current, word)
         backtracking(jndex + 1)
         // pop
@@ -42,5 +42,5 @@ func createSet(words []string) map[string]bool {
 func main() {
   fmt.Println(wordBreak("catsanddog", []string{"cat", "cats", "and", "sand", "dog"}))
   fmt.Println(wordBreak("pineapplepenapple", []string{"apple", "pen", "applepen", "pine", "pineapple"}))
-  fmt.Println(wordBreak("catsanddog", []string{"cat", "dog", "sand", "and", "cat"}))
+  fmt.Println(wordBreak("catsandog", []string{"cats", "dog", "sand", "and", "cat"}))
 }
