@@ -1,11 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+	"math"
+)
 
 // increase or decrease the position
 // return the mininum number of moves for students be in their own seats
 func minMoveSeats(seats, students []int) int {
-	return 1
+	sort.Ints(seats)
+	sort.Ints(students)
+	count := 0
+
+	for i := 0 ; i < len(seats) ; i++ {
+		absolute := int(math.Abs(float64(seats[i] - students[i])))
+		count += absolute
+	}
+	return count
 }
 
 func main() {
