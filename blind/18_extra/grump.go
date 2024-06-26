@@ -20,6 +20,7 @@ func satisfied(customers, grumpy []int, minutes int) int {
 		}
 		// check window if minutes is less
 		if r - l + 1 > minutes {
+			// book keeping
 			if grumpy[l] == 1 {
 				window -= customers[l]
 			}
