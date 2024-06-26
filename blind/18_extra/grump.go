@@ -20,7 +20,9 @@ func satisfied(customers, grumpy []int, minutes int) int {
 		}
 		// check window if minutes is less
 		if r - l + 1 > minutes {
-			// book keeping
+			// our window is too big 
+			// because it over-exceeds our minutes
+			// decrease the window if our left pointer is on true
 			if grumpy[l] == 1 {
 				window -= customers[l]
 			}
