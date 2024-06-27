@@ -7,9 +7,12 @@ import "fmt"
 // k odd numbers on it
 
 // sliding window variation
+// - outer loop increments window right pointer until `k` odd numbers are found
+// - `k` odd numbers are found, in inner loop, increment our nice count
+// - add the number of nice subarrays to result
 func numberOfSubarrays(nums []int, k int) int {
 	count := 0
-	left, m := 0, 0
+	left, middle := 0, 0
 	for right, _ := range nums {
 		if nums[right] % 2 != 0 {
 			odd++
@@ -20,12 +23,12 @@ func numberOfSubarrays(nums []int, k int) int {
 				odd--
 			}
 			left++
-			m = left
+			middle = left
 		}
 
 		if odd == k {
-			for nums[m] % 2 != 0 {
-				m++
+			for nums[middle] % 2 != 0 {
+				middle++
 			}
 			count += (m - l) + 1
 		}
