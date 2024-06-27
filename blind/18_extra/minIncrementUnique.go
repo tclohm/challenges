@@ -28,7 +28,7 @@ func main() {
 	fmt.Println(makeUnique([]int{3,2,1,2,1,7}))
 
 }
-
+// less efficient for small sample, more efficient for big sample
 func minIncrement(nums []int) int {
 	count := map[int]int{}
 	incremented := 0
