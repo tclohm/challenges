@@ -11,12 +11,12 @@ func numberOfSubarrays(nums []int, k int) int {
 	count := 0
 	left, m := 0, 0
 	for right, _ := range nums {
-		if nums[right] % 2 > 1 {
+		if nums[right] % 2 != 0 {
 			odd++
 		}
 
-		for odd > k {
-			if nums[left] % 2 > 0 {
+		for odd == k {
+			if nums[left] % 2 != 0 {
 				odd--
 			}
 			left++
