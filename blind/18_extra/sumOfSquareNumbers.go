@@ -33,7 +33,26 @@ func isSumOfSquareNumbers(result int) bool {
 	return false
 }
 
+func judgeSquareSum(result int) bool {
+	var (
+		l = 0
+		r = int(math.Sqrt(float64(result)))
+	)
+
+	for l <= r {
+		total := l * l + r * r
+		if total > result {
+			r -= 1
+		} else if total < result {
+			l += 1
+		} else {
+			return true
+		}
+	}
+	return false
+}
+
 func main() {
-	fmt.Println(isSumOfSquareNumbers(5))
-	fmt.Println(isSumOfSquareNumbers(3))
+	fmt.Println(judgeSquareSum(5))
+	fmt.Println(judgeSquareSum(3))
 }
