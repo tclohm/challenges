@@ -14,7 +14,8 @@ func makeUnique(nums []int) int {
 		left := right - 1
 		// is left greater or equal to right
 		if nums[left] >= nums[right] {
-			incremented += 1 + nums[left] - nums[right]
+			delta := nums[left] - nums[right]
+			incremented += 1 + delta			
 			nums[right] = nums[left] + 1
 		}
 	}
