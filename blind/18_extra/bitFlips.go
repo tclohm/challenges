@@ -10,7 +10,7 @@ func minK(nums []int, k int) int {
 
 	for i, _ := range nums {
 
-		for len(queue) > 0 && queue[0] + k - 1 {
+		for len(queue) > 0 && queue[0] + k - 1 == 0 {
 			queue = queue[1:]
 		}
 
