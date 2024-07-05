@@ -5,8 +5,8 @@ import "fmt"
 func permute(nums []int) [][]int {
 
 
-	var backtrack func(result *[][]int, nums []int)
-	backtrack = func(result [][]int, nums []int) {
+	var backtrack func(result *[][]int, nums []int) [][]int
+	backtrack = func(result *[][]int, nums []int) [][]int {
 		if len(nums) == 1 {
 			return [][]int{nums}
 		}
@@ -18,14 +18,14 @@ func permute(nums []int) [][]int {
 			for _, perm := range perms  {
 				perm = append(perm, n)
 			}
-			result = append(result, perms...)
+			*result = append(*result, perms...)
 			nums = append(nums, n)
 		}
+		return *result
 	}
 
 	var result = [][]int{}
 	backtrack(&result, nums)
-
 	return result
 }
 
