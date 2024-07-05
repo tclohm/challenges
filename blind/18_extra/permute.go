@@ -1,35 +1,33 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func permute(nums []int) [][]int {
+	var perms [][]int
 
-
-	var dfs func(result *[][]int, nums []int) [][]int
-	dfs = func(result *[][]int, nums []int) [][]int {
-		if len(nums) == 1 {
-			return [][]int{nums}
+	var backtrack func([]int, []int)
+	backtrack = func(nums []int, path []int) {
+		if len(nums) == 0 {
+			perms = append(perms, append([]int(nil), path...))
+			return
 		}
 
 		for i := 0 ; i < len(nums) ; i++ {
-			n := nums[0]
-			nums = nums[1:]
-			perms := dfs(result, nums)	
-			for _, perm := range perms  {
-				perm = append(perm, n)
-			}
-			*result = append(*result, perms...)
-			nums = append(nums, n)
+			newPerms := append([]int(nil), nums[:i]...)
+			newPerms = append(newPerms, nums[i + 1:]...)
+			newPath := append([]int(nil), path...)
+			newPath = append(newPath, nums[i])
+			backtrack(newPerms, newPath)
 		}
-		return *result
 	}
 
-	var result = [][]int{}
-	dfs(&result, nums)
-	return result
+	backtrack(nums, []int{})
+	return perms
 }
-
 func main() {
 	fmt.Println(permute([]int{1,2,3}))
 	fmt.Println(permute([]int{8}))
+	fmt.Println(permute([]int{0,1}))
 }
