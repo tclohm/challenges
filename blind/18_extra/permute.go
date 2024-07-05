@@ -7,27 +7,26 @@ func permute(nums []int) [][]int {
 
 	var backtrack func(result *[][]int, nums []int)
 	backtrack = func(result [][]int, nums []int) {
-
-	}
-	if len(nums) == 1 {
-		return [][]int{nums}
-	}
-
-	result := [][]int{}
-
-	for i := 0 ; i < len(nums) ; i++ {
-		n := nums[0]
-		nums = nums[1:]
-		perms := permute(nums)	
-		for _, perm := range perms  {
-			perm = append(perm, n)
+		if len(nums) == 1 {
+			return [][]int{nums}
 		}
-		result = append(result, perms...)
-		nums = append(nums, n)
+
+		for i := 0 ; i < len(nums) ; i++ {
+			n := nums[0]
+			nums = nums[1:]
+			perms := permute(nums)	
+			for _, perm := range perms  {
+				perm = append(perm, n)
+			}
+			result = append(result, perms...)
+			nums = append(nums, n)
+		}
 	}
+
+	var result = [][]int{}
+	backtrack(&result, nums)
 
 	return result
-
 }
 
 func main() {
