@@ -72,7 +72,7 @@ func factorial(n int) int {
 	return n * factorial(n - 1)
 
 }
-// A,B,C,D -> alphabetical order
+// A,B,C,D -> alphabetical order -- Need to research this more
 func generateThroughLexicographicOrder(nums []int) [][]int {
 	var nextPermutation func (nums []int)
 	nextPermutation = func (nums []int) {
