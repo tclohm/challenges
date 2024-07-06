@@ -122,22 +122,26 @@ func permutationUsingInsertion(nums []int) [][]int {
 		return [][]int{nums}
 	}
 
-	result := [][]int{}
+	var result [][]int
+	var seen = make(map[string]bool)
 
 	for i, num := range nums {
-
-		rest := nums[:i]
-		rest = append(rest, nums[i + 1:]...)
-
+		rest := append([]int{}, nums[:i]...)
+		rest = append(rest, nums[i+1:]...)
+		
 		for _, perm := range permutationUsingInsertion(rest) {
+			for j := 0 ; j < len(perm) ; j++ {
+				newPerm := make([]int, len(perm)+1)
+				copy(newPerm[:j], perm[:j])
+				newPerm[j] = num
+				copy(newPerm[j + 1:], perm[j:])
 
-			for j := range len(perm) {
-				newPerm := perm[:j]
-				newPerm = append(newPerm, num)
-				newPerm = append(newPerm, perm[j:]...)
-				result = append(result, newPerm)
+				key := fmt.Sprintf("%v", newPerm)
+				if !seen[key] {
+					result = append(result, newPerm)
+					seen[key] = true
+				}
 			}
-
 		} 
 	}
 	return result
