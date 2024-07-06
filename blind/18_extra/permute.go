@@ -72,10 +72,13 @@ func factorial(n int) int {
 	return n * factorial(n - 1)
 
 }
-// A,B,C,D -> alphabetical order -- Need to research this more
+// A,B,C,D -> alphabetical order
+// the intuition 
+// if I can generate the "next" permutation in alpha (lexico) order,
+// we can start in sorted first and  then generate the next one
 func generateThroughLexicographicOrder(nums []int) [][]int {
-	var nextPermutation func (nums []int)
-	nextPermutation = func (nums []int) {
+	var nextPermutation func (nums []int) []int
+	nextPermutation = func (nums []int) []int {
 		var i = len(nums) - 2
 		for i >= 0 && nums[i] >= nums[i + 1] {
 			i -= 1
@@ -96,13 +99,15 @@ func generateThroughLexicographicOrder(nums []int) [][]int {
 			left += 1
 			right -= 1
 		}
+
+		return nums
 	}
 
 	var result = [][]int{nums}
 
 	for x := 1 ; x < factorial(len(nums)) ; x++ {
-		nextPermutation(nums)
-		result = append(result, nums)
+		var nextPerm = nextPermutation(result[len(result) - 1])
+		result = append(result, nextPerm)
 	}
 
 	return result
