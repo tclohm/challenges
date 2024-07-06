@@ -60,9 +60,9 @@ func permute(nums []int) [][]int {
 }
 
 func main() {
-	fmt.Println(generateThroughLexicographicOrder([]int{1,2,3}))
-	fmt.Println(generateThroughLexicographicOrder([]int{8}))
-	fmt.Println(generateThroughLexicographicOrder([]int{0,1}))
+	fmt.Println(permutationUsingInsertion([]int{1,2,3}))
+	fmt.Println(permutationUsingInsertion([]int{8}))
+	fmt.Println(permutationUsingInsertion([]int{0,1}))
 }
 
 func factorial(n int) int {
@@ -114,5 +114,31 @@ func generateThroughLexicographicOrder(nums []int) [][]int {
 		result = append(result, nextPerm)
 	}
 
+	return result
+}
+
+func permutationUsingInsertion(nums []int) [][]int {
+	if len(nums) <= 1 {
+		return [][]int{nums}
+	}
+
+	result := [][]int{}
+
+	for i, num := range nums {
+
+		rest := nums[:i]
+		rest = append(rest, nums[i + 1:]...)
+
+		for _, perm := range permutationUsingInsertion(rest) {
+
+			for j := range len(perm) {
+				newPerm := perm[:j]
+				newPerm = append(newPerm, num)
+				newPerm = append(newPerm, perm[j:]...)
+				result = append(result, newPerm)
+			}
+
+		} 
+	}
 	return result
 }
