@@ -139,7 +139,7 @@ func permutationUsingInsertion(nums []int) [][]int {
 				key := fmt.Sprintf("%v", newPerm)
 				if !seen[key] {
 					result = append(result, newPerm)
-					seen[key]
+					seen[key] = true
 				}
 			}
 		} 
