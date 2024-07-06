@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 func firstPermute(nums []int) [][]int {
@@ -59,9 +60,9 @@ func permute(nums []int) [][]int {
 }
 
 func main() {
-	fmt.Println(permute([]int{1,2,3}))
-	fmt.Println(permute([]int{8}))
-	fmt.Println(permute([]int{0,1}))
+	fmt.Println(generateThroughLexicographicOrder([]int{1,2,3}))
+	fmt.Println(generateThroughLexicographicOrder([]int{8}))
+	fmt.Println(generateThroughLexicographicOrder([]int{0,1}))
 }
 
 func factorial(n int) int {
@@ -102,9 +103,9 @@ func generateThroughLexicographicOrder(nums []int) [][]int {
 
 		return nums
 	}
-
+	
+	sort.Ints(nums)
 	var result = [][]int{nums}
-
 	for x := 1 ; x < factorial(len(nums)) ; x++ {
 		var nextPerm = nextPermutation(result[len(result) - 1])
 		result = append(result, nextPerm)
