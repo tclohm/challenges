@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func permute(nums []int) [][]int {
+func firstPermute(nums []int) [][]int {
 	var perms [][]int
 
 	var backtrack func([]int, []int)
@@ -26,6 +26,38 @@ func permute(nums []int) [][]int {
 	backtrack(nums, []int{})
 	return perms
 }
+
+func in(n int, array []int) bool {
+	for _, num := range array {
+		if n == num { return true }
+	}
+	return false
+}
+
+func permute(nums []int) [][]int {
+	
+	var result = [][]int{}
+	
+	var backtrack func(currentPermutation []int)
+	backtrack = func(currentPermutation []int) {
+		if len(currentPermutation) == len(nums) {
+			result = append(result, append([]int(nil), currentPermutation...))
+			return
+		}
+
+		for _, num := range nums {
+			if !in(num, currentPermutation) {
+				currentPermutation = append(currentPermutation, num)
+				backtrack(currentPermutation)
+				currentPermutation = currentPermutation[:len(currentPermutation) - 1]
+			}
+		}
+	}
+
+	backtrack([]int{})
+	return result
+}
+
 func main() {
 	fmt.Println(permute([]int{1,2,3}))
 	fmt.Println(permute([]int{8}))
