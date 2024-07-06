@@ -63,3 +63,47 @@ func main() {
 	fmt.Println(permute([]int{8}))
 	fmt.Println(permute([]int{0,1}))
 }
+
+func factorial(n int) int {
+	if n == 1 {
+		return 1
+	}
+
+	return n * factorial(n - 1)
+
+}
+// A,B,C,D -> alphabetical order
+func generateThroughLexicographicOrder(nums []int) [][]int {
+	var nextPermutation func (nums []int)
+	nextPermutation = func (nums []int) {
+		var i = len(nums) - 2
+		for i >= 0 && nums[i] >= nums[i + 1] {
+			i -= 1
+		}
+
+		if i >= 0 {
+			var j = len(nums) - 1
+			for nums[j] <= nums[i] {
+				j -= 1
+			}
+			nums[i], nums[j] = nums[j], nums[i]
+		}
+
+		var left, right = i + 1, len(nums) - 1
+
+		for left < right {
+			nums[left], nums[right] = nums[right], nums[left]
+			left += 1
+			right -= 1
+		}
+	}
+
+	var result = [][]int{nums}
+
+	for x := 1 ; x < factorial(len(nums)) ; x++ {
+		nextPermutation(nums)
+		result = append(result, nums)
+	}
+
+	return result
+}
