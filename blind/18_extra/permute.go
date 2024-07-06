@@ -105,9 +105,12 @@ func generateThroughLexicographicOrder(nums []int) [][]int {
 	}
 	
 	sort.Ints(nums)
+	var n = len(nums)
 	var result = [][]int{nums}
-	for x := 1 ; x < factorial(len(nums)) ; x++ {
-		var nextPerm = nextPermutation(result[len(result) - 1])
+	for x := 1 ; x < factorial(n) ; x++ {
+		var end = len(result) - 1
+		var last = result[end]
+		var nextPerm = nextPermutation(last)
 		result = append(result, nextPerm)
 	}
 
