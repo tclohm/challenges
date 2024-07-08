@@ -2,8 +2,14 @@ package main
 
 import "fmt"
 
-func howMuch(water int, exchange int) int {
-	return 1
+// exchange empty water bottles for full ones
+// return the max number of water bottles we can drink
+func howMuch(have int, exchangeRate int) int {
+	total := have
+	for i := 1 ; i < total ; i += exchangeRate {
+		total++
+	}
+	return total
 }
 
 func main() {
