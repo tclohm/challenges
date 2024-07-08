@@ -9,8 +9,19 @@ func howMuch(have int, exchangeRate int) int {
 	// for i := 1 ; i < total ; i += exchangeRate {
 	// 	total++
 	// }
-	// return total
-	return have + (have - 1) / (exchangeRate - 1)
+	// return total 
+	// have + (have - 1) / (exchangeRate - 1)
+
+	drank := 0
+	empty := 0
+
+	for have > 0 {
+		drank += have
+		empty += have
+		have = empty / exchangeRate
+		empty = empty % exchangeRate
+	}
+	return drank
 }
 
 func main() {
