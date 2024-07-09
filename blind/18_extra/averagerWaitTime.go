@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func avgWaitTime(customers [][]int) int {
+func avgWaitTime(customers [][]int) float64 {
 	end := 0
 	waiting := 0
 
@@ -17,7 +17,7 @@ func avgWaitTime(customers [][]int) int {
 		waiting += end - arrive
 	}
 
-	return waiting / len(customers)
+	return float64(waiting / len(customers))
 }
 
 func main() {
