@@ -44,22 +44,14 @@ func isZero(head *Node) bool {
 
 func mergeNodesBetweenZero(head *Node) []int {
 	var result = []int{}
-	for head != nil {
-		fmt.Println(head.val)
-		var adding int = 0
-		if nil != head && isZero(head) {
-			head = head.next
-			for nil != head && head.val != 0 {
-				adding += head.val
-				head = head.next
-			}
+	var add = 0
+	for nil != head {
+		if head.val != 0 {
+			add += head.val
 		}
-		if adding > 0 {
-			result = append(result, adding)
-			adding = 0
-		}
-		if head == nil {
-			return result
+		if head.val == 0 && add != 0 {
+			result = append(result, add)
+			add = 0
 		}
 		head = head.next
 	}
