@@ -15,10 +15,12 @@ func buildLinkedList(nums []int) *Node {
 	var head *Node = &Node{nums[0], tail}		
 	for i := 1 ; i < len(nums) ; i++ {
 		tail.val = nums[i]
-		tail.next = &Node{0, nil}
-		tail = tail.next
+		if i < len(nums) - 1 {
+			tail.next = &Node{0, nil}
+			tail = tail.next
+		}
 	}
-
+	
 	return head
 }
 
