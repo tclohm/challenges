@@ -35,6 +35,10 @@ func printLinkedList(head *Node) {
 	fmt.Println(buffer.String())
 }
 
+func mergeNodesBetweenZero(head *Node) []int {
+ return []int{0,0}
+}
+
 func main() {
 	one := buildLinkedList([]int{0,3,1,0,4,5,2,0})
 	printLinkedList(one)
