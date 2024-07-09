@@ -10,6 +10,18 @@ type Node struct {
 	next *Node
 }
 
+func buildLinkedList(nums []int) *Node {
+	var tail *Node = &Node{}
+	var head *Node = &Node{nums[0], tail}		
+	for i := 1 ; i < len(nums) ; i++ {
+		tail.val = nums[i]
+		tail.next = &Node{0, nil}
+		tail = tail.next
+	}
+
+	return head
+}
+
 func printLinkedList(head *Node) {
 	var buffer bytes.Buffer
 	for head != nil {
@@ -22,9 +34,6 @@ func printLinkedList(head *Node) {
 }
 
 func main() {
-	four := Node{4, nil}
-	three := Node{3, &four}
-	two := Node{2, &three}
-	one := Node{1, &two}
-	printLinkedList(&one)
+	one := buildLinkedList([]int{0,3,1,0,4,5,2,0})
+	printLinkedList(one)
 }
