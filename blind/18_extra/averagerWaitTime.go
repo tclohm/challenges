@@ -12,7 +12,7 @@ func avgWaitTime(customers [][]int) float64 {
 		if end < arrive {
 			end = arrive + length
 		} else {
-			end = end + length
+			end += length
 		}
 		waiting += end - arrive
 	}
