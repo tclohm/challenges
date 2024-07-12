@@ -59,13 +59,13 @@ func rev(s string) string {
 	result := []string{}
 
 	for index < len(s) {
-		if s[index] == "(" || s[index] == ")" {
+		if string(s[index]) == "(" || string(s[index]) == ")" {
 			// string to index
 			
-			index = pairStringToInt[indeLx]
+			index = pairStringToInt[s[index]]
 			direction = -direction
 		} else {
-			result = append(result, s[index])
+			result = append(result, string(s[index]))
 		}
 		index += direction
 	}
