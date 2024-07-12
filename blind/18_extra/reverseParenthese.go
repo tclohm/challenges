@@ -62,7 +62,7 @@ func rev(s string) string {
 		if string(s[index]) == "(" || string(s[index]) == ")" {
 			// string to index
 			
-			index = pairStringToInt[s[index]]
+			index = pairStringToInt[string(s[index])]
 			direction = -direction
 		} else {
 			result = append(result, string(s[index]))
