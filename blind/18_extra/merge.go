@@ -61,8 +61,10 @@ func mergeNodesBetweenZero(head *Node) []int {
 func main() {
 	one := buildLinkedList([]int{0,3,1,0,4,5,2,0})
 	printLinkedList(one)
-	fmt.Println(mergeNodesBetweenZero(one))
+	r := mergeNodesBetweenZero(one)
+	printLinkedList(buildLinkedList(r))
 	two := buildLinkedList([]int{0,1,0,3,0,2,2,0})
 	printLinkedList(two)
-	fmt.Println(mergeNodesBetweenZero(two))
+	r2 := mergeNodesBetweenZero(two)
+	printLinkedList(buildLinkedList(r2))
 }
