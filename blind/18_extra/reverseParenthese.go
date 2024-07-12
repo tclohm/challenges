@@ -38,7 +38,8 @@ func main() {
 }
 
 func rev(s string) string {
-	pair := map[int]int
+	pairIntToString := map[int]string{}
+	pairStringToInt := map[string]int{}
 	stack := []string{}
 
 	for i, r := range s {
@@ -49,8 +50,8 @@ func rev(s string) string {
 			last := len(stack) - 1
 			el := stack[last]
 			stack = stack[:last]
-			pair[i] = el
-			pair[el] = j
+			pairIntToString[i] = el
+			pairStringToInt[el] = i
 		}
 	}
 
@@ -59,12 +60,14 @@ func rev(s string) string {
 
 	for index < len(s) {
 		if s[index] == "(" || s[index] == ")" {
-			index = pair[index]
+			// string to index
+			
+			index = pairStringToInt[indeLx]
 			direction = -direction
 		} else {
-			result = append(result, s[i])
+			result = append(result, s[index])
 		}
-		i += direction
+		index += direction
 	}
 
 	return strings.Join(result, "")
