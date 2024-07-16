@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 )
-
+// O(n) for both time and space
 func maxGain(s string, x, y int) int {
 	var removePairs func (pair string, score int) int
 	removePairs = func (pair string, score int) int {
@@ -20,11 +20,12 @@ func maxGain(s string, x, y int) int {
 				stack = append(stack, c)
 			}
 		}
+		s = strings.Join(stack, "")
 		return result
 	}
 
 	var res = 0
-	var pair string
+ 	var pair string
 	if x > y {
 		pair = "ab"
 	}	else {
