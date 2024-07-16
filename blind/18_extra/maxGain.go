@@ -46,6 +46,16 @@ func reverse(s string) string {
 	return res.String()
 }
 
+func max(a, b int) int {
+	if a < b { return b }
+	return b
+}
+
+func min(a, b int) int {
+	if a < b { return a }
+	return b
+}
+
 func main() {
 	fmt.Println(maxGain("cdbcbbaaabab", 4, 5)) // 19
 	fmt.Println(maxGain("aabbaaxybbaabb", 5, 4)) // 20
