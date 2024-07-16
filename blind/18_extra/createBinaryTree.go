@@ -36,6 +36,8 @@ func create(arrays [][]int) Node {
 		}
 	}
 
+	fmt.Println(nodes)
+
 	for _, node := range arrays {
 		var (
 			value	= node[0]
@@ -48,18 +50,35 @@ func create(arrays [][]int) Node {
 	return Node{value: -1}
 }
 
+func inorder(root Node) {
+
+	fmt.Println(root.value)
+
+	if nil != root.left {
+		inorder(*root.left)
+	}
+
+	if nil != root.right {
+		inorder(*root.right)
+	}
+}
+
 func main() {
-	fmt.Println(create([][]int{
+	r := create([][]int{
 		{20,15,1},
 		{20,17,0},
 		{50,20,1},
 		{50,80,0},
 		{80,19,1},
-		}))
+		})
 
-	fmt.Println(create([][]int{
+	r2 := create([][]int{
 		{1,2,1},
 		{2,3,0},
 		{3,4,1},
-		}))
+		})
+
+	inorder(r)
+	fmt.Println("-----")
+	inorder(r2)
 }
