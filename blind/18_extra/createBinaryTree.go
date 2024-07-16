@@ -5,14 +5,14 @@ import "fmt"
 
 type Node struct {
 	value int
-	left int
-	right int
+	left *Node 
+	right *Node
 }
 // arrays[i] = [parent, child, isLeft]
 // isLeft == 1, the child is left
 // isLeft == 0, the child is right
-func create(arrays [][]int) []int {
-	var adjList = map[int][]int{}
+func create(arrays [][]int) Node {
+	var nodes = map[int]Node{}
 	var children = map[int]bool{}
 
 	for _, node := range arrays {
@@ -23,13 +23,16 @@ func create(arrays [][]int) []int {
 		)
 		children[child] = true
 		// if it doesnt exist, create
-		if _, ok := adjList[value]; !ok {
-			adjList[value] = make([]int, 2, 2)
+		if _, ok := nodes[value]; !ok {
+			nodes[value] = Node{value: value} 
 		}
+		n := nodes[value]
+		ch := Node{value: child}
+		nodes[child] = ch
 		if isLeft == 1 {
-			adjList[value][0] = child
+			n.left = &ch		
 		} else {
-			adjList[value][1] = child
+			n.right = &ch	
 		}
 	}
 
@@ -38,12 +41,11 @@ func create(arrays [][]int) []int {
 			value	= node[0]
 		)
 		if _, ok := children[value]; !ok {
-			fmt.Println("root:", value)
-			break
+			return nodes[value]
 		}
 	}
 	
-	return []int{0}
+	return Node{value: -1}
 }
 
 func main() {
