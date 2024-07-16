@@ -12,7 +12,7 @@ type Node struct {
 // isLeft == 1, the child is left
 // isLeft == 0, the child is right
 func create(arrays [][]int) Node {
-	var nodes = map[int]Node{}
+	var nodes = map[int]*Node{}
 	var children = map[int]bool{}
 
 	for _, node := range arrays {
@@ -24,15 +24,15 @@ func create(arrays [][]int) Node {
 		children[child] = true
 		// if it doesnt exist, create
 		if _, ok := nodes[value]; !ok {
-			nodes[value] = Node{value: value} 
+			nodes[value] = &Node{value: value} 
 		}
 		n := nodes[value]
-		ch := Node{value: child}
+		ch := &Node{value: child}
 		nodes[child] = ch
 		if isLeft == 1 {
-			n.left = &ch		
+			n.left = ch		
 		} else {
-			n.right = &ch	
+			n.right = ch	
 		}
 	}
 
@@ -41,7 +41,7 @@ func create(arrays [][]int) Node {
 			value	= node[0]
 		)
 		if _, ok := children[value]; !ok {
-			return nodes[value]
+			return *nodes[value]
 		}
 	}
 	
