@@ -20,6 +20,7 @@ func maxGain(s string, x, y int) int {
 				stack = append(stack, c)
 			}
 		}
+		s = strings.Join(stack, "")
 		return result
 	}
 
