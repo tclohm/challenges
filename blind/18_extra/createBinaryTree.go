@@ -1,11 +1,19 @@
 package main 
 
 import "fmt"
+
+
+type Node struct {
+	value int
+	left int
+	right int
+}
 // arrays[i] = [parent, child, isLeft]
 // isLeft == 1, the child is left
 // isLeft == 0, the child is right
 func create(arrays [][]int) []int {
 	var adjList = map[int][]int{}
+	var children = map[int]bool{}
 
 	for _, node := range arrays {
 		var (
@@ -13,6 +21,7 @@ func create(arrays [][]int) []int {
 			child = node[1]
 			isLeft = node[2]
 		)
+		children[child] = true
 		// if it doesnt exist, create
 		if _, ok := adjList[value]; !ok {
 			adjList[value] = make([]int, 2, 2)
@@ -23,26 +32,18 @@ func create(arrays [][]int) []int {
 			adjList[value][1] = child
 		}
 	}
-	
-	var root = findRoot(adjList)
-	fmt.Println(root)
-	return []int{0}
-}
 
-func findRoot(adj map[int][]int) int {
-	var children = map[int]bool{}
-	for _, childs := range adj {
-		for _, child := range childs {
-			children[child] = true
-		}		
-	}
-
-	for key, _ := range adj {
-		if _, ok := children[key]; !ok {
-			return key
+	for _, node := range arrays {
+		var (
+			value	= node[0]
+		)
+		if _, ok := children[value]; !ok {
+			fmt.Println("root:", value)
+			break
 		}
 	}
-	return -1
+	
+	return []int{0}
 }
 
 func main() {
