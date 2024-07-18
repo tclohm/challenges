@@ -10,22 +10,49 @@ type Node struct {
 
 func buildTree(nums []int) *Node {
 	var root *Node
-	var nodes = map[*Node]
-	for i := 0 ; i < len(nums) ; i++ {
-		node := Node{val: nums[i]}
-		if i + 1 < len(nums) {
-			node.left = &Node{val: nums[i + 1]}
-		}
+	root = &Node{val: nums[0]}
+	if 1 < len(nums) {
+		left := buildTree(nums[1:])
+		root.left = left
+	}
+	if 2 < len(nums) {
+		right := buildTree(nums[2:])
+		root.right = right
+	}
+	return root
+}
 
-		if i + 2 < len(nums) {
-			node.right = &Node{val: nums[i + 2]}
+func printTree(root *Node, nodes *[]int) []int {
+	if root != nil && !in(root, *nodes) {
+		*nodes = append(*nodes, root.val)
+	}
+
+	if nil != root.left && !in(root.left, *nodes) {
+		printTree(root.left, nodes)
+	}
+
+	if nil != root.right && !in(root.right, *nodes)  {
+		printTree(root.right, nodes)
+	}
+
+	return *nodes
+}
+
+func in(n *Node, visited []int) bool {
+	for number := range visited {
+		if n.val == number {
+			return true
 		}
 	}
+	return false
 }
+
+
 func deleteNodes(root *Node, toDelete []int) []*Node {
-	return []int{&Node{val: 0}}
+	return []*Node{&Node{val: 0}}
 }
 
 func main() {
-	fmt.Println(buildTree([]int{1,2,3,4,5,6,7,8}))
+	r := buildTree([]int{1,2,3,4,5,6,7,8})
+	fmt.Println(printTree(r, &[]int{}))
 }
