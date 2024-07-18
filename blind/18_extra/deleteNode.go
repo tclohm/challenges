@@ -23,6 +23,7 @@ func buildTree(nums []int) *Node {
 }
 
 func printTree(root *Node, nodes *[]int) []int {
+	fmt.Println(nodes)
 	if root != nil && !in(root, *nodes) {
 		*nodes = append(*nodes, root.val)
 	}
