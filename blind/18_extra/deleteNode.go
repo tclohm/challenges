@@ -22,32 +22,21 @@ func buildTree(nums []int) *Node {
 	return root
 }
 
-func printTree(root *Node, nodes *[]int) []int {
-	fmt.Println(nodes)
-	if root != nil && !in(root, *nodes) {
-		*nodes = append(*nodes, root.val)
+func printTree(root *Node, nodes map[int]bool) map[int]bool {
+	if root != nil && !nodes[root.val] {
+			nodes[root.val] = true
 	}
 
-	if nil != root.left && !in(root.left, *nodes) {
+	if nil != root.left && nodes[root.val] {
 		printTree(root.left, nodes)
 	}
 
-	if nil != root.right && !in(root.right, *nodes)  {
+	if nil != root.right && nodes[root.val]  {
 		printTree(root.right, nodes)
 	}
 
-	return *nodes
+	return nodes
 }
-
-func in(n *Node, visited []int) bool {
-	for number := range visited {
-		if n.val == number {
-			return true
-		}
-	}
-	return false
-}
-
 
 func deleteNodes(root *Node, toDelete []int) []*Node {
 	return []*Node{&Node{val: 0}}
@@ -55,5 +44,5 @@ func deleteNodes(root *Node, toDelete []int) []*Node {
 
 func main() {
 	r := buildTree([]int{1,2,3,4,5,6,7,8})
-	fmt.Println(printTree(r, &[]int{}))
+	fmt.Println(printTree(r, map[int]bool{}))
 }
