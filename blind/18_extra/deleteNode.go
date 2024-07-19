@@ -38,8 +38,23 @@ func printTree(root *Node, nodes map[int]bool) map[int]bool {
 	return nodes
 }
 
-func deleteNodes(root *Node, toDelete []int) []*Node {
-	return []*Node{&Node{val: 0}}
+func deleteNodes(root *Node, toDelete []int) [][]*Node {
+	// delete set
+	// result set
+
+	// dfs func
+	// if not node return none
+	// if node.val in delete set
+	//	res
+	// result remove node
+	// if node left add to result
+	// if node right add to result
+	// dfs node.left
+	// dfs node.right
+	// return res
+
+	// make result into list
+	return [][]*Node{{&Node{val: 0}}}
 }
 
 func main() {
