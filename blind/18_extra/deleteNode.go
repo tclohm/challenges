@@ -34,7 +34,7 @@ func printTree(root *Node, nodes map[int]bool) map[int]bool {
 	if nil != root.right && nodes[root.val]  {
 		printTree(root.right, nodes)
 	}
-
+	
 	return nodes
 }
 
