@@ -8,6 +8,21 @@ type Node struct {
 	right *Node
 }
 
+
+func buildTree(nums []int) *Node {
+	var root *Node
+	root = &Node{val: nums[0]}
+	if 1 < len(nums) {
+		left := buildTree(nums[1:])
+		root.left = left
+	}
+	if 2 < len(nums) {
+		right := buildTree(nums[2:])
+		root.right = right
+	}
+	return root
+}
+
 func numberGood(root *Node, distance int) int {
 	var pairs int = 0
 
@@ -48,6 +63,6 @@ func numberGood(root *Node, distance int) int {
 }
 
 func main() {
-	root := []int{1,2,3,0,4}
+	root := buildTree([]int{1,2,3,0,4})
 	fmt.Println(numberGood(root, 3))
 }
