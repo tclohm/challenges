@@ -22,17 +22,18 @@ func numberGood(root *tree.Node, distance int) int {
 		leftDistance := dfs(node.Left)
 		rightDistance := dfs(node.Right)
 
-		allDistance := append([]int{}, leftDistance...)
-		allDistance = append(allDistance, rightDistance...)
-
 		for _, d1 := range leftDistance {
 			for _, d2 := range rightDistance {
 			
 				if d1 + d2 <= distance {
 					pairs += 1
 				}
+
 			}
 		}
+
+		allDistance := append([]int{}, leftDistance...)
+		allDistance = append(allDistance, rightDistance...)
 
 		for i, _ := range allDistance {
 			allDistance[i] += 1
