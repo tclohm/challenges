@@ -47,27 +47,47 @@ func in(num int, array []int) bool {
 	return false
 }
 
-func deleteNodes(root *Node, toDelete []int) [][]int {
-	var result = [][]int{}
-	var dfs func(root *Node, path []int)
-	dfs = func(root *Node, path []int) {
-		if !in(root.val, toDelete) {
-			path = append(path, root.val)
-
-			if nil != root.left {
-				dfs(root.left, path)
-			}
-
-			if nil != root.right {
-				dfs(root.right, path)
-			}
-
-			result = append(result, path)
-		}
+func deleteNodes(root *Node, toDelete []int) []*Node {
+	del := map[int]bool{}
+	for _, v := range toDelete {
+		del[v] = true
 	}
 
-	dfs(root, []int{})
-	return result
+	forest := make([]*Node, 0, 10)
+
+	if root != nil && !del[root.val] {
+		forest = append(forest, root)
+	}
+
+	var dfs func(root *Node, d map[int]bool, array *[]*Node) *Node
+	dfs = func(root *Node, d map[int]bool, array *[]*Node) *Node {
+		if root == nil {
+			return nil
+		}
+		
+		if _, found := d[root.val]; found {
+			if root.left != nil && !d[root.left.val] {
+				*forest = append(*forest, root.left)
+			}
+
+			if root.right != nil && !d[root.right.val] {
+				*forest = append(*forest, root.right)
+			}
+
+			dfs(root.left, d, forest)
+			dfs(root.right, d, forest)
+
+			return nil
+		}
+
+		root.left = dfs(root.left, d, forest)
+		root.right = dfs(root.right, d, forest)
+		return root
+	}
+
+	dfs(root, del, &forest)
+
+	return forest
 }
 
 func main() {
