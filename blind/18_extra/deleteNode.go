@@ -76,7 +76,6 @@ func deleteNodes(root *Node, toDelete []int) []*Node {
 
 			dfs(root.left, d, array)
 			dfs(root.right, d, array)
-
 			return nil
 		}
 
