@@ -67,26 +67,24 @@ func deleteNodes(root *Node, toDelete []int) []*Node {
 		
 		if _, found := d[root.val]; found {
 			if root.left != nil && !d[root.left.val] {
-				*forest = append(*forest, root.left)
+				*array = append(*array, root.left)
 			}
 
 			if root.right != nil && !d[root.right.val] {
-				*forest = append(*forest, root.right)
+				*array = append(*array, root.right)
 			}
 
-			dfs(root.left, d, forest)
-			dfs(root.right, d, forest)
-
+			dfs(root.left, d, array)
+			dfs(root.right, d, array)
 			return nil
 		}
 
-		root.left = dfs(root.left, d, forest)
-		root.right = dfs(root.right, d, forest)
+		root.left = dfs(root.left, d, array)
+		root.right = dfs(root.right, d, array)
 		return root
 	}
 
 	dfs(root, del, &forest)
-
 	return forest
 }
 
