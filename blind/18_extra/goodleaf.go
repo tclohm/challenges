@@ -1,43 +1,26 @@
 package main
 
-import "fmt"
-
-type Node struct {
-	val int
-	left *Node
-	right *Node
-}
+import (
+	"fmt"
+	tree "extra/tree"
+)
 
 
-func buildTree(nums []int) *Node {
-	var root *Node
-	root = &Node{val: nums[0]}
-	if 1 < len(nums) {
-		left := buildTree(nums[1:])
-		root.left = left
-	}
-	if 2 < len(nums) {
-		right := buildTree(nums[2:])
-		root.right = right
-	}
-	return root
-}
-
-func numberGood(root *Node, distance int) int {
+func numberGood(root *tree.Node, distance int) int {
 	var pairs int = 0
 
-	var dfs func (node *Node) []int
-	dfs = func (node *Node) []int {
+	var dfs func (node *tree.Node) []int
+	dfs = func (node *tree.Node) []int {
 		if node == nil {
 			return []int{}
 		}
 
-		if nil == node.left && nil == node.right {
+		if nil == node.Left && nil == node.Right {
 			return []int{1}
 		}
 
-		leftDistance := dfs(node.left)
-		rightDistance := dfs(node.right)
+		leftDistance := dfs(node.Left)
+		rightDistance := dfs(node.Right)
 
 		allDistance := append([]int{}, leftDistance...)
 		allDistance = append(allDistance, rightDistance...)
@@ -63,6 +46,7 @@ func numberGood(root *Node, distance int) int {
 }
 
 func main() {
-	root := buildTree([]int{1,2,3,0,4})
+	root := tree.Build_binary_tree([]int{1,2,3,0,4})
+	tree.Print_binary_tree(root, 1, "")
 	fmt.Println(numberGood(root, 3))
 }
