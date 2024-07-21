@@ -46,4 +46,5 @@ func max(matrix [][]int, col int) int {
 func main() {
 	fmt.Println(lucky([][]int{{3,7,8},{9,11,13},{15,16,17}}))
 	fmt.Println(lucky([][]int{{1,10,4,2},{9,3,8,7},{15,16,17,12}}))
+	fmt.Println(lucky([][]int{{7,8},{1,2}}))
 }
