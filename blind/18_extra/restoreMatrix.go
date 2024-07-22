@@ -9,28 +9,20 @@ func restoreMatrix(rowSum, colSum []int) [][]int {
 		matrix = append(matrix, make([]int, len(colSum), len(colSum)))
 	}
 
-	for row := 0 ; row < len(rowSum) ; row++ {
-		matrix[row][0] = rowSum[row]
-	}
+	row, col := 0, 0
+	for row < len(rowSum) && col < len(colSum) {
+		matrix[row][col] = min(rowSum[row], colSum[col])
 
-	for col := 0 ; col < len(colSum) ; col++ {
-		currentColSum := 0
-		for row := 0 ; row < len(rowSum) ; row++ {
-			currentColSum += matrix[row][col]
-		}
+		rowSum[row] -= matrix[row][col]
+		colSum[col] -= matrix[row][col]
 
-		row := 0
-		for currentColSum > colSum[col] {
-			difference := currentColSum - colSum[col]
-			greedyShift := min(matrix[row][col], difference)
-
-			matrix[row][col] -= greedyShift
-			matrix[row][col + 1] += greedyShift
-			currentColSum -= greedyShift
-			row += 1 
+		if rowSum[row] == 0 {
+			row++
+		} else {
+			col++
 		}
 	}
-
+	
 	return matrix
 }
 
