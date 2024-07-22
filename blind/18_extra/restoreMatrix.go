@@ -3,24 +3,38 @@ package main
 import "fmt"
 
 func restoreMatrix(rowSum, colSum []int) [][]int {
-	var matrix = make([][]int, len(rowSum))
+	var matrix = [][]int{}
+
+	for col := 0 ; col < len(colSum) ; col++ {
+		matrix = append(matrix, make([]int, len(colSum), len(colSum)))
+	}
 
 	for row := 0 ; row < len(rowSum) ; row++ {
-		arr := make([]int, len(colSum))
+		matrix[row][0] = rowSum[row]
+	}
 
-		for col := 0 ; col < len(colSum) ; col++ {
-			arr[col] = colSum[col]
-			if colSum[col] > rowSum[row] {
-				arr[col] = rowSum[row]
-			}
-			rowSum[row], colSum[col] = rowSum[row] - arr[row], colSum[col] - arr[col]
+	for col := 0 ; col < len(colSum) ; col++ {
+		currentColSum := 0
+		for row := 0 ; row < len(rowSum) ; row++ {
+			currentColSum += matrix[row][col]
 		}
 
-		matrix[row] = arr
+		row := 0
+		for currentColSum > colSum[col] {
+			difference := currentColSum - colSum[col]
+			greedyShift := min(matrix[row][col], difference)
+
+			matrix[row][col] -= greedyShift
+			matrix[row][col + 1] += greedyShift
+			currentColSum -= greedyShift
+			row += 1 
+		}
 	}
+
 	return matrix
 }
 
 func main() {
 	fmt.Println(restoreMatrix([]int{3,8}, []int{4,7}))
+	fmt.Println(restoreMatrix([]int{5,7,10}, []int{8,6,8}))
 }
