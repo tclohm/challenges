@@ -5,21 +5,19 @@ import "fmt"
 func restoreMatrix(rowSum, colSum []int) [][]int {
 	var matrix = make([][]int, len(rowSum))
 
-	for i := 0 ; i < len(rowSum) ; i++ {
+	for row := 0 ; row < len(rowSum) ; row++ {
 		arr := make([]int, len(colSum))
 
-		for j := 0 ; j < len(colSum) ; j++ {
-			arr[j] = colSum[j]
-			if colSum[j] > rowSum[i] {
-				arr[j] = rowSum[i]
+		for col := 0 ; col < len(colSum) ; col++ {
+			arr[col] = colSum[col]
+			if colSum[col] > rowSum[row] {
+				arr[col] = rowSum[row]
 			}
-			rowSum[i], colSum[j] = rowSum[i] - arr[i], colSum[j] - arr[j]
+			rowSum[row], colSum[col] = rowSum[row] - arr[row], colSum[col] - arr[col]
 		}
 
-		matrix[i] = arr
+		matrix[row] = arr
 	}
-	return matrix
-	
 	return matrix
 }
 
