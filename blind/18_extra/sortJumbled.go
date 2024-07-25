@@ -3,6 +3,18 @@ package main
 import "fmt"
 
 func sortJumbled(mapping, nums []int) []int {
+	// ht := map[int]int{}
+	for _, n := range nums {
+		mappedN := 0
+		base := 1
+		for n > 0 {
+			digit := n % 10
+			n = n / 10
+			mappedN += base * mapping[digit]
+			base *= 10
+			fmt.Println(digit, n, mappedN, base)
+		}
+	}
 	return []int{}
 }
 
