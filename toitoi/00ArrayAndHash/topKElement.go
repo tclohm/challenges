@@ -28,6 +28,6 @@ func topK(nums []int, k int) []int {
 }
 
 func main() {
-	fmt.Println(topK([]int{1,2,2,3,3,3}, 2))
+	fmt.Println(topK([]int{1,2,2,3,3,3,5,5,5}, 2))
 	fmt.Println(topK([]int{7,7}, 1))
 }
