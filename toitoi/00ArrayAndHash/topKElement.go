@@ -11,11 +11,11 @@ func topK(nums []int, k int) []int {
 	for _, n := range nums {
 		count[n]++
 	}
-
+	// save the number to the frequencies index in the array
 	for number, c := range count {
 		frequency[c] = append(frequency[c], number)
 	}
-
+	// start from the back of our frequency array and grab the biggest frequencies
 	for i := len(frequency) - 1 ; i > 0 ; i-- {
 		for _, n := range frequency[i] {
 			top = append(top, n)
@@ -28,6 +28,6 @@ func topK(nums []int, k int) []int {
 }
 
 func main() {
-	fmt.Println(topK([]int{1,2,2,3,3,3}, 2))
+	fmt.Println(topK([]int{1,2,2,3,3,3,5,5,5}, 2))
 	fmt.Println(topK([]int{7,7}, 1))
 }
