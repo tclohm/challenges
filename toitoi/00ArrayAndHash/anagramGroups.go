@@ -5,18 +5,31 @@ import (
 )
 
 func groupAnagrams(strings []string) [][]string {
-	// var groups = map[string]int{}
-
+	var groups = map[string][]string{}
+	var result = [][]string{}
 	for _, s := range strings {
 		var count = make([]byte, 26, 26)
 		for _, c := range s {
 			n := c - 'a'
 			count[n] += 1
 		}
-		fmt.Println(count)
+		alpha := bytesToString(count)
+		groups[alpha] = append(groups[alpha], s)
 	}
-	//	fmt.Println(groups)
-	return [][]string{}
+	
+	for _, v := range groups {
+		result = append(result, v)
+	}
+
+	return result
+}
+
+func bytesToString(array []byte) string {
+	var result = ""
+	for _, n := range array {
+		result += fmt.Sprintf("%d", n)
+	}
+	return result
 }
 
 func main() {
