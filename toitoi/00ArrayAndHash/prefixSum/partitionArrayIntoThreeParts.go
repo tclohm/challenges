@@ -10,9 +10,15 @@ func sum(nums []int) int {
 	return total
 }
 
+func avg(total, n int) int {
+	return total / n
+}
+
 func canThreePartsEqualSum(arr []int) bool {
-	total := sum(arr)
-	fmt.Println(total)
+	sum := sum(arr)
+	if sum / 3 != 0 { return false }
+	l, r, avg := 0, len(arr) - 1, avg(sum, len(sum))
+	fmt.Println(l, r, avg)
 	return true
 }
 
