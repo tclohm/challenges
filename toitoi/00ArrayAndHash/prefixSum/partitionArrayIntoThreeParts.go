@@ -13,15 +13,14 @@ func sum(nums []int) int {
 	return total
 }
 
-func avg(total, n int) int {
-	return total / n
+func avg(total int) int {
+	return total / 3
 }
 
 func canThreePartsEqualSum(nums []int) bool {
 	sum := sum(nums)
-	N := len(nums)
 	if sum % 3 != 0 { return false }
-	l, r, avg := 0, len(nums) - 1, avg(sum, N)
+	l, r, avg := 0, len(nums) - 1, avg(sum)
 	fmt.Println(avg)
 	leftSum, rightSum := nums[l], nums[r]
 	for l <= r {
