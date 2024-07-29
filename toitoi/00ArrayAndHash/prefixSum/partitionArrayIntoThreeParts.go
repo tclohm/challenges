@@ -14,10 +14,11 @@ func avg(total, n int) int {
 	return total / n
 }
 
-func canThreePartsEqualSum(arr []int) bool {
-	sum := sum(arr)
+func canThreePartsEqualSum(nums []int) bool {
+	sum := sum(nums)
+	N := len(nums)
 	if sum / 3 != 0 { return false }
-	l, r, avg := 0, len(arr) - 1, avg(sum, len(sum))
+	l, r, avg := 0, len(nums) - 1, avg(sum, N)
 	fmt.Println(l, r, avg)
 	return true
 }
