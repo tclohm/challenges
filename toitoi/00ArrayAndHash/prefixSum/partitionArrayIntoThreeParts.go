@@ -20,9 +20,14 @@ func avg(total int) int {
 func canThreePartsEqualSum(nums []int) bool {
 	sum := sum(nums)
 	if sum % 3 != 0 { return false }
+
 	l, r, avg := 0, len(nums) - 1, avg(sum)
-	fmt.Println(avg)
+
 	leftSum, rightSum := nums[l], nums[r]
+
+	l += 1
+	r -= 1
+
 	for l <= r {
 		if l < r && leftSum != avg {
 			leftSum += nums[l]
