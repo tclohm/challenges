@@ -12,12 +12,13 @@ func sum(nums []int) int {
 
 func findMiddleIndex(nums []int) int {
 	total := sum(nums)
-	left := 0
+	leftSum := 0
 
 	for i := range nums {
-		right := total - left - nums[i]
-		if right == left { return i }
-		left += nums[i]
+		// get the right total : total - leftSum - nums[i]
+		right := total - leftSum - nums[i]
+		if right == leftSum { return i }
+		leftSum += nums[i]
 	}
 
 	return -1 
