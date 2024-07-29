@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func sum(nums []int) int {
 	total := 0
@@ -11,16 +14,32 @@ func sum(nums []int) int {
 }
 
 func avg(total, n int) int {
-	return total / n
+	return int(math.Floor(float64(total / n)))
 }
 
 func canThreePartsEqualSum(nums []int) bool {
 	sum := sum(nums)
 	N := len(nums)
-	if sum / 3 != 0 { return false }
-	l, r, avg := 0, len(nums) - 1, avg(sum, N)
-	fmt.Println(l, r, avg)
-	return true
+	if sum % 3 != 0 { return false }
+	l, r, avg := 0, len(nums) - 2, avg(sum, N)
+	leftSum, rightSum := nums[0], nums[N - 1]
+	for l <= r {
+		if l < r && leftSum != avg {
+			leftSum += nums[l]
+			l += 1
+		}
+		if l < r && rightSum != avg {
+			rightSum += nums[r]
+			r -= 1
+		}
+		if leftSum == avg && avg == rightSum {
+			return true
+		}
+		if l == r {
+			return false
+		}
+	}
+	return false
 }
 
 func main() {
