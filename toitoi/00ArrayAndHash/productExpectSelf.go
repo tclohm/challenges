@@ -4,17 +4,18 @@ import "fmt"
 
 func productExceptSelf(nums []int) []int {
 	result := make([]int, len(nums), len(nums))
-	total := 1 
-	for i := range nums {
-		result[i] = nums[i]
-		if nums[i] != 0 {
-			total *= nums[i]
-		}
+	for i := 0 ; i < len(result) ; i++ {
+		result[i] = 1
 	}
-		
-	for i := range nums {
-		if nums[i] == 0 { continue }
-		result[i] = total / nums[i]
+	// prefix
+	for i := 1 ; i < len(nums) ; i++  {
+		result[i] = result[i - 1] * nums[i - 1]
+	}
+	// post
+	postfix := 1
+	for i := len(result) - 1 ; i >= 0 ; i-- {
+		result[i] *= postfix
+		postfix *= nums[i]
 	}
 
 	return result
