@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"math"
+	// "math"
 )
 
 func sum(nums []int) int {
@@ -13,16 +13,21 @@ func sum(nums []int) int {
 	return total
 }
 
-func avg(total, n int) int {
-	return int(math.Floor(float64(total / n)))
+func avg(total int) int {
+	return total / 3
 }
 
 func canThreePartsEqualSum(nums []int) bool {
 	sum := sum(nums)
-	N := len(nums)
 	if sum % 3 != 0 { return false }
-	l, r, avg := 0, len(nums) - 2, avg(sum, N)
-	leftSum, rightSum := nums[0], nums[N - 1]
+
+	l, r, avg := 0, len(nums) - 1, avg(sum)
+
+	leftSum, rightSum := nums[l], nums[r]
+
+	l += 1
+	r -= 1
+
 	for l <= r {
 		if l < r && leftSum != avg {
 			leftSum += nums[l]
