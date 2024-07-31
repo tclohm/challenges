@@ -9,7 +9,7 @@ import (
 type Edge struct {
 	node, cost int
 }
-
+// Heap
 type PriorityQueue []Edge
 
 func (pq PriorityQueue) Len() int           { return len(pq) }
@@ -25,7 +25,8 @@ func (pq *PriorityQueue) Pop() interface{} {
 	return item
 }
 
-func comeOnDijkstra(cityInfo map[int][]Edge, idx, n, distanceAllowed int) int {
+// greedy algo
+func dijkstra(cityInfo map[int][]Edge, idx, n, distanceAllowed int) int {
 	temp := make([]int, n)
 	for i := range temp {
 		temp[i] = math.MaxInt32
@@ -37,14 +38,14 @@ func comeOnDijkstra(cityInfo map[int][]Edge, idx, n, distanceAllowed int) int {
 	heap.Push(pq, Edge{idx, 0})
 
 	for pq.Len() > 0 {
-		costVertex := heap.Pop(pq).(Edge)
-		cost, vertex := costVertex.cost, costVertex.node
-
-		for _, it := range cityInfo[vertex] {
-			pathSum := cost + it.cost
-			if temp[it.node] > pathSum {
-				temp[it.node] = pathSum
-				heap.Push(pq, Edge{it.node, pathSum})
+		popped := heap.Pop(pq).(Edge)
+		cost, node := popped.cost, popped.node
+		// go through neighbors
+		for _, neighbor := range cityInfo[node] {
+			pathSum := cost + neighbor.cost
+			if temp[neighbor.node] > pathSum {
+				temp[neighbor.node] = pathSum
+				heap.Push(pq, Edge{neighbor.node, pathSum})
 			}
 		}
 	}
@@ -59,18 +60,21 @@ func comeOnDijkstra(cityInfo map[int][]Edge, idx, n, distanceAllowed int) int {
 }
 
 func findTheCity(n int, edges [][]int, distanceThreshold int) int {
+	// Adjacency list
 	cityInfo := make(map[int][]Edge)
 	for _, it := range edges {
-		cityInfo[it[0]] = append(cityInfo[it[0]], Edge{it[1], it[2]})
-		cityInfo[it[1]] = append(cityInfo[it[1]], Edge{it[0], it[2]})
+		v1, v2, weight := it[0], it[1], it[2]
+		cityInfo[v1] = append(cityInfo[v1], Edge{v2, weight})
+		cityInfo[v2] = append(cityInfo[v2], Edge{v1, weight})
 	}
-	ans := math.MaxInt32
+	// big value initiated
+	minCount := math.MaxInt32
 	result := -1
-
+	// src node...ascending order
 	for i := 0; i < n; i++ {
-		path := comeOnDijkstra(cityInfo, i, n, distanceThreshold)
-		if path <= ans {
-			ans = path
+		count := dijkstra(cityInfo, i, n, distanceThreshold)
+		if count <= minCount {
+			minCount = count
 			result = i
 		}
 	}
