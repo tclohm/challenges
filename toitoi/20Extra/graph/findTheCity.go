@@ -1,54 +1,83 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"container/heap"
+)
+
+type Edge struct {
+	node, cost int
+}
+
+type PriorityQueue []Edge
+
+func (pq PriorityQueue) Len() int           { return len(pq) }
+func (pq PriorityQueue) Less(i, j int) bool { return pq[i].cost < pq[j].cost }
+func (pq PriorityQueue) Swap(i, j int)      { pq[i], pq[j] = pq[j], pq[i] }
+
+func (pq *PriorityQueue) Push(x interface{}) { *pq = append(*pq, x.(Edge)) }
+func (pq *PriorityQueue) Pop() interface{} {
+	old := *pq
+	n := len(old)
+	item := old[n-1]
+	*pq = old[:n-1]
+	return item
+}
+
+func comeOnDijkstra(cityInfo map[int][]Edge, idx, n, distanceAllowed int) int {
+	temp := make([]int, n)
+	for i := range temp {
+		temp[i] = math.MaxInt32
+	}
+	temp[idx] = 0
+
+	pq := &PriorityQueue{}
+	heap.Init(pq)
+	heap.Push(pq, Edge{idx, 0})
+
+	for pq.Len() > 0 {
+		costVertex := heap.Pop(pq).(Edge)
+		cost, vertex := costVertex.cost, costVertex.node
+
+		for _, it := range cityInfo[vertex] {
+			pathSum := cost + it.cost
+			if temp[it.node] > pathSum {
+				temp[it.node] = pathSum
+				heap.Push(pq, Edge{it.node, pathSum})
+			}
+		}
+	}
+
+	freq := 0
+	for _, d := range temp {
+		if d <= distanceAllowed {
+			freq++
+		}
+	}
+	return freq
+}
 
 func findTheCity(n int, edges [][]int, distanceThreshold int) int {
-	distances := make([][]int, n)
-	for i := range distances {
-		distances[i] = make([]int, n)
-		for j := range distances[i] {
-			distances[i][j] = 10001
-		}
-		distances[i][i] = 0
+	cityInfo := make(map[int][]Edge)
+	for _, it := range edges {
+		cityInfo[it[0]] = append(cityInfo[it[0]], Edge{it[1], it[2]})
+		cityInfo[it[1]] = append(cityInfo[it[1]], Edge{it[0], it[2]})
 	}
-
-	// build graph
-	for _, edge := range edges {
-		src, dst, weight := edge[0], edge[1], edge[2]
-		distances[src][dst] = weight
-		distances[dst][src] = weight
-	}
-
-	// floyd warshall algo
-	for k := 0 ; k < n ; k++ {
-		for i := 0 ; i < n ; i++ {
-			for j := 0 ; j < n ; j++ {
-				if distances[i][k] + distances[k][j] < distances[i][j] {
-					distances[i][j] = distances[i][k] + distances[k][j]
-				}
-			}
-		}
-	}
-
-	minReachableCities := n
+	ans := math.MaxInt32
 	result := -1
 
-
-	for i := 0 ; n < n ; i++ {
-		reachable := 0
-		for j := 0 ; j < n ; j++ {
-			if distances[i][j] <= distanceThreshold {
-				reachable++
-			}
-		}
-		if reachable <= minReachableCities {
-			minReachableCities = reachable
+	for i := 0; i < n; i++ {
+		path := comeOnDijkstra(cityInfo, i, n, distanceThreshold)
+		if path <= ans {
+			ans = path
 			result = i
 		}
 	}
 
 	return result
 }
+
 
 func main() {
 	fmt.Println(findTheCity(4, [][]int{{0,1,3},{1,2,1},{1,3,4},{2,3,1}}, 4))
