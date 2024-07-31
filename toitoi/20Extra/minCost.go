@@ -1,69 +1,130 @@
 package main
 
-import "fmt"
+import (
+	// "fmt"
+	"container/heap"
+	"math"
+)
 
-func notIn(dst int, set []int) bool {
-	for _, s := range set {
-		if dst == s {
-			return false 
+
+func minimumCost(source string, target string, original []byte, changed []byte, cost []int) int64 {
+	graph := make([][]int, 26)
+	for i := range original {
+		index := original[i] - 'a'
+		if graph[index] == nil {
+			graph[index] = make([]int, 26)
+		}
+
+		if graph[original[i]-'a'][changed[i]-'a'] == 0 {
+			graph[original[i]-'a'][changed[i]-'a'] = cost[i]
+		} else {
+			graph[original[i]-'a'][changed[i]-'a'] = min(cost[i], graph[original[i]-'a'][changed[i]-'a'])
 		}
 	}
-	return true
+
+	cache := make([][]int, 26)
+	for i := range cache {
+		cache[i] = make([]int, 26)
+	}
+
+	res := 0
+	for i := range source {
+		if source[i] == target[i] {
+			continue
+		}
+
+		if cache[source[i]-'a'][target[i]-'a'] > 0 {
+			res += cache[source[i]-'a'][target[i]-'a']
+			continue
+		}
+
+		changeCost := djikstra(graph, source[i], target[i], &cache)
+		if changeCost == -1 {
+			return -1
+		}
+
+		if cache[source[i]-'a'][target[i]-'a'] == 0 {
+			cache[source[i]-'a'][target[i]-'a'] = changeCost
+		} else {
+			cache[source[i]-'a'][target[i]-'a'] = min(cache[source[i]-'a'][target[i]-'a'], changeCost)
+		}
+
+		res += cache[source[i]-'a'][target[i]-'a']
+	}
+
+	return int64(res)
 }
 
-func minCost(source, target int, original, changed, cost []string) int {
-	adj := make(map[int][]int)
+func djikstra(graph [][]int, source, target byte, cache *[][]int) int {
+	pq := &PQ{}
+	heap.Init(pq)
 
-	for i := 0 ; i < len(original) ; i++ {
-		src, dst, currCost := source[i], target[i], cost[i]
-		adj[src] = append(adj[src], []int{dst, currCost}...)
- 	}
+	heap.Push(pq, Edge{source, 0})
+	visited := make([]bool, 26)
 
-	var dijkstra func (src int) map[int]int
-	dijkstra = func (src int) int {
-		heap := [][]{{0, src}}
-		minCostMap := map[int]int{}
+	for pq.Len() > 0 {
+		root := heap.Pop(pq).(Edge)
 
-		for len(heap) > 0 {
-			// find the smallest, 0 : cost, 1 : node
-			sm := []int{1000, 0}
-			for _, arr := range heap {
-				cost, node := arr[0], arr[1]
-				if cost < sm[0] {
-					sm[0], sm[1] = cost, node
-				}
+		if visited[root.char-'a'] {
+			continue
+		}
+
+		visited[root.char-'a'] = true
+
+		(*cache)[source-'a'][root.char-'a'] = root.cost
+
+		if root.char == target {
+			return root.cost
+		}
+
+		thresholdCost := math.MaxInt32
+		if len(graph[root.char-'a']) != 0 {
+			thresholdCost = graph[root.char-'a'][target-'a']
+			if thresholdCost == 0 {
+				thresholdCost = math.MaxInt32
+			} else {
+				thresholdCost += root.cost
 			}
-			cost, node := sm[0], sm[1]
+		}
 
-			if _, exist := minCostMap[node]; exist {
+		for i, edgeCost := range graph[root.char-'a'] {
+			cost := root.cost + edgeCost
+			if edgeCost == 0 || thresholdCost < cost {
 				continue
 			}
 
-			minCostMap[node] = cost
-
-			for _, neighbor := range adj[node] {
-				n, nCost := neighbor[0], neighbor[1]
-				heap = append(heap, []int{cost + nCost, n})
-			}
-			
-			return minCostMap
+			heap.Push(pq, Edge{byte('a' + i), cost})
 		}
 	}
 
-	for _, c := range source {
-		minCostMap[c] = dijkstra(c)
-	}
+	return -1
+}
 
-	minCostMaps := map[int]int{}
-	result := 0
+type Edge struct {
+	char byte
+	cost int
+}
 
-	for i := range source {
-		dst := target[i]
-		src := source[i]
-		if notIn(dst, minCostMap[src]) {
-			return -1
-		}
-		result += minCostMap[src][dst]
-	}
-	return result
+type PQ []Edge
+
+func (p PQ) Len() int {
+	return len(p)
+}
+
+func (p PQ) Less(i, j int) bool {
+	return p[i].cost < p[j].cost
+}
+
+func (p PQ) Swap(i, j int) {
+	p[i], p[j] = p[j], p[i]
+}
+
+func (p *PQ) Push(x any) {
+	*p = append(*p, x.(Edge))
+}
+
+func (p *PQ) Pop() any {
+	res := (*p)[len(*p)-1]
+	*p = (*p)[:len(*p)-1]
+	return res
 }
