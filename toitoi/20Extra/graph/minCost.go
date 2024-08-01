@@ -131,4 +131,5 @@ func (p *PQ) Pop() any {
 
 func main() {
 	fmt.Println(minimumCost("abcd", "acbe", []byte{'a','b','c','c','e','d'}, []byte{'b','c','b','e','b','e'}, []int{2,5,5,1,2,20}))
+	fmt.Println(minimumCost("aaaa", "bbbb", []byte{'a','c'}, []byte{'c','b'}, []int{1,2}))
 }
