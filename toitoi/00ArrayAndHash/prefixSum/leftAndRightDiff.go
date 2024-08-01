@@ -28,7 +28,21 @@ func leftRightDifference(nums []int) []int {
 	return prefix
 }
 
+func lrd(nums []int) []int {
+	res := make([]int, len(nums))
+	l, r := 0, 0
+	for _, n := range nums {
+		r += n
+	}
+	for i, n := range nums {
+		r -= n
+		res[i] = int(math.Abs(float64(l - r)))
+		l += n
+	}
+	return res
+}
+
 func main() {
-	fmt.Println(leftRightDifference([]int{10,4,8,3}))
-	fmt.Println(leftRightDifference([]int{1}))
+	fmt.Println(lrd([]int{10,4,8,3}))
+	fmt.Println(lrd([]int{1}))
 }
