@@ -29,6 +29,21 @@ func subarraySum(nums []int, k int) int {
 	return total
 }
 
+func sub(nums []int, k int) int {
+	var sum int
+	var count int
+	var prevSum = make(map[int]int)
+	prevSum[0] = 1
+	for i := range nums {
+		sum += nums[i]		
+		if val, ok := prevSum[sum - k]; ok {
+			count += val
+		}
+		prevSum[sum]++
+	}
+	return count
+}
+
 func main() {
 	fmt.Println(subarraySum([]int{1,1,1}, 2))
 	fmt.Println(subarraySum([]int{1,2,3}, 3))
