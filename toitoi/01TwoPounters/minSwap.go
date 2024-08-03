@@ -37,4 +37,5 @@ func minSwap(nums []int) int {
 func main() {
 	fmt.Println(minSwap([]int{0,1,0,1,1,0,0}))
 	fmt.Println(minSwap([]int{0,1,1,1,0,0,1,1,0}))
+	fmt.Println(minSwap([]int{1,1,0,0,1}))
 }
