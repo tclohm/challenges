@@ -20,6 +20,7 @@ func minSwap(nums []int) int {
 		maxWindow = 0
 		left = 0
 	)
+	// I did not know you could do this
 	for right := range 2 * N {
 		if nums[right % N] == 1 {
 			windowOnes += 1
