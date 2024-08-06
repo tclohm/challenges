@@ -36,3 +36,22 @@ func main() {
 		}, 4))
 	fmt.Println(minHeightShelves([][]int{{1,3},{2,4},{3,2}}, 6))	
 }
+
+
+func bottomup(books [][]int, shelfWidth int) int {
+	var dp = make([]int, len(books) + 1)
+
+	for i := len(books) - 1 ; i >= 0 ; i-- {
+		currentWidth := shelfWidth
+		maxHeight := 0
+		dp[i] = 1000
+		for j := i ; j < len(books) ; j++ {
+			width, height := books[i][0], books[i][1]
+			if currentWidth < width { break }
+			currentWidth -= width
+			maxHeight = max(maxHeight, height)
+			dp[i] = min(dp[i], dp[j + 1] + maxHeight)
+		}
+	}
+	return dp[0]
+}
