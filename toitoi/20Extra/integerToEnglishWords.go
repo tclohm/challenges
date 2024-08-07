@@ -40,7 +40,14 @@ func integerToEnglish(num int) string {
 		90: "Ninety",
 	}
 
-	var getString = func (n int) {}
+	var getString func(n int)
+	getString = func(n int) {
+		return
+	}
+
+	for num > 0 {
+
+	}
 }
 
 func main() {
