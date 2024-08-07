@@ -17,11 +17,9 @@ func minPushes(word string) int {
 	})
 
 	res := 0
-	distinct := 0
-	for _, n := range counts {
+	for i, n := range counts {
 		if n > 0 {
-			res += int(n) * int(math.Floor(float64(1 + distinct / 8)))
-			distinct += 1
+			res += int(n) * int(math.Floor(float64(1 + i / 8)))
 		}
 	}
 
