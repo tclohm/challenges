@@ -1,13 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"strings"
+)
 
 func integerToEnglish(num int) string {
 	if num == 0 {
 		return "Zero"
 	}
 
-	ones := map[int]string{
+	onesMap := map[int]string{
 		1: "One",
 		2: "Two",
 		3: "Three",
@@ -29,7 +33,7 @@ func integerToEnglish(num int) string {
 		19: "Nineteen",
 	}
 
-	tens := map[int]string{
+	tensMap := map[int]string{
 		20: "Twenty",
 		30: "Thirty",
 		40: "Forty",
@@ -40,25 +44,40 @@ func integerToEnglish(num int) string {
 		90: "Ninety",
 	}
 
-	var getString func(n int)
-	getString = func(n int) {
-		return
+	var getString func(n int) string
+	getString = func(n int) string {
+		var res = []string{}
+		var hundreds = int(math.Floor(float64(n / 100)))
+		if hundreds != 0 {
+			res = append(res, onesMap[hundreds], " Hundreds")
+		}
+		var lastTwo = n % 100
+		if lastTwo >= 20 {
+			var tens, ones = int(math.Floor(float64(lastTwo / 10))), lastTwo % 10
+			res = append(res, tensMap[tens * 10])
+			if ones != 0 {
+				res = append(res, onesMap[ones])
+			}
+		} else if lastTwo != 0 {
+			res = append(res, onesMap[lastTwo])
+		}
+		return strings.Join(res, " ")
 	}
 	
 	var postfix = []string{"", "Thousand", "Million", "Billion"}
 	var i = 0
 	var arr = []string{}
-	for num > 0 {
+	for num > 0 && i < len(postfix) {
 		var digits = num % 1000
 		var s = getString(digits) + postfix[i]
 		if s != "" {
 			arr = append(arr, s)
 		}
-		num = math.Floor(float64(num/1000))
+		num = int(math.Floor(float64(num/1000)))
 		i += 1
 	}
 	var res = ""
-	for i := len(arr) ; i >= 0 ; i-- {
+	for i := len(arr) - 1 ; i >= 0 ; i-- {
 		res = res + arr[i]
 	}
 
