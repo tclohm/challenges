@@ -50,6 +50,7 @@ func integerToEnglish(num int) string {
 		var hundreds = int(math.Floor(float64(n / 100)))
 		if hundreds != 0 {
 			res = append(res, onesMap[hundreds], " Hundreds")
+
 		}
 		var lastTwo = n % 100
 		if lastTwo >= 20 {
@@ -64,14 +65,14 @@ func integerToEnglish(num int) string {
 		return strings.Join(res, " ")
 	}
 	
-	var postfix = []string{"", "Thousand", "Million", "Billion"}
+	var postfix = []string{"", " Thousand", " Million", " Billion"}
 	var i = 0
 	var arr = []string{}
 	for num > 0 && i < len(postfix) {
 		var digits = num % 1000
-		var s = getString(digits) + postfix[i]
+		var s = getString(digits)		
 		if s != "" {
-			arr = append(arr, s)
+			arr = append(arr, s + postfix[i])
 		}
 		num = int(math.Floor(float64(num/1000)))
 		i += 1
