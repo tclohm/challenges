@@ -44,10 +44,25 @@ func integerToEnglish(num int) string {
 	getString = func(n int) {
 		return
 	}
-
+	
+	var postfix = []string{"", "Thousand", "Million", "Billion"}
+	var i = 0
+	var arr = []string{}
 	for num > 0 {
-
+		var digits = num % 1000
+		var s = getString(digits) + postfix[i]
+		if s != "" {
+			arr = append(arr, s)
+		}
+		num = math.Floor(float64(num/1000))
+		i += 1
 	}
+	var res = ""
+	for i := len(arr) ; i >= 0 ; i-- {
+		res = res + arr[i]
+	}
+
+	return res
 }
 
 func main() {
